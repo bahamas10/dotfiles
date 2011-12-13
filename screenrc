@@ -1,0 +1,10 @@
+termcapinfo xterm* ti@:te@
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{g}%?%+Lw%?%?%= %{g}][%{B}%m/%d %{W}%c %{g}]'
+
+#no more wuf wuf
+bindkey -d -k kb stuff "\010"
+
+# Allow full screen apps to clear properly
+altscreen on
