@@ -15,8 +15,6 @@ export GREP_COLOR='1;36'
 shopt -s extglob
 shopt -s checkwinsize
 
-set +o histexpand
-
 alias l='ls -CF'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
