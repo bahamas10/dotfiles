@@ -20,7 +20,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias chomd='chmod'
 alias gerp='grep'
-alias cdir='cd $(dirname $_)'
+alias cdir='cd "${_%/*}"'
 
 # Set the prompt
 function __fancy_prompt() {
