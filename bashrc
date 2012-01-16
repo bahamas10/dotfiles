@@ -1,5 +1,4 @@
 # Dave Eddy <dave@daveeddy.com>
-# My default bashrc file
 
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
@@ -21,6 +20,7 @@ alias egrep='egrep --color=auto'
 alias chomd='chmod'
 alias gerp='grep'
 alias cdir='cd "${_%/*}"'
+alias externalip='curl -s http://ifconfig.me/ip'
 
 # Set the prompt
 function __fancy_prompt() {
@@ -54,6 +54,20 @@ else # dumb terminal
 	alias ls="ls -p $_opt"
 fi
 unset _opt
+
+# Load functions
+remove_percent20() {
+	# Remove percent20 from filenames
+	for f in *%20*; do
+		mv "$f" "${f//\%20/ }"
+	done
+}
+aoeu() {
+    [[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
+}
+asdf() {
+    [[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
+}
 
 # Load external files
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion || true
