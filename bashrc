@@ -21,6 +21,7 @@ alias chomd='chmod'
 alias gerp='grep'
 alias cdir='cd "${_%/*}"'
 alias externalip='curl -s http://ifconfig.me/ip'
+alias json_decode="python -c'from simplejson.tool import main; main()'"
 
 # Set the prompt
 function __fancy_prompt() {
