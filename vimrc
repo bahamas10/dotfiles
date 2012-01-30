@@ -46,6 +46,8 @@ set showcmd		" Show (partial) command in status line.
 "set mouse=a		" Enable mouse usage (all modes)
 set ruler		" Enable the ruler
 set nonumber		" Make sure there are no line numbers displayed
+set hlsearch		" Highlight search results
+
 
 highlight RedundantWhitespace ctermbg=green guibg=green
 match RedundantWhitespace /\s\+$\| \+\ze\t/
