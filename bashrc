@@ -40,8 +40,12 @@ function __fancy_prompt() {
 	if (( $UID == 0 )); then
 		PS1="\[$bold\]\[$red\]\u\[$reset\]@\h \[$bold\]\w \[$reset\]\\$  \[$green\]"
 	else
-		PROMPT_COMMAND='(( $? == 0 )) && _DOLLAR="$(tput setaf 2)" || _DOLLAR="$(tput setaf 1)"'
-		PS1="\[$bold\]\[$green\]\u\[$reset\]\[$cyan\]@\[$red\][\h]\[$reset\]:\[$cyan\]\w\["'$_DOLLAR'"\]\\$ \[$reset\]"
+		# Store colors for later use in $
+		__RED=$red
+		__GREEN=$green
+		PROMPT_COMMAND='(( $? == 0 )) && _DOLLAR="$__GREEN" || _DOLLAR="$__RED"'
+		PS1="\[$bold\]\[$green\]\u\[$reset\]\[$cyan\] @ \[$bold\]\[$blue\][\[$reset\]\[$green\] \h \[$yellow\]:: "
+		PS1="$PS1\[$magenta\](\[$yellow\]$(uname)\[$magenta\])\[$reset\] \[$bold\]\[$blue\]]\[$reset\] \[$cyan\]\w \["'$_DOLLAR'"\]\\$ \[$reset\]"
 	fi
 }
 __fancy_prompt
