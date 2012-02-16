@@ -22,6 +22,7 @@ alias gerp='grep'
 alias cdir='cd "${_%/*}"'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
+alias count_states='ps ax -o state | sort | uniq -c'
 
 # Set the prompt
 function __fancy_prompt() {
