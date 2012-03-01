@@ -19,6 +19,11 @@ set showcmd			" Show partial command in status line
 set tabstop=8			" Number of spaces <tab> counts for.
 
 " ---------------------------------------------
+" Distribution Specefic Options
+" ---------------------------------------------
+runtime! debian.vim
+
+" ---------------------------------------------
 " Abbreviations
 " ---------------------------------------------
 iab me:: Dave Eddy <dave@daveeddy.com>
@@ -47,7 +52,7 @@ if has("autocmd")
 		autocmd BufReadPre,FileReadPre      *.pp set ts=2 sw=2 sts=2 et
 	augroup END
 
-	" Drupal *.module and *.engine files.
+	" JSON files
 	augroup module
 		autocmd BufReadPre,FileReadPre      *.json set ts=2 sw=2 sts=2 et filetype=javascript
 	augroup END
