@@ -1,4 +1,7 @@
+#
+# Custom bashrc
 # Dave Eddy <dave@daveeddy.com>
+#
 
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
@@ -11,9 +14,15 @@ export EDITOR='vim'
 export PAGER='less'
 export GREP_COLOR='1;36'
 
+# Shell Options
 shopt -s extglob
 shopt -s checkwinsize
+shopt -s cdspell
+# Bash Version >= 4
+shopt -s autocd   2>/dev/null || true
+shopt -s dirspell 2>/dev/null || true
 
+# Aliases
 alias l='ls -CF'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
