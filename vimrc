@@ -1,58 +1,67 @@
+" ---------------------------------------------
 " Dave Eddy's vimrc
-" Borrowed heavily from Ubuntu's default rc
-" Last Modified Tue Jun 28 15:12:34 PDT 2011
+" dave@daveeddy.com
+" ---------------------------------------------
 
+" ---------------------------------------------
+" Vim Options
+" ---------------------------------------------
+set nocompatible		" Disable VI Compatibility
 
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
+set backspace=indent,eol,start	" Backspace all characters
+set hlsearch			" Highlight search results
+set nonumber			" Disable line numbers
+set nostartofline		" Do not jump to first character with page commands
+set ruler			" Enable the ruler
+set showmatch			" Show matching brackets.yy
+set showmode			" Show the current mode in status line
+set showcmd			" Show partial command in status line
+set tabstop=8			" Number of spaces <tab> counts for.
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
+" ---------------------------------------------
+" Abbreviations
+" ---------------------------------------------
+iab me:: Dave Eddy <dave@daveeddy.com>
+iab python:: if __name__ == '__main__':<CR>
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the
-" following enables syntax highlighting by default.
+" ---------------------------------------------
+" Syntax Highlighting
+" ---------------------------------------------
 if has("syntax")
-  syntax on
+	syntax on
 endif
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
+" ---------------------------------------------
+" File/Indenting
+" ---------------------------------------------
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	" Jump to previous cursor location
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+	" Enable filetype indenting
+	filetype plugin indent on
+	set autoindent
+
+	" Puppet manifests
+	augroup puppet
+		autocmd BufReadPre,FileReadPre      *.pp set ts=2 sw=2 sts=2 et
+	augroup END
+
+	" Drupal *.module and *.engine files.
+	augroup module
+		autocmd BufReadPre,FileReadPre      *.json set ts=2 sw=2 sts=2 et filetype=javascript
+	augroup END
 endif
 
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-if has("autocmd")
-  filetype plugin indent on
-endif
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
-set ruler		" Enable the ruler
-set nonumber		" Make sure there are no line numbers displayed
-set hlsearch		" Highlight search results
-
-
+" ---------------------------------------------
+" Highlight Unwanted Whitespace
+" ---------------------------------------------
 highlight RedundantWhitespace ctermbg=green guibg=green
 match RedundantWhitespace /\s\+$\| \+\ze\t/
 
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
+" ---------------------------------------------
+" Source local config
+" ---------------------------------------------
+if filereadable(expand("~/.vimrc.local"))
+	source ~/.vimrc.local
 endif
