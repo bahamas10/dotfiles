@@ -53,7 +53,7 @@ if has("autocmd")
 	augroup END
 
 	" JSON files
-	augroup module
+	augroup json
 		autocmd BufReadPre,FileReadPre      *.json set ts=2 sw=2 sts=2 et filetype=javascript
 	augroup END
 endif
