@@ -48,10 +48,13 @@ if has("autocmd")
 	set autoindent
 
 	" Puppet manifests
-	autocmd BufReadPre,FileReadPre      *.pp set ts=2 sw=2 sts=2 et
+	autocmd BufReadPre,FileReadPre   *.pp set ts=2 sw=2 sts=2 et filetype=puppet
 
 	" JavaScript files
-	autocmd BufReadPre,FileReadPre      *.json,*.js set ts=2 sw=2 sts=2 et filetype=javascript
+	autocmd BufReadPre,FileReadPre   *.json,*.js set ts=2 sw=2 sts=2 et filetype=javascript
+
+	" Stylus and jade files
+	autocmd BufReadPre,FileReadPre   *.jade,*.stylus set ts=2 sw=2 sts=2 et filetype=css
 endif
 
 " ---------------------------------------------
