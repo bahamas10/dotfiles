@@ -48,14 +48,10 @@ if has("autocmd")
 	set autoindent
 
 	" Puppet manifests
-	augroup puppet
-		autocmd BufReadPre,FileReadPre      *.pp set ts=2 sw=2 sts=2 et
-	augroup END
+	autocmd BufReadPre,FileReadPre      *.pp set ts=2 sw=2 sts=2 et
 
-	" JSON files
-	augroup json
-		autocmd BufReadPre,FileReadPre      *.json set ts=2 sw=2 sts=2 et filetype=javascript
-	augroup END
+	" JavaScript files
+	autocmd BufReadPre,FileReadPre      *.json,*.js set ts=2 sw=2 sts=2 et filetype=javascript
 endif
 
 " ---------------------------------------------
