@@ -2,12 +2,11 @@
 " Dave Eddy's vimrc
 " dave@daveeddy.com
 " ---------------------------------------------
+set nocompatible		" Disable VI Compatibility
 
 " ---------------------------------------------
 " Vim Options
 " ---------------------------------------------
-set nocompatible		" Disable VI Compatibility
-
 set backspace=indent,eol,start	" Backspace all characters
 set hlsearch			" Highlight search results
 set nonumber			" Disable line numbers
@@ -16,7 +15,7 @@ set ruler			" Enable the ruler
 set showmatch			" Show matching brackets.yy
 set showmode			" Show the current mode in status line
 set showcmd			" Show partial command in status line
-set tabstop=8			" Number of spaces <tab> counts for.
+set tabstop=8			" Number of spaces <tab> counts for
 
 " ---------------------------------------------
 " Distribution Specefic Options
@@ -27,7 +26,7 @@ runtime! debian.vim
 " Abbreviations
 " ---------------------------------------------
 iab me:: Dave Eddy <dave@daveeddy.com>
-iab python:: if __name__ == '__main__':<CR>
+iab python:: if __name__ == '__main__':
 
 " ---------------------------------------------
 " Syntax Highlighting
@@ -51,10 +50,15 @@ if has("autocmd")
 	autocmd BufReadPre,FileReadPre   *.pp set ts=2 sw=2 sts=2 et filetype=puppet
 
 	" JavaScript files
-	autocmd BufReadPre,FileReadPre   *.json,*.js set ts=2 sw=2 sts=2 et filetype=javascript
+	autocmd BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
+	autocmd filetype                 javascript  set ts=2 sw=2 sts=2 et
 
 	" Stylus and jade files
 	autocmd BufReadPre,FileReadPre   *.jade,*.styl set ts=2 sw=2 sts=2 et filetype=css
+
+	" Python files
+	autocmd BufReadPre,FileReadPre   *.py   set filetype=python
+	autocmd filetype                 python set ts=4 sw=4 sts=4 et
 endif
 
 " ---------------------------------------------
