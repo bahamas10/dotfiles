@@ -53,22 +53,18 @@ function __fancy_prompt() {
 		# Store colors for later use in $
 		__RED=$red
 		__GREEN=$green
-		PROMPT_COMMAND='(( $? == 0 )) && _DOLLAR="$__GREEN" || _DOLLAR="$__RED"'
+		PROMPT_COMMAND='(( $? == 0 )) && __DOLLAR="$__GREEN" || __DOLLAR="$__RED"'
 		PS1="\[$bold\]\[$green\]\u\[$reset\]\[$cyan\] @ \[$bold\]\[$blue\][\[$reset\]\[$green\] \h \[$yellow\]:: "
-		PS1="$PS1\[$magenta\](\[$yellow\]$(uname)\[$magenta\])\[$reset\] \[$bold\]\[$blue\]]\[$reset\] \[$cyan\]\w \["'$_DOLLAR'"\]\\$ \[$reset\]"
+		PS1="$PS1\[$magenta\](\[$yellow\]$(uname)\[$magenta\])\[$reset\] \[$bold\]\[$blue\]]\[$reset\] \[$cyan\]\w \["'$__DOLLAR'"\]\\$ \[$reset\]"
 	fi
 }
 __fancy_prompt
 
 # Enable color support of ls
-[[ "$(uname)" == "Darwin" ]] && _opt='-G'
-if [[ "$TERM" != "dumb" ]] && [[ -x /usr/bin/dircolors ]]; then
-	eval "$(dircolors -b)"
-	alias ls="ls -p --color=auto"
-else # dumb terminal
-	alias ls="ls -p $_opt"
-fi
-unset _opt
+case "$(uname)" in
+	'Darwin') alias ls='ls -p -G';;
+	*)        alias ls='ls -p --color=auto';;
+esac
 
 # Load functions
 remove_percent20() {
