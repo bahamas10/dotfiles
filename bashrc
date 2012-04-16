@@ -32,6 +32,8 @@ alias cdir='cd "${_%/*}"'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
 alias count_states='ps ax -o state | sort | uniq -c'
+alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
+alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
 
 # Set the prompt
 function __fancy_prompt() {
