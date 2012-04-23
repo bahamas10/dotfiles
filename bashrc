@@ -7,7 +7,7 @@
 [[ -z "$PS1" ]] && return
 
 # Set environment
-export HISTCONTROL=ignoredups
+export HISTCONTROL='ignoredups'
 export PATH=$PATH:$HOME/bin
 export VISUAL='vim'
 export EDITOR='vim'
@@ -30,13 +30,14 @@ alias chomd='chmod'
 alias gerp='grep'
 alias cdir='cd "${_%/*}"'
 alias externalip='curl -s http://ifconfig.me/ip'
+alias count='sort | uniq -c | sort -n'
+alias count_states='ps ax -o state | count'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
-alias count_states='ps ax -o state | sort | uniq -c'
 alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
 alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
 
 # Set the prompt
-function __fancy_prompt() {
+__fancy_prompt() {
 	# In a function to not clobber namespace
 	local black=$(tput setaf 0)
 	local red=$(tput setaf 1)
@@ -57,7 +58,8 @@ function __fancy_prompt() {
 		__GREEN=$green
 		PROMPT_COMMAND='(( $? == 0 )) && __DOLLAR="$__GREEN" || __DOLLAR="$__RED"'
 		PS1="\[$bold\]\[$green\]\u\[$reset\]\[$cyan\] @ \[$bold\]\[$blue\][\[$reset\]\[$green\] \h \[$yellow\]:: "
-		PS1="$PS1\[$magenta\](\[$yellow\]$(uname)\[$magenta\])\[$reset\] \[$bold\]\[$blue\]]\[$reset\] \[$cyan\]\w \["'$__DOLLAR'"\]\\$ \[$reset\]"
+		PS1="$PS1\[$magenta\](\[$yellow\]$(uname)\[$magenta\])\[$reset\] \[$bold\]\[$blue\]]\[$reset\] "
+		PS1="$PS1\[$cyan\]\w \["'$__DOLLAR'"\]\\$ \[$reset\]"
 	fi
 }
 __fancy_prompt
@@ -68,18 +70,32 @@ case "$(uname)" in
 	*)        alias ls='ls -p --color=auto';;
 esac
 
-# Load functions
+# Load convenience functions
 remove_percent20() {
-	# Remove percent20 from filenames
+	# Remove percent20 from filenames in the current dir
 	for f in *%20*; do
-		mv "$f" "${f//\%20/ }"
+		mv -v "$f" "${f//\%20/ }"
 	done
 }
 aoeu() {
-    [[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
+	# Switch to qwerty
+	[[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
 }
 asdf() {
-    [[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
+	# Switch to dvorak
+	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
+}
+total() {
+	# Total a given field using awk
+	# Taken from http://www.brendangregg.com/Shell/total
+	field=${1:-1}
+	awk '{ s += $'$field' } END { print s }'
+}
+field() {
+	# Grab a field from given input on the IFS
+	# Taken from http://www.brendangregg.com/Shell/field
+	field=${1:-1}
+	awk '{ print $'$field' }'
 }
 
 # Load external files
