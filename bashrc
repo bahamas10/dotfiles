@@ -88,14 +88,12 @@ asdf() {
 total() {
 	# Total a given field using awk
 	# Taken from http://www.brendangregg.com/Shell/total
-	field=${1:-1}
-	awk '{ s += $'$field' } END { print s }'
+	awk '{ s += $'${1:-1}' } END { print s }'
 }
 field() {
 	# Grab a field from given input on the IFS
 	# Taken from http://www.brendangregg.com/Shell/field
-	field=${1:-1}
-	awk '{ print $'$field' }'
+	awk '{ print $'${1:-1}' }'
 }
 
 # Load external files
