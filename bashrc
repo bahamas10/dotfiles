@@ -13,6 +13,7 @@ export VISUAL='vim'
 export EDITOR='vim'
 export PAGER='less'
 export GREP_COLOR='1;36'
+export GREP_OPTIONS='--color=auto'
 
 # Shell Options
 shopt -s extglob
@@ -24,8 +25,6 @@ shopt -s dirspell 2>/dev/null || true
 
 # Aliases
 alias l='ls -CF'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
 alias chomd='chmod'
 alias gerp='grep'
 alias cdir='cd "${_%/*}"'
@@ -94,6 +93,13 @@ field() {
 	# Grab a field from given input on the IFS
 	# Taken from http://www.brendangregg.com/Shell/field
 	awk '{ print $'${1:-1}' }'
+}
+meminfo() {
+	# Print mem stats (SunOS)
+	local freemem=$(kstat -p 'unix:0:system_pages:freemem' | field 2)
+	local avail=$(( $freemem * $(pagesize) / 1024 / 1024 ))
+	prtconf | grep Memory
+	echo "Available: $avail Megabytes"
 }
 
 # Load external files
