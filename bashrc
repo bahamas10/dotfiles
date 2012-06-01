@@ -78,6 +78,10 @@ asdf() {
 	# Switch to dvorak
 	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
 }
+commas() {
+	# Add commas to a given input
+	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
+}
 field() {
 	# Grab a field from given input on the IFS
 	# Taken from http://www.brendangregg.com/Shell/field
