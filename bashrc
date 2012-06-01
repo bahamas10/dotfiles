@@ -7,33 +7,33 @@
 [[ -z "$PS1" ]] && return
 
 # Set environment
-export HISTCONTROL='ignoredups'
-export PATH=$PATH:$HOME/bin
-export VISUAL='vim'
 export EDITOR='vim'
-export PAGER='less'
 export GREP_COLOR='1;36'
 export GREP_OPTIONS='--color=auto'
+export HISTCONTROL='ignoredups'
+export PAGER='less'
+export PATH=$PATH:$HOME/bin
+export VISUAL='vim'
 
 # Shell Options
-shopt -s extglob
-shopt -s checkwinsize
 shopt -s cdspell
+shopt -s checkwinsize
+shopt -s extglob
 # Bash Version >= 4
-shopt -s autocd   2>/dev/null || true
+shopt -s autocd   2>/dev/null || alias ..='cd ..'
 shopt -s dirspell 2>/dev/null || true
 
 # Aliases
-alias l='ls -CF'
-alias chomd='chmod'
-alias gerp='grep'
 alias cdir='cd "${_%/*}"'
-alias externalip='curl -s http://ifconfig.me/ip'
+alias chomd='chmod'
 alias count='sort | uniq -c | sort -n'
 alias count_states='ps ax -o state | count'
+alias externalip='curl -s http://ifconfig.me/ip'
+alias gerp='grep'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
-alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
+alias l='ls -CF'
 alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
+alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
 
 # Set the prompt
 __fancy_prompt() {
@@ -70,12 +70,6 @@ case "$(uname)" in
 esac
 
 # Load convenience functions
-remove_percent20() {
-	# Remove percent20 from filenames in the current dir
-	for f in *%20*; do
-		mv -v "$f" "${f//\%20/ }"
-	done
-}
 aoeu() {
 	# Switch to qwerty
 	[[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
@@ -83,11 +77,6 @@ aoeu() {
 asdf() {
 	# Switch to dvorak
 	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
-}
-total() {
-	# Total a given field using awk
-	# Taken from http://www.brendangregg.com/Shell/total
-	awk '{ s += $'${1:-1}' } END { print s }'
 }
 field() {
 	# Grab a field from given input on the IFS
@@ -100,6 +89,17 @@ meminfo() {
 	local avail=$(( $freemem * $(pagesize) / 1024 / 1024 ))
 	prtconf | grep Memory
 	echo "Available: $avail Megabytes"
+}
+remove_percent20() {
+	# Remove percent20 from filenames in the current dir
+	for f in *%20*; do
+		mv -v "$f" "${f//\%20/ }"
+	done
+}
+total() {
+	# Total a given field using awk
+	# Taken from http://www.brendangregg.com/Shell/total
+	awk '{ s += $'${1:-1}' } END { print s }'
 }
 
 # Load external files
