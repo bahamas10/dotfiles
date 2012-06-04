@@ -1,7 +1,6 @@
+# Best bashrc in history
 #
-# Custom bashrc
 # Dave Eddy <dave@daveeddy.com>
-#
 
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
