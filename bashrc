@@ -73,6 +73,13 @@ aoeu() {
 	# Switch to qwerty
 	[[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
 }
+args() {
+	# Print arguments as read from the command line after wordsplitting
+	# http://mywiki.wooledge.org/Arguments
+	printf "%d args:" $#
+	printf " <%s>" "$@"
+	echo
+}
 asdf() {
 	# Switch to dvorak
 	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
