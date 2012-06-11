@@ -47,18 +47,23 @@ if has("autocmd")
 	set autoindent
 
 	" Puppet manifests
-	autocmd BufReadPre,FileReadPre   *.pp set ts=2 sw=2 sts=2 et filetype=puppet
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp set ts=2 sw=2 sts=2 et filetype=puppet
 
 	" JavaScript files
-	autocmd BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
-	autocmd filetype                 javascript  set ts=2 sw=2 sts=2 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
+	autocmd filetype                            javascript  set ts=2 sw=2 sts=2 et
 
 	" Stylus and jade files
-	autocmd BufReadPre,FileReadPre   *.jade,*.styl set ts=2 sw=2 sts=2 et filetype=css
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.jade,*.styl set ts=2 sw=2 sts=2 et filetype=css
 
 	" Python files
-	autocmd BufReadPre,FileReadPre   *.py   set filetype=python
-	autocmd filetype                 python set ts=4 sw=4 sts=4 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.py   set filetype=python
+	autocmd filetype                            python set ts=4 sw=4 sts=4 et
+
+	" Markdown files
+	autocmd BufNewFile,BufRead,FileReadPre      *.md     set filetype=markdown
+	autocmd filetype                            markdown set ts=4 sw=4 sts=4 et
+	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
 endif
 
 " ---------------------------------------------
