@@ -69,6 +69,10 @@ case "$(uname)" in
 esac
 
 # Load convenience functions
+alogin() {
+	# Like zlogin(1) except takes a Joyent machine alias
+	zlogin "$(vmadm list -o uuid -H alias=$1)"
+}
 aoeu() {
 	# Switch to qwerty
 	[[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
