@@ -106,6 +106,7 @@ meminfo() {
 }
 remove_percent20() {
 	# Remove percent20 from filenames in the current dir
+	local f=
 	for f in *%20*; do
 		mv -v "$f" "${f//\%20/ }"
 	done
@@ -114,6 +115,17 @@ total() {
 	# Total a given field using awk
 	# Taken from http://www.brendangregg.com/Shell/total
 	awk '{ s += $'${1:-1}' } END { print s }'
+}
+untiny() {
+	# Follow redirects to untiny a tiny url
+	local location=$1
+	local last_location=
+	while [[ -n "$location" ]]; do
+		[[ -n "$last_location" ]] && echo " -> $last_location"
+		last_location=$location
+		read -r _ location < <(curl -sI "$location" | grep 'Location: ')
+	done
+	echo "$last_location"
 }
 
 # Load external files
