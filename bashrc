@@ -11,7 +11,9 @@ export GREP_COLOR='1;36'
 export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
 export PAGER='less'
-export PATH=$PATH:$HOME/bin
+export PATH="$PATH:$HOME/bin"
+export PRETTYJSON_DASH='black'
+export PRETTYJSON_KEYS='cyan'
 export VISUAL='vim'
 
 # Shell Options
