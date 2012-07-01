@@ -14,6 +14,7 @@ export PAGER='less'
 export PATH="$PATH:$HOME/bin"
 export PRETTYJSON_DASH='black'
 export PRETTYJSON_KEYS='cyan'
+export TZ='US/Pacific'
 export VISUAL='vim'
 
 # Shell Options
