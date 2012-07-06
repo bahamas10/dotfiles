@@ -100,6 +100,10 @@ field() {
 	# Taken from http://www.brendangregg.com/Shell/field
 	awk '{ print $'${1:-1}' }'
 }
+go() {
+	local url=http://go/$1
+	open "$url" || xdg-open "$url"
+}
 meminfo() {
 	# Print mem stats (SunOS)
 	local freemem=$(kstat -p 'unix:0:system_pages:freemem' | field 2)
