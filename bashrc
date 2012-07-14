@@ -101,8 +101,12 @@ field() {
 	awk '{ print $'${1:-1}' }'
 }
 go() {
-	local url=http://go/$1
-	open "$url" || xdg-open "$url"
+	if [[ -z "$1" ]]; then
+		curl -s http://go/ | json
+	else
+		local url=http://go/$1
+		open "$url" || xdg-open "$url"
+	fi
 }
 meminfo() {
 	# Print mem stats (SunOS)
