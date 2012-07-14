@@ -122,6 +122,14 @@ remove_percent20() {
 		mv -v "$f" "${f//\%20/ }"
 	done
 }
+svclog() {
+	# Taken from Joyents smart machines bashrc
+	tail -20 "$(svcs -L "$1")"
+}
+svclogf() {
+	# Taken from Joyents smart machines bashrc
+	tail -20f "$(svcs -L "$1")"
+}
 total() {
 	# Total a given field using awk
 	# Taken from http://www.brendangregg.com/Shell/total
