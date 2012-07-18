@@ -16,6 +16,7 @@ set showmatch			" Show matching brackets.yy
 set showmode			" Show the current mode in status line
 set showcmd			" Show partial command in status line
 set tabstop=8			" Number of spaces <tab> counts for
+set title			" Set the title
 
 " ---------------------------------------------
 " Distribution Specefic Options
@@ -53,16 +54,13 @@ if has("autocmd")
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
 	autocmd filetype                            javascript  set ts=2 sw=2 sts=2 et
 
-	" Stylus and jade files
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.jade,*.styl set ts=2 sw=2 sts=2 et filetype=css
-
 	" Python files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.py   set filetype=python
 	autocmd filetype                            python set ts=4 sw=4 sts=4 et
 
 	" Markdown files
 	autocmd BufNewFile,BufRead,FileReadPre      *.md     set filetype=markdown
-	autocmd filetype                            markdown set ts=4 sw=4 sts=4 et
+	autocmd filetype                            markdown set ts=4 sw=4 sts=4 et spell
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
 endif
 
