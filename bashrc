@@ -95,6 +95,10 @@ commas() {
 	# Add commas to a given input
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
 }
+epoch() {
+	# Convert epoch to human readable
+	node -e "console.log(new Date(${1//[^0-9]/}000));"
+}
 field() {
 	# Grab a field from given input on the IFS
 	# Taken from http://www.brendangregg.com/Shell/field
