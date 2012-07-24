@@ -28,8 +28,8 @@ shopt -s dirspell 2>/dev/null || true
 # Aliases
 alias cdir='cd "${_%/*}"'
 alias chomd='chmod'
-alias count='sort | uniq -c | sort -n'
-alias count_states='ps ax -o state | count'
+alias freq='sort | uniq -c | sort -n'
+alias count_states='ps -ef -o s | freq'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
@@ -74,7 +74,7 @@ esac
 # Load convenience functions
 alogin() {
 	# Like zlogin(1) except takes a Joyent machine alias
-	zlogin "$(vmadm list -o uuid -H alias=$1)"
+	zlogin "$(vmadm list -o uuid -H alias="$1")"
 }
 aoeu() {
 	# Switch to qwerty
