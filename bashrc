@@ -10,7 +10,6 @@ export EDITOR='vim'
 export GREP_COLOR='1;36'
 export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
-export LESS='-r'
 export PAGER='less'
 export PATH="$PATH:$HOME/bin"
 export PRETTYJSON_DASH='black'
