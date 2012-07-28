@@ -50,6 +50,9 @@ if has("autocmd")
 	" Puppet manifests
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp set ts=2 sw=2 sts=2 et filetype=puppet
 
+	" Chef/Ruby
+	autocmd filetype                            ruby set ts=2 sw=2 sts=2 et
+
 	" JavaScript files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
 	autocmd filetype                            javascript  set ts=2 sw=2 sts=2 et
