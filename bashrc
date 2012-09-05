@@ -162,5 +162,6 @@ untiny() {
 
 # Load external files
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion || true
+[[ -f ~/.bash_completion ]]   && . ~/.bash_completion   || true
 [[ -f ~/.bash_aliases ]]      && . ~/.bash_aliases      || true
 [[ -f ~/.bashrc.local ]]      && . ~/.bashrc.local      || true
