@@ -7,6 +7,8 @@
   "onecase": true,
   "eqeqeq": true,
   "maxlen": 80,
+  "strict": false,
+  "white": false,
 
   "node": true
 }
