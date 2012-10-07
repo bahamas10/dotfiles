@@ -17,6 +17,7 @@ set showmode			" Show the current mode in status line
 set showcmd			" Show partial command in status line
 set tabstop=8			" Number of spaces <tab> counts for
 set title			" Set the title
+set background=light            " Light background is best
 
 " ---------------------------------------------
 " Distribution Specefic Options

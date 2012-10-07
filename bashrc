@@ -6,6 +6,7 @@
 [[ -z "$PS1" ]] && return
 
 # Set environment
+export BROWSER='chromium'
 export EDITOR='vim'
 export GREP_COLOR='1;36'
 export GREP_OPTIONS='--color=auto'
