@@ -93,8 +93,8 @@ aoeu() {
 args() {
 	# Print arguments as read from the command line after wordsplitting
 	# http://mywiki.wooledge.org/Arguments
-	printf "%d args:" $#
-	printf " <%s>" "$@"
+	printf '%d args:' $#
+	printf ' <%s>' "$@"
 	echo
 }
 asdf() {
@@ -125,7 +125,7 @@ go() {
 meminfo() {
 	# Print mem stats (SunOS)
 	local freemem=$(kstat -p 'unix:0:system_pages:freemem' | field 2)
-	local avail=$(( $freemem * $(pagesize) / 1024 / 1024 ))
+	local avail=$(($freemem * $(pagesize) / 1024 / 1024))
 	prtconf | grep Memory
 	echo "Available: $avail Megabytes"
 }
