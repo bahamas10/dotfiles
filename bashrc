@@ -44,6 +44,7 @@ alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
 alias l='ls -CF'
+alias lsnpm='npm ls -g --depth=0'
 alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
 alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
 
