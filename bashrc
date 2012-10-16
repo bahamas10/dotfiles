@@ -108,7 +108,9 @@ commas() {
 }
 epoch() {
 	# Convert epoch to human readable
-	node -e "console.log(new Date(${1//[^0-9]/}000));"
+	local num=${1//[^0-9]/}
+	(( ${#num} < 13 )) && num=${num}000
+	node -e "console.log(new Date($num));"
 }
 field() {
 	# Grab a field from given input on the IFS
