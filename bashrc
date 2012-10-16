@@ -18,7 +18,8 @@ export PRETTYJSON_KEYS='cyan'
 export TZ='US/Pacific'
 export VISUAL='vim'
 
-# support colors in less (shamelessly stolen from grmlrc http://grml.org/zsh/)
+# support colors in less
+# (shamelessly stolen from grmlrc http://grml.org/zsh/)
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
 export LESS_TERMCAP_me=$'\E[0m'
@@ -39,7 +40,6 @@ shopt -s dirspell 2>/dev/null || true
 alias cdir='cd "${_%/*}"'
 alias chomd='chmod'
 alias freq='sort | uniq -c | sort -n'
-alias count_states='ps -ef -o s | freq'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
 alias json_decode="python -c'from simplejson.tool import main; main()'"
@@ -156,8 +156,7 @@ total() {
 }
 untiny() {
 	# Follow redirects to untiny a tiny url
-	local location=$1
-	local last_location=
+	local location=$1 last_location=
 	while [[ -n "$location" ]]; do
 		[[ -n "$last_location" ]] && echo " -> $last_location"
 		last_location=$location
