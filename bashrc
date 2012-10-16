@@ -115,7 +115,9 @@ epoch() {
 field() {
 	# Grab a field from given input on the IFS
 	# Taken from http://www.brendangregg.com/Shell/field
-	awk '{ print $'${1:-1}' }'
+	local fs=
+	[[ -n $2 ]] && fs="-F$2"
+	awk $fs '{ print $'${1:-1}' }'
 }
 go() {
 	if [[ -z "$1" ]]; then
