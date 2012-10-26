@@ -1,3 +1,5 @@
+# Dave Eddy <dave@daveeddy.com>
+
 termcapinfo xterm* ti@:te@
 
 hardstatus alwayslastline
