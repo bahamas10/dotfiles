@@ -42,6 +42,7 @@ alias chomd='chmod'
 alias freq='sort | uniq -c | sort -n'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
+alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
 alias json_decode="python -c'from simplejson.tool import main; main()'"
 alias l='ls -CF'
 alias lsnpm='npm ls -g --depth=0'
