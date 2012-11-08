@@ -130,11 +130,16 @@ go() {
 	fi
 }
 meminfo() {
-	# Print mem stats (SunOS)
-	local freemem=$(kstat -p 'unix:0:system_pages:freemem' | field 2)
-	local avail=$(($freemem * $(pagesize) / 1024 / 1024))
-	prtconf | grep Memory
-	echo "Available: $avail Megabytes"
+	node <<-EOF
+	var os = require('os');
+	var free = os.freemem();
+	var total = os.totalmem();
+	var used = total - free;
+	console.log('memory: %dmb / %dmb (%d%%)',
+	    Math.round(used / 1024 / 1024),
+	    Math.round(total / 1024 / 1024),
+	    Math.round(used * 100 / total));
+	EOF
 }
 remove_percent20() {
 	# Remove percent20 from filenames in the current dir
@@ -162,7 +167,8 @@ untiny() {
 	while [[ -n "$location" ]]; do
 		[[ -n "$last_location" ]] && echo " -> $last_location"
 		last_location=$location
-		read -r _ location < <(curl -sI "$location" | grep 'Location: ')
+		read -r _ location < \
+		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[[:cntrl:]]')
 	done
 	echo "$last_location"
 }
