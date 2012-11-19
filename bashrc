@@ -84,51 +84,43 @@ case "$(uname)" in
 	*)        alias ls='ls -p --color=auto';;
 esac
 
-# Load convenience functions
+# Like zlogin(1) except takes a Joyent machine alias
 alogin() {
-	# Like zlogin(1) except takes a Joyent machine alias
 	zlogin "$(vmadm list -o uuid -H alias="$1")"
 }
+# Switch to qwerty
 aoeu() {
-	# Switch to qwerty
 	[[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
 }
+# Print arguments as read from the command line after wordsplitting
+# http://mywiki.wooledge.org/Arguments
 args() {
-	# Print arguments as read from the command line after wordsplitting
-	# http://mywiki.wooledge.org/Arguments
 	printf '%d args:' $#
 	printf ' <%s>' "$@"
 	echo
 }
+# Switch to dvorak
 asdf() {
-	# Switch to dvorak
 	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
 }
+# Add commas to a given input
 commas() {
-	# Add commas to a given input
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
 }
+# Convert epoch to human readable
 epoch() {
-	# Convert epoch to human readable
 	local num=${1//[^0-9]/}
 	(( ${#num} < 13 )) && num=${num}000
 	node -e "console.log(new Date($num));"
 }
+# Grab a field from given input on the IFS
+# Taken from http://www.brendangregg.com/Shell/field
 field() {
-	# Grab a field from given input on the IFS
-	# Taken from http://www.brendangregg.com/Shell/field
 	local fs=
 	[[ -n $2 ]] && fs="-F$2"
 	awk $fs '{ print $'${1:-1}' }'
 }
-go() {
-	if [[ -z "$1" ]]; then
-		curl -s http://go/ | json
-	else
-		local url=http://go/$1
-		open "$url" || xdg-open "$url"
-	fi
-}
+# Platform-independent memory usage
 meminfo() {
 	node <<-EOF
 	var os = require('os');
@@ -141,28 +133,28 @@ meminfo() {
 	    Math.round(used * 100 / total));
 	EOF
 }
+# Remove percent20 from filenames in the current dir
 remove_percent20() {
-	# Remove percent20 from filenames in the current dir
 	local f=
 	for f in *%20*; do
 		mv -v "$f" "${f//\%20/ }"
 	done
 }
+# Taken from Joyents smart machines bashrc
 svclog() {
-	# Taken from Joyents smart machines bashrc
 	tail -20 "$(svcs -L "$1")"
 }
+# Taken from Joyents smart machines bashrc
 svclogf() {
-	# Taken from Joyents smart machines bashrc
 	tail -20f "$(svcs -L "$1")"
 }
+# Total a given field using awk
+# Taken from http://www.brendangregg.com/Shell/total
 total() {
-	# Total a given field using awk
-	# Taken from http://www.brendangregg.com/Shell/total
 	awk '{ s += $'${1:-1}' } END { print s }'
 }
+# Follow redirects to untiny a tiny url
 untiny() {
-	# Follow redirects to untiny a tiny url
 	local location=$1 last_location=
 	while [[ -n "$location" ]]; do
 		[[ -n "$last_location" ]] && echo " -> $last_location"
