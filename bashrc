@@ -45,6 +45,7 @@ alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
 alias json_decode="python -c'from simplejson.tool import main; main()'"
 alias l='ls -CF'
+alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias lsnpm='npm ls -g --depth=0'
 alias scratch='cd "$(mktemp -d)" && pwd'
 alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
