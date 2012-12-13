@@ -134,6 +134,13 @@ meminfo() {
 	    Math.round(used * 100 / total));
 	EOF
 }
+# Parallel ssh
+pssh() {
+	while read host; do
+		echo -n "$host: ";
+		ssh -qn "$host" "$@";
+	done
+}
 # Remove percent20 from filenames in the current dir
 remove_percent20() {
 	local f=
