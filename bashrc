@@ -165,6 +165,15 @@ untiny() {
 	done
 	echo "$last_location"
 }
+# parse URL's to JSON for easy screen scraping on the shell
+urlparse() {
+	node -e "
+	var fs = require('fs');
+	var url = require('url');
+	var stdin = fs.readFileSync('/dev/stdin').toString();
+	console.log(JSON.stringify(url.parse(stdin, true), null, 2));
+	"
+}
 
 # Load external files
 . /etc/bash_completion 2>/dev/null || true
