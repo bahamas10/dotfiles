@@ -80,10 +80,11 @@ __fancy_prompt() {
 __fancy_prompt
 
 # Enable color support of ls
-case "$(uname)" in
-	'Darwin') alias ls='ls -p -G';;
-	*)        alias ls='ls -p --color=auto';;
-esac
+if ls --color=auto &>/dev/null; then
+	alias ls='ls -p --color=auto'
+else
+	alias ls='ls -p -G'
+fi
 
 # Like zlogin(1) except takes a Joyent machine alias
 alogin() {
