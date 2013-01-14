@@ -150,17 +150,17 @@ meminfo() {
 psage() {
 	local o= args=$(ps -eo pid,args)
 	for proc in /proc/*; do
-		echo "$(stat -c %Y "$proc") $proc";
+		echo "$(stat -c %Y "$proc") $proc"
 	done | sort | \
 	while read -r time pid; do
-		o=$(grep "${pid##*/}" <<< "$args") && echo "[$(epoch "$time")] $o";
+		o=$(grep "${pid##*/}" <<< "$args") && echo "[$(epoch "$time")] $o"
 	done
 }
 # Parallel ssh
 pssh() {
 	while read host; do
-		echo -n "$host: ";
-		ssh -qn "$host" "$@";
+		echo -n "$host: "
+		ssh -qn "$host" "$@"
 	done
 }
 # Remove percent20 from filenames in the current dir
