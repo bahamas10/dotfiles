@@ -121,6 +121,18 @@ field() {
 	[[ -n $2 ]] && fs="-F$2"
 	awk $fs '{ print $'${1:-1}' }'
 }
+# Platform-independent interfaces
+interfaces() {
+	node <<-EOF
+	var os = require('os');
+	var i = os.networkInterfaces();
+	var ret = {};
+	Object.keys(i).forEach(function(name) {
+	ret[name] = i[name][0].address;
+	});
+	console.log(JSON.stringify(ret, null, 2));
+	EOF
+}
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
