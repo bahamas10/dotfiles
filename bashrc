@@ -122,6 +122,18 @@ field() {
 	[[ -n $2 ]] && fs="-F$2"
 	awk $fs '{ print $'${1:-1}' }'
 }
+# Platform-independent interfaces
+interfaces() {
+	node <<-EOF
+	var os = require('os');
+	var i = os.networkInterfaces();
+	var ret = {};
+	Object.keys(i).forEach(function(name) {
+	ret[name] = i[name][0].address;
+	});
+	console.log(JSON.stringify(ret, null, 2));
+	EOF
+}
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
@@ -139,17 +151,17 @@ meminfo() {
 psage() {
 	local o= args=$(ps -eo pid,args)
 	for proc in /proc/*; do
-		echo "$(stat -c %Y "$proc") $proc";
+		echo "$(stat -c %Y "$proc") $proc"
 	done | sort | \
 	while read -r time pid; do
-		o=$(grep "${pid##*/}" <<< "$args") && echo "[$(epoch "$time")] $o";
+		o=$(grep "${pid##*/}" <<< "$args") && echo "[$(epoch "$time")] $o"
 	done
 }
 # Parallel ssh
 pssh() {
 	while read host; do
-		echo -n "$host: ";
-		ssh -qn "$host" "$@";
+		echo -n "$host: "
+		ssh -qn "$host" "$@"
 	done
 }
 # Remove percent20 from filenames in the current dir
