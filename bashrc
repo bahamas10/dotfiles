@@ -129,7 +129,14 @@ interfaces() {
 	var i = os.networkInterfaces();
 	var ret = {};
 	Object.keys(i).forEach(function(name) {
-	ret[name] = i[name][0].address;
+		var ip4 = null;
+		i[name].forEach(function(int) {
+			if (int.family === 'IPv4') {
+				ip4 = int.address;
+				return;
+			}
+		});
+		ret[name] = ip4;
 	});
 	console.log(JSON.stringify(ret, null, 2));
 	EOF
