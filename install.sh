@@ -9,7 +9,9 @@ for f in bash_profile bashrc htoprc jshintrc screenrc tmux.conf vimrc; do
 done
 
 if [[ -d ~/Library ]]; then
-	echo 'Installing KeyBindings for MacOS'
 	mkdir -p ~/Library/KeyBindings
-	cp DefaultKeyBinding.dict ~/Library/KeyBindings
+
+	f='DefaultKeyBinding.dict'
+	printf '%40s -> %s\n' "$PWD/$f" ~/Library/KeyBindings/"$f"
+	ln -sf "$PWD/$f" ~/Library/KeyBindings/"$f"
 fi
