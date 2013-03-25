@@ -105,6 +105,13 @@ args() {
 asdf() {
 	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
 }
+# Print all supported colors
+colors() {
+	for i in {0..255} ; do
+		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
+	done
+	tput sgr0
+}
 # Add commas to a given input
 commas() {
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
