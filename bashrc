@@ -44,6 +44,7 @@ alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
 alias json_decode="python -c'from simplejson.tool import main; main()'"
+alias latest-node="curl -sS http://nodejs.org | grep 'Current Version' | egrep -o 'v[0-9.]+'"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias lsnpm='npm ls -g --depth=0'
