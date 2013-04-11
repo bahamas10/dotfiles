@@ -39,7 +39,6 @@ shopt -s dirspell 2>/dev/null || true
 # Aliases
 alias cdir='cd "${_%/*}"'
 alias chomd='chmod'
-alias freq='sort | uniq -c | sort -n'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
@@ -129,6 +128,10 @@ field() {
 	local fs=
 	[[ -n $2 ]] && fs="-F$2"
 	awk $fs '{ print $'${1:-1}' }'
+}
+# frequency count
+freq() {
+	sort | uniq -c | sort -n
 }
 # Platform-independent interfaces
 interfaces() {
