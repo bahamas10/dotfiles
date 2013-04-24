@@ -116,6 +116,10 @@ colors() {
 commas() {
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
 }
+# CPU usage by PID using prstat(1M)
+cpubypid() {
+	prstat -p "$1" -n 1 1 1 | awk 'NR == 2 { print $9 }'
+}
 # Convert epoch to human readable
 epoch() {
 	local num=${1//[^0-9]/}
