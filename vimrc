@@ -66,6 +66,10 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead,FileReadPre      *.md     set filetype=markdown
 	autocmd filetype                            markdown set ts=4 sw=4 sts=4 et spell
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
+	autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight   start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
+
+	"highlight clear SpellBad
+	"highlight SpellBad cterm=underline ctermfg=red
 endif
 
 " ---------------------------------------------
