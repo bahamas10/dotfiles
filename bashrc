@@ -137,6 +137,11 @@ field() {
 freq() {
 	sort | uniq -c | sort -n
 }
+# print gaps in numbers
+# http://stackoverflow.com/questions/15867557/finding-gaps-sequential-numbers
+gaps() {
+	awk '($1!=p+1){print p+1 "-" $1-1} {p=$1}'
+}
 # Platform-independent interfaces
 interfaces() {
 	node <<-EOF
