@@ -213,6 +213,10 @@ untiny() {
 	done
 	echo "$last_location"
 }
+# Undo github flavor markdown
+ungithubmd() {
+	awk '/^```/ { flag=!flag; $0 = "" } { if (flag) print "    " $0; else print $0; }'
+}
 # parse URL's to JSON for easy screen scraping on the shell
 urlparse() {
 	node -e "
