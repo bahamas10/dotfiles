@@ -38,6 +38,7 @@ shopt -s dirspell 2>/dev/null || true
 
 # Aliases
 alias cdir='cd "${_%/*}"'
+alias cpp2c="sed -e 's#//\(.*\)#/*\1 */#'"
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
