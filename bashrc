@@ -15,7 +15,7 @@ export PAGER='less'
 export PATH="$PATH:$HOME/bin"
 export PRETTYJSON_DASH='black'
 export PRETTYJSON_KEYS='cyan'
-export TZ='US/Pacific'
+export TZ='US/Eastern'
 export VISUAL='vim'
 
 # support colors in less
