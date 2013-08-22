@@ -108,7 +108,7 @@ asdf() {
 }
 # Print all supported colors
 colors() {
-	for i in {0..255} ; do
+	for i in {0..255}; do
 		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
 	done
 	tput sgr0
