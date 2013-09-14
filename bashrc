@@ -13,8 +13,6 @@ export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
 export PAGER='less'
 export PATH="$PATH:$HOME/bin"
-export PRETTYJSON_DASH='black'
-export PRETTYJSON_KEYS='cyan'
 export TZ='US/Eastern'
 export VISUAL='vim'
 
@@ -43,12 +41,9 @@ alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
-alias json_decode="python -c'from simplejson.tool import main; main()'"
-alias latest-node="curl -sS http://nodejs.org | grep 'Current Version' | egrep -o 'v[0-9.]+'"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias lsnpm='npm ls -g --depth=0'
-alias scratch='cd "$(mktemp -d)" && pwd'
 alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
 alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
 
@@ -117,15 +112,11 @@ colors() {
 commas() {
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
 }
-# CPU usage by PID using prstat(1M)
-cpubypid() {
-	prstat -p "$1" -n 1 1 1 | awk 'NR == 2 { print $9 }'
-}
 # Convert epoch to human readable
 epoch() {
 	local num=${1//[^0-9]/}
 	(( ${#num} < 13 )) && num=${num}000
-	node -e "console.log(new Date($num));"
+	node -pe "new Date($num);"
 }
 # Grab a field from given input on the IFS
 # Taken from http://www.brendangregg.com/Shell/field
@@ -141,7 +132,7 @@ freq() {
 # print gaps in numbers
 # http://stackoverflow.com/questions/15867557/finding-gaps-sequential-numbers
 gaps() {
-	awk '($1!=p+1){print p+1 "-" $1-1} {p=$1}'
+	awk '($1!=p+1) {print p+1 "-" $1-1} {p=$1}'
 }
 # Platform-independent interfaces
 interfaces() {
@@ -188,14 +179,6 @@ remove_percent20() {
 	for f in *%20*; do
 		mv -v "$f" "${f//\%20/ }"
 	done
-}
-# Taken from Joyents smart machines bashrc
-svclog() {
-	tail -20 "$(svcs -L "$1")"
-}
-# Taken from Joyents smart machines bashrc
-svclogf() {
-	tail -20f "$(svcs -L "$1")"
 }
 # Total a given field using awk
 # Taken from http://www.brendangregg.com/Shell/total
