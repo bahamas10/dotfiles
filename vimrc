@@ -34,8 +34,9 @@ set title			" Set the title
 " ---------------------------------------------
 " Theme / Color Scheme
 " ---------------------------------------------
-set background=dark            " Light background is best
-colorscheme Tomorrow-Night      " https://github.com/chriskempson/tomorrow-theme
+"set background=dark            " Light background is best
+set background=light            " Light background is best
+"colorscheme Tomorrow-Night      " https://github.com/chriskempson/tomorrow-theme
 
 " ---------------------------------------------
 " Distribution Specefic Options
