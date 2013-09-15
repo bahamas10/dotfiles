@@ -255,7 +255,6 @@ cd() {
 s() {
 	local i=$(( ${#_CD_STACK[@]} - 1 ))
 	for (( ; i >= 0; i-- )); do
-		local dir=${_CD_STACK[$i]}
 		printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
 	done
 }
