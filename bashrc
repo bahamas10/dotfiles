@@ -125,6 +125,7 @@ commas() {
 # http://stackoverflow.com/questions/2575037/how-to-get-the-cursor-position-in-bash
 # Print the current column of the cursor
 curcol() {
+	local pos oldstty row=0 col=0
 	exec < /dev/tty
 	oldstty=$(stty -g)
 	stty raw -echo min 0
