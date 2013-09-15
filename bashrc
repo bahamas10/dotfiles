@@ -74,6 +74,16 @@ __fancy_prompt() {
 	fi
 }
 __fancy_prompt
+# Conditonally output `%\n` based on the current column of the cursor (like zsh)
+__fancy_newline() {
+	if (( $(curcol) != 0 )); then
+		tput bold
+		tput rev
+		echo '%'
+		tput sgr0
+	fi
+}
+PROMPT_COMMAND="$PROMPT_COMMAND; __fancy_newline;"
 
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
@@ -111,6 +121,20 @@ colors() {
 # Add commas to a given input
 commas() {
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
+}
+# http://stackoverflow.com/questions/2575037/how-to-get-the-cursor-position-in-bash
+# Print the current column of the cursor
+curcol() {
+	exec < /dev/tty
+	oldstty=$(stty -g)
+	stty raw -echo min 0
+	tput u7 > /dev/tty
+	IFS=';' read -r -d R -a pos
+	stty "$oldstty"
+	# change from one-based to zero based so they work with: tput cup $row $col
+	row=$((${pos[0]:2} - 1))    # strip off the esc-[
+	col=$((${pos[1]} - 1))
+	echo "$col"
 }
 # Convert epoch to human readable
 epoch() {
