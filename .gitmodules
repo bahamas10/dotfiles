@@ -4,3 +4,6 @@
 [submodule "vim/bundle/vim-tomorrow-theme"]
 	path = vim/bundle/vim-tomorrow-theme
 	url = https://github.com/chriskempson/vim-tomorrow-theme
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
