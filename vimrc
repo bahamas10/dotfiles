@@ -1,23 +1,41 @@
 " ---------------------------------------------
 " Dave Eddy's vimrc
 " dave@daveeddy.com
+" License MIT
+"
+" Credits
+"   https://github.com/Happy-Dude/
 " ---------------------------------------------
 set nocompatible		" Disable VI Compatibility
+
+" ---------------------------------------------
+" Init - pathogen
+" ---------------------------------------------
+filetype off			" Turn filetype plugin off until Pathogen loads
+
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+syntax on
 
 " ---------------------------------------------
 " Vim Options
 " ---------------------------------------------
 set backspace=indent,eol,start	" Backspace all characters
 set hlsearch			" Highlight search results
-set nonumber			" Disable line numbers
+set number			" Enable line numbers
 set nostartofline		" Do not jump to first character with page commands
 set ruler			" Enable the ruler
-set showmatch			" Show matching brackets.yy
+set showmatch			" Show matching brackets.
 set showmode			" Show the current mode in status line
 set showcmd			" Show partial command in status line
 set tabstop=8			" Number of spaces <tab> counts for
 set title			" Set the title
-set background=light            " Light background is best
+
+" ---------------------------------------------
+" Theme / Color Scheme
+" ---------------------------------------------
+set background=dark            " Light background is best
+colorscheme Tomorrow-Night      " https://github.com/chriskempson/tomorrow-theme
 
 " ---------------------------------------------
 " Distribution Specefic Options
@@ -28,17 +46,9 @@ runtime! debian.vim
 " Abbreviations
 " ---------------------------------------------
 iab me:: Dave Eddy <dave@daveeddy.com>
-iab python:: if __name__ == '__main__':
 
 " ---------------------------------------------
-" Syntax Highlighting
-" ---------------------------------------------
-if has("syntax")
-	syntax on
-endif
-
-" ---------------------------------------------
-" File/Indenting
+" File/Indenting and Syntax Highlighting
 " ---------------------------------------------
 if has("autocmd")
 	" Jump to previous cursor location
