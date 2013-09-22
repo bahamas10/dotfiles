@@ -83,7 +83,7 @@ __fancy_newline() {
 		tput sgr0
 	fi
 }
-PROMPT_COMMAND="$PROMPT_COMMAND; __fancy_newline;"
+#PROMPT_COMMAND="$PROMPT_COMMAND; __fancy_newline;"
 
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
