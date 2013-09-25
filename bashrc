@@ -267,3 +267,6 @@ cs() {
 . ~/.bash_completion   2>/dev/null || true
 . ~/.bash_aliases      2>/dev/null || true
 . ~/.bashrc.local      2>/dev/null || true
+
+# Load basher
+. ~/.basher/basher

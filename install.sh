@@ -21,6 +21,13 @@ for f in bash_profile bashrc htoprc jshintrc screenrc tmux.conf vimrc vim; do
 	symlink "$PWD/$f" ~/."$f"
 done
 
+# setup basher
+if [[ ! -d ~/.basher ]]; then
+	bash <(curl -sS https://raw.github.com/bahamas10/basher/master/basher) init
+	rm -r ~/.basher/plugins
+	symlink "$PWD/basher-plugins" ~/.basher/plugins
+fi
+
 # Keyboard shortcuts for Mac OS X
 if [[ -d ~/Library ]]; then
 	mkdir -p ~/Library/KeyBindings

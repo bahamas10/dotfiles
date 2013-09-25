@@ -7,3 +7,6 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "basher-plugins/bash-cdstack"]
+	path = basher-plugins/bash-cdstack
+	url = git://github.com/bahamas10/bash-cdstack.git
