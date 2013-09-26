@@ -3,7 +3,10 @@
 # Dave Eddy <dave@daveeddy.com>
 
 # If not running interactively, don't do anything
-[[ -z "$PS1" ]] && return
+[[ -z $PS1 ]] && return
+
+# Load basher
+. ~/.basher/basher || echo '> failed to load basher'
 
 # Set environment
 export BROWSER='chromium'
@@ -98,7 +101,7 @@ alogin() {
 }
 # Switch to qwerty
 aoeu() {
-	[[ -z "$DISPLAY" ]] && sudo loadkeys us || setxkbmap us
+	[[ -z $DISPLAY ]] && sudo loadkeys us || setxkbmap us
 }
 # Print arguments as read from the command line after wordsplitting
 # http://mywiki.wooledge.org/Arguments
@@ -109,7 +112,7 @@ args() {
 }
 # Switch to dvorak
 asdf() {
-	[[ -z "$DISPLAY" ]] && sudo loadkeys dvorak || setxkbmap dvorak
+	[[ -z $DISPLAY ]] && sudo loadkeys dvorak || setxkbmap dvorak
 }
 # Print all supported colors
 colors() {
@@ -213,8 +216,8 @@ total() {
 # Follow redirects to untiny a tiny url
 untiny() {
 	local location=$1 last_location=
-	while [[ -n "$location" ]]; do
-		[[ -n "$last_location" ]] && echo " -> $last_location"
+	while [[ -n $location ]]; do
+		[[ -n $last_location ]] && echo " -> $last_location"
 		last_location=$location
 		read -r _ location < \
 		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[[:cntrl:]]')
@@ -240,6 +243,3 @@ urlparse() {
 . ~/.bash_completion   2>/dev/null || true
 . ~/.bash_aliases      2>/dev/null || true
 . ~/.bashrc.local      2>/dev/null || true
-
-# Load basher
-. ~/.basher/basher
