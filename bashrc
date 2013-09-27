@@ -184,11 +184,17 @@ interfaces() {
 # Limit the number of columns printed
 limitcolumns() {
 	local cols=$1
-	if [[ -z $cols ]]; then
-		cols=$(tput cols)
-	fi
+	local red=$(tput setaf 1)
+	local reset=$(tput sgr0)
+	cols=${cols:-$COLUMNS}
+	cols=${cols:-$(tput cols)}
 	cols=${cols:-80}
-	awk "length(\$0) > $cols { \$0 = substr(\$0, 0, $cols); } { print \$0 }"
+	awk "
+	{
+		if (length(\$0) > $cols)
+			\$0 = substr(\$0, 0, $cols - 1) \"$red>$reset\";
+		print \$0
+	}"
 }
 # Platform-independent memory usage
 meminfo() {
