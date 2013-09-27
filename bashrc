@@ -181,6 +181,15 @@ interfaces() {
 	console.log(JSON.stringify(ret, null, 2));
 	EOF
 }
+# Limit the number of columns printed
+limitcolumns() {
+	local cols=$1
+	if [[ -z $cols ]]; then
+		cols=$(tput cols)
+	fi
+	cols=${cols:-80}
+	awk "length(\$0) > $cols { \$0 = substr(\$0, 0, $cols); } { print \$0 }"
+}
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
