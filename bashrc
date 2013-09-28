@@ -116,6 +116,7 @@ asdf() {
 }
 # Print all supported colors
 colors() {
+	local i
 	for i in {0..255}; do
 		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
 	done
@@ -218,7 +219,7 @@ pssh() {
 }
 # Remove percent20 from filenames in the current dir
 remove_percent20() {
-	local f=
+	local f
 	for f in *%20*; do
 		mv -v "$f" "${f//\%20/ }"
 	done
