@@ -150,9 +150,7 @@ epoch() {
 # Grab a field from given input on the IFS
 # Taken from http://www.brendangregg.com/Shell/field
 field() {
-	local fs=
-	[[ -n $2 ]] && fs="-F$2"
-	awk $fs '{ print $'${1:-1}' }'
+	awk -F "${2:- }" '{ print $'"${1:-1}"' }'
 }
 # frequency count
 freq() {
@@ -227,7 +225,7 @@ remove_percent20() {
 # Total a given field using awk
 # Taken from http://www.brendangregg.com/Shell/total
 total() {
-	awk '{ s += $'${1:-1}' } END { print s }'
+	awk '{ s += $'"${1:-1}"' } END { print s }'
 }
 # Follow redirects to untiny a tiny url
 untiny() {
