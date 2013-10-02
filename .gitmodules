@@ -10,3 +10,6 @@
 [submodule "basher-plugins/bash-cdstack"]
 	path = basher-plugins/bash-cdstack
 	url = git://github.com/bahamas10/bash-cdstack.git
+[submodule "basher-plugins/bash-dvorak"]
+	path = basher-plugins/bash-dvorak
+	url = git://github.com/bahamas10/bash-dvorak.git
