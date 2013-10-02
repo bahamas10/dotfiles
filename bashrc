@@ -101,7 +101,17 @@ alogin() {
 }
 # Switch to qwerty
 aoeu() {
-	[[ -z $DISPLAY ]] && sudo loadkeys us || setxkbmap us
+	if osascript < /dev/null &>/dev/null; then
+		# Mac OS X
+		osascript -e "
+		tell application \"System Events\" to tell process \"SystemUIServer\"
+		tell (1st menu bar item of menu bar 1 whose description is \"text input\") to {click, click (menu 1's menu item \"U.S.\")}
+		end tell"
+	elif [[ -n $DISPLAY ]]; then
+		setxkbmap us
+	else
+		sudo loadkeys us
+	fi
 }
 # Print arguments as read from the command line after wordsplitting
 # http://mywiki.wooledge.org/Arguments
@@ -112,7 +122,17 @@ args() {
 }
 # Switch to dvorak
 asdf() {
-	[[ -z $DISPLAY ]] && sudo loadkeys dvorak || setxkbmap dvorak
+	if osascript < /dev/null &>/dev/null; then
+		# Mac OS X
+		osascript -e "
+		tell application \"System Events\" to tell process \"SystemUIServer\"
+		tell (1st menu bar item of menu bar 1 whose description is \"text input\") to {click, click (menu 1's menu item \"Dvorak\")}
+		end tell"
+	elif [[ -n $DISPLAY ]]; then
+		setxkbmap dvorak
+	else
+		sudo loadkeys dvorak
+	fi
 }
 # Print all supported colors
 colors() {
