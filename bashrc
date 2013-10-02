@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ -z $PS1 ]] && return
 
-# Load basher
+# Load basher, plugins found in basher-plugins
 . ~/.basher/basher || echo '> failed to load basher'
 
 # Set environment
@@ -99,40 +99,12 @@ fi
 alogin() {
 	zlogin "$(vmadm list -o uuid -H alias="$1")"
 }
-# Switch to qwerty
-aoeu() {
-	if osascript < /dev/null &>/dev/null; then
-		# Mac OS X
-		osascript -e "
-		tell application \"System Events\" to tell process \"SystemUIServer\"
-		tell (1st menu bar item of menu bar 1 whose description is \"text input\") to {click, click (menu 1's menu item \"U.S.\")}
-		end tell"
-	elif [[ -n $DISPLAY ]]; then
-		setxkbmap us
-	else
-		sudo loadkeys us
-	fi
-}
 # Print arguments as read from the command line after wordsplitting
 # http://mywiki.wooledge.org/Arguments
 args() {
 	printf '%d args:' $#
 	printf ' <%s>' "$@"
 	echo
-}
-# Switch to dvorak
-asdf() {
-	if osascript < /dev/null &>/dev/null; then
-		# Mac OS X
-		osascript -e "
-		tell application \"System Events\" to tell process \"SystemUIServer\"
-		tell (1st menu bar item of menu bar 1 whose description is \"text input\") to {click, click (menu 1's menu item \"Dvorak\")}
-		end tell"
-	elif [[ -n $DISPLAY ]]; then
-		setxkbmap dvorak
-	else
-		sudo loadkeys dvorak
-	fi
 }
 # Print all supported colors
 colors() {
