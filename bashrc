@@ -33,6 +33,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 shopt -s cdspell
 shopt -s checkwinsize
 shopt -s extglob
+
 # Bash Version >= 4
 shopt -s autocd   2>/dev/null || alias ..='cd ..'
 shopt -s dirspell 2>/dev/null || true
@@ -99,6 +100,7 @@ fi
 alogin() {
 	zlogin "$(vmadm list -o uuid -H alias="$1")"
 }
+
 # Print arguments as read from the command line after wordsplitting
 # http://mywiki.wooledge.org/Arguments
 args() {
@@ -106,6 +108,7 @@ args() {
 	printf ' <%s>' "$@"
 	echo
 }
+
 # Print all supported colors
 colors() {
 	local i
@@ -114,10 +117,12 @@ colors() {
 	done
 	tput sgr0
 }
+
 # Add commas to a given input
 commas() {
 	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
 }
+
 # http://stackoverflow.com/questions/2575037/how-to-get-the-cursor-position-in-bash
 # Print the current column of the cursor
 curcol() {
@@ -133,26 +138,31 @@ curcol() {
 	col=$((${col:-1} - 1))
 	echo "$col"
 }
+
 # Convert epoch to human readable
 epoch() {
 	local num=${1//[^0-9]/}
 	(( ${#num} < 13 )) && num=${num}000
 	node -pe "new Date($num);"
 }
+
 # Grab a field from given input on the IFS
 # Taken from http://www.brendangregg.com/Shell/field
 field() {
 	awk -F "${2:- }" '{ print $'"${1:-1}"' }'
 }
+
 # frequency count
 freq() {
 	sort | uniq -c | sort -n
 }
+
 # print gaps in numbers
 # http://stackoverflow.com/questions/15867557/finding-gaps-sequential-numbers
 gaps() {
 	awk '($1!=p+1) {print p+1 "-" $1-1} {p=$1}'
 }
+
 # Platform-independent interfaces
 interfaces() {
 	node <<-EOF
@@ -172,6 +182,7 @@ interfaces() {
 	console.log(JSON.stringify(ret, null, 2));
 	EOF
 }
+
 # Limit the number of columns printed
 limitcolumns() {
 	local cols=$1
@@ -187,6 +198,7 @@ limitcolumns() {
 		print \$0
 	}"
 }
+
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
@@ -200,6 +212,7 @@ meminfo() {
 	    Math.round(used * 100 / total));
 	EOF
 }
+
 # Parallel ssh (not really)
 pssh() {
 	while read host; do
@@ -207,6 +220,7 @@ pssh() {
 		ssh -qn "$host" "$@"
 	done
 }
+
 # Remove percent20 from filenames in the current dir
 remove_percent20() {
 	local f
@@ -214,11 +228,13 @@ remove_percent20() {
 		mv -v "$f" "${f//\%20/ }"
 	done
 }
+
 # Total a given field using awk
 # Taken from http://www.brendangregg.com/Shell/total
 total() {
 	awk '{ s += $'"${1:-1}"' } END { print s }'
 }
+
 # Follow redirects to untiny a tiny url
 untiny() {
 	local location=$1 last_location=
@@ -230,10 +246,12 @@ untiny() {
 	done
 	echo "$last_location"
 }
+
 # Undo github flavor markdown
 ungithubmd() {
 	awk '/^```/ { flag=!flag; $0 = "" } { if (flag) print "    " $0; else print $0; }'
 }
+
 # parse URL's to JSON for easy screen scraping on the shell
 urlparse() {
 	node -e "
