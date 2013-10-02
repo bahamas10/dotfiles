@@ -13,3 +13,6 @@
 [submodule "basher-plugins/bash-dvorak"]
 	path = basher-plugins/bash-dvorak
 	url = git://github.com/bahamas10/bash-dvorak.git
+[submodule "basher-plugins/bash-analysis"]
+	path = basher-plugins/bash-analysis
+	url = git://github.com/bahamas10/bash-analysis.git

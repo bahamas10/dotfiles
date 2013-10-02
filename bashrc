@@ -118,11 +118,6 @@ colors() {
 	tput sgr0
 }
 
-# Add commas to a given input
-commas() {
-	sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
-}
-
 # http://stackoverflow.com/questions/2575037/how-to-get-the-cursor-position-in-bash
 # Print the current column of the cursor
 curcol() {
@@ -146,23 +141,6 @@ epoch() {
 	node -pe "new Date($num);"
 }
 
-# Grab a field from given input on the IFS
-# Taken from http://www.brendangregg.com/Shell/field
-field() {
-	awk -F "${2:- }" '{ print $'"${1:-1}"' }'
-}
-
-# frequency count
-freq() {
-	sort | uniq -c | sort -n
-}
-
-# print gaps in numbers
-# http://stackoverflow.com/questions/15867557/finding-gaps-sequential-numbers
-gaps() {
-	awk '($1!=p+1) {print p+1 "-" $1-1} {p=$1}'
-}
-
 # Platform-independent interfaces
 interfaces() {
 	node <<-EOF
@@ -181,22 +159,6 @@ interfaces() {
 	});
 	console.log(JSON.stringify(ret, null, 2));
 	EOF
-}
-
-# Limit the number of columns printed
-limitcolumns() {
-	local cols=$1
-	local red=$(tput setaf 1)
-	local reset=$(tput sgr0)
-	cols=${cols:-$COLUMNS}
-	cols=${cols:-$(tput cols)}
-	cols=${cols:-80}
-	awk "
-	{
-		if (length(\$0) > $cols)
-			\$0 = substr(\$0, 0, $cols - 1) \"$red>$reset\";
-		print \$0
-	}"
 }
 
 # Platform-independent memory usage
@@ -227,12 +189,6 @@ remove_percent20() {
 	for f in *%20*; do
 		mv -v "$f" "${f//\%20/ }"
 	done
-}
-
-# Total a given field using awk
-# Taken from http://www.brendangregg.com/Shell/total
-total() {
-	awk '{ s += $'"${1:-1}"' } END { print s }'
 }
 
 # Follow redirects to untiny a tiny url
