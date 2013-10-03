@@ -175,6 +175,19 @@ meminfo() {
 	EOF
 }
 
+# Print a bash array by name
+parr() {
+	local name=$1
+	local key value
+	echo '('
+	eval "
+	for key in \"\${!$name[@]}\"; do
+		value=\${$name[\$key]}
+		echo -e \"\\t[\$key]=\\\`\$value\\\`\"
+	done"
+	echo ')'
+}
+
 # Parallel ssh (not really)
 pssh() {
 	while read host; do
