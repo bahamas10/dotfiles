@@ -16,3 +16,6 @@
 [submodule "basher-plugins/bash-analysis"]
 	path = basher-plugins/bash-analysis
 	url = git://github.com/bahamas10/bash-analysis.git
+[submodule "basher-plugins/bash-interactivity"]
+	path = basher-plugins/bash-interactivity
+	url = git://github.com/bahamas10/bash-interactivity.git

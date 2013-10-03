@@ -39,7 +39,6 @@ shopt -s autocd   2>/dev/null || alias ..='cd ..'
 shopt -s dirspell 2>/dev/null || true
 
 # Aliases
-alias cdir='cd "${_%/*}"'
 alias cpp2c="sed -e 's#//\(.*\)#/*\1 */#'"
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
@@ -99,14 +98,6 @@ fi
 # Like zlogin(1) except takes a Joyent machine alias
 alogin() {
 	zlogin "$(vmadm list -o uuid -H alias="$1")"
-}
-
-# Print arguments as read from the command line after wordsplitting
-# http://mywiki.wooledge.org/Arguments
-args() {
-	printf '%d args:' $#
-	printf ' <%s>' "$@"
-	echo
 }
 
 # Print all supported colors
@@ -173,19 +164,6 @@ meminfo() {
 	    Math.round(total / 1024 / 1024),
 	    Math.round(used * 100 / total));
 	EOF
-}
-
-# Print a bash array by name
-parr() {
-	local name=$1
-	local key value
-	echo '('
-	eval "
-	for key in \"\${!$name[@]}\"; do
-		value=\${$name[\$key]}
-		echo -e \"\\t[\$key]=\\\`\$value\\\`\"
-	done"
-	echo ')'
 }
 
 # Parallel ssh (not really)
