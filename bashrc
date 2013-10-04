@@ -50,33 +50,49 @@ alias lsnpm='npm ls -g --depth=0'
 alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
 alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
 
-# Set the prompt
-__fancy_prompt() {
-	# In a function to not clobber namespace
-	local black=$(tput setaf 0)
-	local red=$(tput setaf 1)
-	local green=$(tput setaf 2)
-	local yellow=$(tput setaf 3)
-	local blue=$(tput setaf 4)
-	local magenta=$(tput setaf 5)
-	local cyan=$(tput setaf 6)
-	local white=$(tput setaf 7)
-	local bold=$(tput bold)
-	local reset=$(tput sgr0)
+# Prompt
 
-	if (( $UID == 0 )); then
-		PS1="\[$bold\]\[$red\]\u\[$reset\]@\h \[$bold\]\w \[$reset\]\\$  \[$green\]"
-	else
-		# Store colors for later use in $
-		__RED=$red
-		__GREEN=$green
-		PROMPT_COMMAND='(( $? == 0 )) && __DOLLAR="$__GREEN" || __DOLLAR="$__RED"'
-		PS1="\[$bold\]\[$green\]\u\[$reset\]\[$cyan\] @ \[$bold\]\[$blue\][\[$reset\]\[$green\] \h \[$yellow\]:: "
-		PS1="$PS1\[$magenta\](\[$yellow\]$(uname)\[$magenta\])\[$reset\] \[$bold\]\[$blue\]]\[$reset\] "
-		PS1="$PS1\[$cyan\]\w \["'$__DOLLAR'"\]\\$ \[$reset\]"
+# Store `tput` colors for future use to reduce fork+exec
+# the array will be 0-255 for colors, 256 will be sgr0
+COLOR256=()
+COLOR256[256]=$(tput sgr0)
+
+# Colors for use in PS1 that may or may not change when
+# set_prompt_colors is run
+PROMPT_COLORS=()
+
+# Change the prompt colors based on hour of the day
+set_prompt_colors() {
+	local ret=${1:-0}
+	local h=$(date +%H)
+	local color=
+	local i=0
+	local j=0
+	for i in {22..231}; do
+		((i % 30 == h)) || continue
+
+		color=${COLOR256[$i]}
+		# cache the tput colors
+		if [[ -z $color ]]; then
+			COLOR256[$i]=$(tput setaf "$i")
+			color=${COLOR256[$i]}
+		fi
+		PROMPT_COLORS[$j]=$color
+		((j++))
+	done
+
+	if ((ret != 0)); then
+		echo -ne "${PROMPT_COLORS[6]}($ret) ${COLOR256[256]}"
 	fi
 }
-__fancy_prompt
+
+PS1='\[${PROMPT_COLORS[0]}\]\u \[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
+'\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[2]}\]('"$(uname)"') '\
+'$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[3]}\]git:$branch ")'\
+'\[${PROMPT_COLORS[2]}\]] \[${PROMPT_COLORS[5]}\]\w \[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
+
+PROMPT_COMMAND='set_prompt_colors $?;'
+
 # Conditonally output `%\n` based on the current column of the cursor (like zsh)
 __fancy_newline() {
 	if (( $(curcol) != 0 )); then
