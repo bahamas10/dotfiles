@@ -15,10 +15,9 @@ symlink() {
 
 git submodule init
 git submodule update
-#git submodule foreach git pull origin master
 
 # Link dotfiles
-for f in bash_profile bashrc htoprc jshintrc screenrc tmux.conf vimrc vim; do
+for f in bash_profile bashrc gitconfig htoprc jshintrc screenrc tmux.conf vimrc vim; do
 	rm -r ~/."$f"
 	symlink "$PWD/$f" ~/."$f"
 done
