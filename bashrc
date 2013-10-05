@@ -163,6 +163,7 @@ meminfo() {
 
 # Parallel ssh (not really)
 pssh() {
+	local host
 	while read host; do
 		echo -n "$host: "
 		ssh -qn "$host" "$@"
@@ -205,7 +206,6 @@ urlparse() {
 }
 
 # Load external files
-. /etc/bash_completion 2>/dev/null || true
-. ~/.bash_completion   2>/dev/null || true
-. ~/.bash_aliases      2>/dev/null || true
-. ~/.bashrc.local      2>/dev/null || true
+. ~/.bash_completion 2>/dev/null || true
+. ~/.bash_aliases    2>/dev/null || true
+. ~/.bashrc.local    2>/dev/null || true
