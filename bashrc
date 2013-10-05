@@ -51,20 +51,19 @@ alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(s
 alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
 
 # Prompt
-
 # Store `tput` colors for future use to reduce fork+exec
 # the array will be 0-255 for colors, 256 will be sgr0
 COLOR256=()
+COLOR256[0]=$(tput setaf 1)
 COLOR256[256]=$(tput sgr0)
 
 # Colors for use in PS1 that may or may not change when
 # set_prompt_colors is run
 PROMPT_COLORS=()
 
-# Change the prompt colors based on hour of the day
+# Change the prompt colors to a theme, themes are 0-29
 set_prompt_colors() {
-	local ret=${1:-0}
-	local h=$(date +%H)
+	local h=${1:-0}
 	local color=
 	local i=0
 	local j=0
@@ -80,10 +79,6 @@ set_prompt_colors() {
 		PROMPT_COLORS[$j]=$color
 		((j++))
 	done
-
-	if ((ret != 0)); then
-		echo -ne "${PROMPT_COLORS[6]}($ret) ${COLOR256[256]}"
-	fi
 }
 
 PS1='\[${PROMPT_COLORS[0]}\]\u \[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
@@ -91,7 +86,18 @@ PS1='\[${PROMPT_COLORS[0]}\]\u \[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][
 '$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[3]}\]git:$branch ")'\
 '\[${PROMPT_COLORS[2]}\]] \[${PROMPT_COLORS[5]}\]\w \[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
 
-PROMPT_COMMAND='set_prompt_colors $?;'
+# set the theme
+set_prompt_colors 3
+
+# print the exit code if nonzero
+PROMPT_COMMAND='print_return_code $?; '
+
+print_return_code() {
+	local ret=${1:-0}
+	if ((ret != 0)); then
+		echo -ne "${COLOR256[0]}($ret) ${COLOR256[256]}"
+	fi
+}
 
 # Conditonally output `%\n` based on the current column of the cursor (like zsh)
 __fancy_newline() {
