@@ -1,1 +1,28 @@
+# only complete directories
 complete -d cd pushd rmdir
+
+# tab complete SMF
+_smf() {
+	local cmd=${COMP_WORDS[0]}
+	local word=${COMP_WORDS[COMP_CWORD]}
+	local words=()
+
+	case "$cmd" in
+		svcs)
+			words=($(svcs -Hao fmri | awk -F/ '{print $NF}'))
+			;;
+		svcadm)
+			if (( COMP_CWORD == 1 )); then
+				words=(enable disable restart refresh mark clear milestone)
+			elif (( COMP_CWORD >= 2)); then
+				words=($(svcs -Hao fmri | awk -F/ '{print $NF}'))
+			fi
+			;;
+	esac
+
+	local _word
+	for _word in "${words[@]}"; do
+		[[ "$_word" == "$word"* || -z "$word" ]] && COMPREPLY=("${COMPREPLY[@]}" "$_word")
+	done
+}
+complete -F _smf svcs svcadm
