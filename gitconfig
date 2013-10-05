@@ -3,3 +3,5 @@
 	email = dave@daveeddy.com
 [color]
 	ui = auto
+[push]
+	default = simple
