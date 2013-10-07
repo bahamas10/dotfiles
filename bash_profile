@@ -1,1 +1,1 @@
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+. ~/.bashrc
