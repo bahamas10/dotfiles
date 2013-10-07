@@ -59,9 +59,11 @@ alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
 # the array will be 0-255 for colors, 256 will be sgr0
+# and 256 will be bold
 COLOR256=()
 COLOR256[0]=$(tput setaf 1)
 COLOR256[256]=$(tput sgr0)
+COLOR256[257]=$(tput bold)
 
 # Colors for use in PS1 that may or may not change when
 # set_prompt_colors is run
@@ -87,7 +89,7 @@ set_prompt_colors() {
 	done
 }
 
-PS1='\[${PROMPT_COLORS[0]}\]\u \[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
+PS1='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]\u \[${COLOR256[256]}\]\[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
 '\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[2]}\]('"$(uname)"') '\
 '$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[3]}\]git:$branch ")'\
 '\[${PROMPT_COLORS[2]}\]] \[${PROMPT_COLORS[5]}\]\w \[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
