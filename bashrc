@@ -14,7 +14,7 @@ export EDITOR='vim'
 export GREP_COLOR='1;36'
 export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
-export LSCOLORS='gxfxbEaEBxxEhEhBaDaCaD'
+export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
 export PATH="$PATH:$HOME/bin"
 export TZ='US/Eastern'
