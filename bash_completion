@@ -1,5 +1,8 @@
-# only complete directories
+complete -A shopt shopt
+complete -A helptopic help
+complete -a alias
 complete -d cd pushd rmdir
+complete -f cat less
 
 # tab complete SMF
 _smf() {
