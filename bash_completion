@@ -1,7 +1,11 @@
 # standard completions
+complete -A binding bind
+complete -A setopt set
 complete -A shopt shopt
 complete -A helptopic help
-complete -a alias
+complete -a alias unalias
+complete -b builtin
+complete -c type which
 complete -cf man sudo
 complete -d cd pushd rmdir
 
