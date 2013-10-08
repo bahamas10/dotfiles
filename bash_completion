@@ -4,7 +4,6 @@ complete -A helptopic help
 complete -a alias
 complete -cf man sudo
 complete -d cd pushd rmdir
-complete -f cat less
 
 # tab complete SMF
 _smf() {
