@@ -89,23 +89,18 @@ set_prompt_colors() {
 	done
 }
 
-PS1='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]\u \[${COLOR256[256]}\]\[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
-'\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[2]}\]('"$(uname)"') '\
-'$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[4]}\]:: \[${PROMPT_COLORS[3]}\]git:$branch ")'\
-'\[${PROMPT_COLORS[2]}\]] \[${PROMPT_COLORS[5]}\]\w \[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
+PS1='$(ret=$?;(($ret!=0)) && echo "${COLOR256[0]}($ret) ${COLOR256[256]}")'\
+'\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u \[${COLOR256[256]}\]'\
+'\[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
+'\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: '\
+'\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[2]}\]'"$(uname)"'\[${PROMPT_COLORS[2]}\]) '\
+'\[${PROMPT_COLORS[2]}\]] '\
+'\[${PROMPT_COLORS[5]}\]\w '\
+'$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$branch\[${PROMPT_COLORS[2]}\]) ")'\
+'\[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
 
 # set the theme
 set_prompt_colors 3
-
-# print the exit code if nonzero
-PROMPT_COMMAND='print_return_code $?; '
-
-print_return_code() {
-	local ret=${1:-0}
-	if ((ret != 0)); then
-		echo -ne "${COLOR256[0]}($ret) ${COLOR256[256]}"
-	fi
-}
 
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
