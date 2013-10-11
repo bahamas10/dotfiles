@@ -19,3 +19,6 @@
 [submodule "basher-plugins/bash-interactivity"]
 	path = basher-plugins/bash-interactivity
 	url = git://github.com/bahamas10/bash-interactivity.git
+[submodule "vim/bundle/vim-node.js"]
+	path = vim/bundle/vim-node.js
+	url = https://github.com/mmalecki/vim-node.js
