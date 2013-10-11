@@ -150,6 +150,37 @@ interfaces() {
 	EOF
 }
 
+# Total the billable amount in Manta
+mbillable() {
+	mget -q ~~/reports/usage/storage/latest |\
+	json storage.public.bytes storage.stor.bytes |\
+	awk '
+	{
+		s += $1;
+	}
+	END {
+		billable = (s / 1024 / 1024 / 1024) + 1;
+		human = s;
+		units = "B";
+		if (s > 1024 * 1024 * 1024 * 1024) {
+			human = s / 1024 / 1024 / 1024 / 1024;
+			units = "TB";
+		} else if (s > 1024 * 1024 * 1024) {
+			human = s / 1024 / 1024 / 1024;
+			units = "GB";
+		} else if (s > 1024 * 1024) {
+			human = s / 1024 / 1024;
+			units = "MB";
+		} else if (s > 1024) {
+			human = s / 1024;
+			units = "KB";
+		}
+		printf("%s => using %d %s (%d GB billable)\n",
+		ENVIRON["MANTA_USER"], human, units, billable);
+	}
+	'
+}
+
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
