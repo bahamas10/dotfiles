@@ -41,10 +41,12 @@ shopt -s checkwinsize
 shopt -s extglob
 
 # Bash Version >= 4
-shopt -s autocd   2>/dev/null || alias ..='cd ..'
+shopt -s autocd   2>/dev/null || true
 shopt -s dirspell 2>/dev/null || true
 
 # Aliases
+alias ..='cd ..'
+alias bssh='dns-sd -B _ssh._tcp .'
 alias cpp2c="sed -e 's#//\(.*\)#/*\1 */#'"
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
