@@ -6,7 +6,7 @@
 [[ -z $PS1 ]] && return
 
 # Load basher, plugins found in basher-plugins
-. ~/.basher/basher || echo '> failed to load basher'
+. ~/.basher/basher || echo '> failed to load basher' >&2
 
 # Set environment
 export BROWSER='chromium'
@@ -45,7 +45,7 @@ shopt -s autocd   2>/dev/null || true
 shopt -s dirspell 2>/dev/null || true
 
 # Aliases
-alias ..='cd ..'
+alias ..='echo "cd .."; cd ..'
 alias bssh='dns-sd -B _ssh._tcp .'
 alias cpp2c="sed -e 's#//\(.*\)#/*\1 */#'"
 alias chomd='chmod'
