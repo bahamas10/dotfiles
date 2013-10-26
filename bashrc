@@ -20,7 +20,15 @@ export PATH="$PATH:$HOME/bin"
 export TZ='US/Eastern'
 export VISUAL='vim'
 
-# support colors in less
+# Joyent Manta
+export MANTA_USER='bahamas10'
+export MANTA_URL='https://us-east.manta.joyent.com'
+export MANTA_KEY_ID=$(ssh-add -l 2>/dev/null | awk '{ print $2 }')
+if [[ -z $MANTA_KEY_ID ]]; then
+	MANTA_KEY_ID=$(ssh-keygen -l -f ~/.ssh/id_rsa.pub | awk '{print $2}')
+fi
+
+# Support colors in less
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
 export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
 export LESS_TERMCAP_me=$(tput sgr0)
