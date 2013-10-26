@@ -25,7 +25,7 @@ export MANTA_USER='bahamas10'
 export MANTA_URL='https://us-east.manta.joyent.com'
 export MANTA_KEY_ID=$(ssh-add -l 2>/dev/null | awk '{ print $2 }')
 if [[ -z $MANTA_KEY_ID ]]; then
-	MANTA_KEY_ID=$(ssh-keygen -l -f ~/.ssh/id_rsa.pub | awk '{print $2}')
+	MANTA_KEY_ID=$(ssh-keygen -l -f ~/.ssh/id_rsa.pub 2>/dev/null | awk '{print $2}')
 fi
 
 # Support colors in less
