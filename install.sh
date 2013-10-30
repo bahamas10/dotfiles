@@ -44,4 +44,5 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write -g ApplePressAndHoldEnabled -bool false
 	defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 	defaults write -g NSScrollViewRubberbanding -int 0
+	chflags nohidden ~/Library
 fi
