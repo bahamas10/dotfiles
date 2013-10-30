@@ -41,4 +41,5 @@ fi
 if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.finder _FXShowPosixPathInTitle Yes
 	defaults write com.apple.dashboard mcx-disabled -boolean YES
+	defaults write -g ApplePressAndHoldEnabled -bool false
 fi
