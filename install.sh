@@ -50,7 +50,9 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Disable all window animations
 	defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 	# Disable elastic scroll
-	defaults write -g NSScrollViewRubberbanding -int 0
+	#defaults write -g NSScrollViewRubberbanding -int 0
+	# XXX it makes going back weird, enable it for now i guess ugh
+	defaults delete -g NSScrollViewRubberbanding
 	# Show ~/Library in finder
 	chflags nohidden ~/Library
 fi
