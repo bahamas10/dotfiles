@@ -158,6 +158,17 @@ interfaces() {
 	EOF
 }
 
+# Calculate CPU load / Core Count
+load() {
+	node -p <<-EOF
+	var os = require('os');
+	var c = os.cpus().length;
+	os.loadavg().map(function(l) {
+		return (l/c).toFixed(2);
+	}).join(' ');
+	EOF
+}
+
 # Total the billable amount in Manta
 mbillable() {
 	mget -q ~~/reports/usage/storage/latest |\
