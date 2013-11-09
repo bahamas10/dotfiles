@@ -258,6 +258,9 @@ urlparse() {
 	"
 }
 
+# SmartOS
+/usr/node/bin/node -v &>/dev/null && alias node=/usr/node/bin/node
+
 # Load external files
 . ~/.bash_completion 2>/dev/null || true
 . ~/.bash_aliases    2>/dev/null || true
