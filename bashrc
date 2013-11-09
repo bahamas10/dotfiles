@@ -16,7 +16,7 @@ export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
 export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/bin:/usr/node/bin"
 export TZ='US/Eastern'
 export VISUAL='vim'
 
@@ -257,9 +257,6 @@ urlparse() {
 	console.log(JSON.stringify(url.parse(stdin, true), null, 2));
 	"
 }
-
-# SmartOS
-/usr/node/bin/node -v &>/dev/null && alias node=/usr/node/bin/node
 
 # Load external files
 . ~/.bash_completion 2>/dev/null || true
