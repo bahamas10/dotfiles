@@ -97,7 +97,7 @@ set_prompt_colors() {
 	done
 }
 
-PS1='$(ret=$?;(($ret!=0)) && echo "${COLOR256[0]}($ret) ${COLOR256[256]}")'\
+PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'\
 '\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u \[${COLOR256[256]}\]'\
 '\[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
 '\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: '\
