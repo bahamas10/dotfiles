@@ -231,6 +231,11 @@ remove_percent20() {
 	done
 }
 
+# Turn a Joyent machine alias into the zonename
+ualias() {
+	vmadm list -o uuid -H alias="$1"
+}
+
 # Follow redirects to untiny a tiny url
 untiny() {
 	local location=$1 last_location=
