@@ -200,6 +200,13 @@ mbillable() {
 	'
 }
 
+# Paste bin using manta, requires `mmkdir ~~/public/pastes`
+mpaste() {
+	local mfile=~~/public/pastes/$(date +%s).html
+	pygmentize -f html -O full "$@" | mput "$mfile"
+	echo "$MANTA_URL/$MANTA_USER/${mfile#~~/}"
+}
+
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
