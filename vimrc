@@ -69,6 +69,12 @@ if has("autocmd")
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
 	autocmd filetype                            javascript  set ts=2 sw=2 sts=2 et
 
+	" Objective C / C++
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.m set filetype=objc
+	autocmd filetype                            objc set ts=4 sw=4 sts=4 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.mm set filetype=objcpp
+	autocmd filetype                            objcpp set ts=4 sw=4 sts=4 et
+
 	" Python files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.py   set filetype=python
 	autocmd filetype                            python set ts=4 sw=4 sts=4 et

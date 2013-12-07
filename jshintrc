@@ -2,7 +2,6 @@
   "eqeqeq": true,
   "indent": 2,
   "loopfunc": true,
-  "maxlen": 80,
   "nonew": true,
   "onecase": true,
   "strict": false,
