@@ -22,3 +22,6 @@
 [submodule "vim/bundle/vim-node.js"]
 	path = vim/bundle/vim-node.js
 	url = https://github.com/mmalecki/vim-node.js
+[submodule "vim/bundle/vim-javascript"]
+	path = vim/bundle/vim-javascript
+	url = git://github.com/pangloss/vim-javascript.git

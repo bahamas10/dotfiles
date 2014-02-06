@@ -1,14 +1,16 @@
 {
   "eqeqeq": true,
   "indent": 2,
-  "loopfunc": true,
+  "latedef": "nofunc",
+  "newcap": true,
+  "noarg": true,
+  "nonbsp": true,
   "nonew": true,
-  "onecase": true,
-  "strict": false,
-  "trailing": true,
   "undef": true,
-  "unused": true,
-  "white": false,
+  "unused": "vars",
+  "trailing": true,
+
+  "loopfunc": true,
 
   "node": true
 }
