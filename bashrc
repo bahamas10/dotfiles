@@ -14,6 +14,8 @@ export EDITOR='vim'
 export GREP_COLOR='1;36'
 export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
+export HISTSIZE=5000
+export HISTFILESIZE=5000
 export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
 export PATH="$PATH:$HOME/bin:/usr/node/bin"
