@@ -85,6 +85,9 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight   start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
 
+	" EJS javascript templates
+	autocmd BufNewFile,BufRead,FileReadPre      *.md     set filetype=html
+
 	"highlight clear SpellBad
 	"highlight SpellBad cterm=underline ctermfg=red
 endif
