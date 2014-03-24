@@ -33,8 +33,7 @@ fi
 if [[ -d ~/Library ]]; then
 	mkdir -p ~/Library/KeyBindings
 
-	f='DefaultKeyBinding.dict'
-	symlink "$PWD/$f" ~/Library/KeyBindings/"$f"
+	symlink "$PWD/DefaultKeyBinding.dict" ~/Library/KeyBindings/DefaultKeyBinding.dict
 fi
 
 # Mac OS X NSUserDefaults modifications

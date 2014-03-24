@@ -1,9 +1,6 @@
 [submodule "vim/bundle/vim-pathogen"]
 	path = vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
-[submodule "vim/bundle/vim-tomorrow-theme"]
-	path = vim/bundle/vim-tomorrow-theme
-	url = https://github.com/chriskempson/vim-tomorrow-theme
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
@@ -22,3 +19,6 @@
 [submodule "vim/bundle/vim-node.js"]
 	path = vim/bundle/vim-node.js
 	url = https://github.com/mmalecki/vim-node.js
+[submodule "vim/bundle/vim-flavored-markdown"]
+	path = vim/bundle/vim-flavored-markdown
+	url = git://github.com/jtratner/vim-flavored-markdown.git

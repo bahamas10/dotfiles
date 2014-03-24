@@ -34,12 +34,10 @@ set title			" Set the title
 " ---------------------------------------------
 " Theme / Color Scheme
 " ---------------------------------------------
-"set background=dark            " Light background is best
 set background=light            " Light background is best
-"colorscheme Tomorrow-Night      " https://github.com/chriskempson/tomorrow-theme
 
 " ---------------------------------------------
-" Distribution Specefic Options
+" Distribution Specific Options
 " ---------------------------------------------
 runtime! debian.vim
 
@@ -59,10 +57,12 @@ if has("autocmd")
 	filetype plugin indent on
 	set autoindent
 
-	" Puppet manifests
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp set ts=2 sw=2 sts=2 et filetype=puppet
+	" Puppet Manifests
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp   set filetype=puppet
+	autocmd filetype                            puppet set ts=2 sw=2 sts=2 et
 
 	" Chef/Ruby
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.rb set filetype=ruby
 	autocmd filetype                            ruby set ts=2 sw=2 sts=2 et
 
 	" JavaScript files
@@ -70,9 +70,9 @@ if has("autocmd")
 	autocmd filetype                            javascript  set ts=2 sw=2 sts=2 et
 
 	" Objective C / C++
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.m set filetype=objc
-	autocmd filetype                            objc set ts=4 sw=4 sts=4 et
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.mm set filetype=objcpp
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.m    set filetype=objc
+	autocmd filetype                            objc   set ts=4 sw=4 sts=4 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.mm   set filetype=objcpp
 	autocmd filetype                            objcpp set ts=4 sw=4 sts=4 et
 
 	" Python files
@@ -80,16 +80,14 @@ if has("autocmd")
 	autocmd filetype                            python set ts=4 sw=4 sts=4 et
 
 	" Markdown files
-	autocmd BufNewFile,BufRead,FileReadPre      *.md     set filetype=markdown
-	autocmd filetype                            markdown set ts=4 sw=4 sts=4 et spell
-	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
-	autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight   start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
+	autocmd BufNewFile,BufRead,FileReadPre      *.md,*.markdown set filetype=ghmarkdown
+	autocmd filetype                            ghmarkdown      set ts=4 sw=4 sts=4 et spell
+	" Jekyll posts ignore yaml headers
+	"autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
+	"autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
 
 	" EJS javascript templates
-	autocmd BufNewFile,BufRead,FileReadPre      *.md     set filetype=html
-
-	"highlight clear SpellBad
-	"highlight SpellBad cterm=underline ctermfg=red
+	autocmd BufNewFile,BufRead,FileReadPre      *.ejs set filetype=html
 endif
 
 " ---------------------------------------------
@@ -97,6 +95,20 @@ endif
 " ---------------------------------------------
 highlight RedundantWhitespace ctermbg=green guibg=green
 match RedundantWhitespace /\s\+$\| \+\ze\t/
+
+
+" ---------------------------------------------
+" Spell Check Settings
+" ---------------------------------------------
+set spelllang=en
+highlight clear SpellBad
+highlight SpellBad term=standout cterm=underline ctermfg=red
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
 
 " ---------------------------------------------
 " Source local config
