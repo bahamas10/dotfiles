@@ -10,3 +10,7 @@ plugins
 symlink
 dotfiles
 namespace
+posix
+builtin
+subshell
+filesystem
