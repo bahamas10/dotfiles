@@ -5,8 +5,8 @@
 # If not running interactively, don't do anything
 [[ -z $PS1 ]] && return
 
-# Load basher, plugins found in basher-plugins
-. ~/.basher/basher || echo '> failed to load basher' >&2
+# Load bics, plugins found in bics-plugins
+. ~/.bics/bics || echo '> failed to load bics' >&2
 
 # Set environment
 export BROWSER='chromium'

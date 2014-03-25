@@ -24,9 +24,9 @@ done
 
 # Setup basher
 if [[ ! -d ~/.basher ]]; then
-	bash <(curl -sS https://raw.github.com/bahamas10/basher/master/basher) init
-	rm -r ~/.basher/plugins
-	symlink "$PWD/basher-plugins" ~/.basher/plugins
+	bash <(curl -sS https://raw.github.com/bahamas10/bics/master/bics) init
+	rm -r ~/.bics/plugins
+	symlink "$PWD/bics-plugins" ~/.bics/plugins
 fi
 
 # Keyboard shortcuts for Mac OS X
