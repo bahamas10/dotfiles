@@ -39,11 +39,11 @@ fi
 # Mac OS X NSUserDefaults modifications
 if defaults read com.apple.finder &>/dev/null; then
 	# Full POSIX path in finder windows
-	defaults write com.apple.finder _FXShowPosixPathInTitle Yes
+	defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 	# Disable dashboard
-	defaults write com.apple.dashboard mcx-disabled -boolean YES
+	defaults write com.apple.dashboard mcx-disabled -bool true
 	# Disable the ugly mavericks dock appearance
-	defaults write com.apple.dock hide-mirror  -bool true
+	defaults write com.apple.dock hide-mirror -bool true
 	# Reenable key repeat for pressing and holding keys
 	defaults write -g ApplePressAndHoldEnabled -bool false
 	# Disable all window animations
@@ -51,7 +51,6 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Disable elastic scroll
 	#defaults write -g NSScrollViewRubberbanding -int 0
 	# XXX it makes going back weird, enable it for now i guess ugh
-	defaults delete -g NSScrollViewRubberbanding
 	# Show ~/Library in finder
 	chflags nohidden ~/Library
 fi
