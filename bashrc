@@ -140,6 +140,11 @@ epoch() {
 	node -pe "new Date($num);"
 }
 
+# geoip from shaggly-rl
+geoip() {
+	curl -s "http://api.hostip.info/get_html.php?ip=$1&position=true"
+}
+
 # Platform-independent interfaces
 interfaces() {
 	node <<-EOF
