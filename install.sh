@@ -22,8 +22,8 @@ for f in bash_completion bash_profile bashrc gitconfig htoprc jshintrc screenrc 
 	symlink "$PWD/$f" ~/."$f"
 done
 
-# Setup basher
-if [[ ! -d ~/.basher ]]; then
+# Setup bics
+if [[ ! -d ~/.bics ]]; then
 	bash <(curl -sS https://raw.github.com/bahamas10/bics/master/bics) init
 	rm -r ~/.bics/plugins
 	symlink "$PWD/bics-plugins" ~/.bics/plugins
