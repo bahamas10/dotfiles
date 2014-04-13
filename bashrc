@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Best bashrc in history
 #
 # Dave Eddy <dave@daveeddy.com>
@@ -99,11 +100,19 @@ set_prompt_colors() {
 	done
 }
 
+_roles=($(grep -v base /voxer/etc/node/roles 2>/dev/null))
+if [[ -n $_roles ]]; then
+	IFS='|'; _roles="${_roles[*]}"; unset IFS
+_roles='\[${PROMPT_COLORS[4]}\]:: '\
+'\[${PROMPT_COLORS[5]}\]{\[${PROMPT_COLORS[2]}\]'"$_roles"'\[${PROMPT_COLORS[5]}\]} '
+fi
+
 PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'\
 '\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u \[${COLOR256[256]}\]'\
 '\[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
 '\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: '\
 '\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[2]}\]'"$(uname)"'\[${PROMPT_COLORS[2]}\]) '\
+"$_roles"\
 '\[${PROMPT_COLORS[2]}\]] '\
 '\[${PROMPT_COLORS[5]}\]\w '\
 '$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$branch\[${PROMPT_COLORS[2]}\]) ")'\
