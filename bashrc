@@ -63,9 +63,9 @@ alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
-alias lsnpm='npm ls -g --depth=0'
-alias urldecode="python -c 'import sys;import urllib as u;print u.unquote_plus(sys.stdin.read());'"
-alias urlencode="python -c 'import sys;import urllib as u;print u.quote_plus(sys.stdin.read());'"
+alias newbranch='git checkout -b "dave-$(date +%s)"'
+alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
+alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
