@@ -60,7 +60,7 @@ alias cpp2c="sed -e 's#//\(.*\)#/*\1 */#'"
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
-alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state"
+alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias newbranch='git checkout -b "dave-$(date +%s)"'
