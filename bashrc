@@ -138,7 +138,7 @@ colordiff() {
 	local red=$(tput setaf 1 2>/dev/null)
 	local green=$(tput setaf 2 2>/dev/null)
 	local magenta=$(tput setaf 5 2>/dev/null)
-	local reset=$(tput sgr0)
+	local reset=$(tput sgr0 2>/dev/null)
 	diff -u "$@" | awk "
 	/^\-/ {
 		printf(\"%s\", \"$red\");
