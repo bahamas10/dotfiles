@@ -24,7 +24,7 @@ done
 
 # Setup bics
 if [[ ! -d ~/.bics ]]; then
-	bash <(curl -sS https://raw.github.com/bahamas10/bics/master/bics) init
+	bash <(curl -sSL https://raw.githubusercontent.com/bahamas10/bics/master/bics) init
 	rm -r ~/.bics/plugins
 	symlink "$PWD/bics-plugins" ~/.bics/plugins
 fi
