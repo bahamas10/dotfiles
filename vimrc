@@ -49,13 +49,12 @@ iab me:: Dave Eddy <dave@daveeddy.com>
 " ---------------------------------------------
 " File/Indenting and Syntax Highlighting
 " ---------------------------------------------
+filetype plugin indent on
+set autoindent
 if has("autocmd")
-	" Jump to previous cursor location
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-	" Enable filetype indenting
-	filetype plugin indent on
-	set autoindent
+	" Jump to previous cursor location, unless it's a commit message
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	autocmd BufReadPost COMMIT_EDITMSG exe "normal! gg"
 
 	" Puppet Manifests
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp   set filetype=puppet
@@ -95,7 +94,6 @@ endif
 " ---------------------------------------------
 highlight RedundantWhitespace ctermbg=green guibg=green
 match RedundantWhitespace /\s\+$\| \+\ze\t/
-
 
 " ---------------------------------------------
 " Spell Check Settings
