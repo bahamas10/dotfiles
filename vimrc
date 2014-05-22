@@ -82,8 +82,8 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead,FileReadPre      *.md,*.markdown set filetype=ghmarkdown
 	autocmd filetype                            ghmarkdown      set ts=4 sw=4 sts=4 et spell
 	" Jekyll posts ignore yaml headers
-	"autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
-	"autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
+	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
+	autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
 
 	" EJS javascript templates
 	autocmd BufNewFile,BufRead,FileReadPre      *.ejs set filetype=html
