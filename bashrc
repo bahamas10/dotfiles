@@ -63,7 +63,7 @@ alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
-alias newbranch='git checkout -b "dave-$(date +%s)"'
+alias newbranch='git checkout -b "$USER-$(date +%s)"'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 
