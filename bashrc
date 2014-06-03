@@ -63,9 +63,13 @@ alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
-alias newbranch='git checkout -b "$USER-$(date +%s)"'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
+
+# Git Aliases
+alias ga='git add . --all'
+alias gb='git checkout -b "$USER-$(date +%s)"'
+alias gp='git push origin HEAD'
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
@@ -258,23 +262,6 @@ meminfo() {
 	    Math.round(total / 1024 / 1024),
 	    Math.round(used * 100 / total));
 	EOF
-}
-
-# Parallel ssh (not really)
-pssh() {
-	local host
-	while read host; do
-		echo -n "$host: "
-		ssh -qn "$host" "$@"
-	done
-}
-
-# Remove percent20 from filenames in the current dir
-remove_percent20() {
-	local f
-	for f in *%20*; do
-		mv -v "$f" "${f//\%20/ }"
-	done
 }
 
 # Turn a Joyent machine alias into the zonename
