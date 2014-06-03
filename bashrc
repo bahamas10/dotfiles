@@ -215,7 +215,7 @@ load() {
 # Total the billable amount in Manta
 mbillable() {
 	mget -q ~~/reports/usage/storage/latest |\
-	json storage.public.bytes storage.stor.bytes |\
+	json storage | json public.bytes stor.bytes reports.bytes jobs.bytes |\
 	awk '
 	{
 		s += $1;
