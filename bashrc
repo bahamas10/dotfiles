@@ -69,6 +69,9 @@ alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/de
 # Git Aliases
 alias ga='git add . --all'
 alias gb='git checkout -b "$USER-$(date +%s)"'
+alias gco='git checkout'
+alias gci='git commit'
+alias gd='git pull' # gd = git down
 alias gp='git push origin HEAD'
 
 # Prompt
