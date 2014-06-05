@@ -73,6 +73,7 @@ alias gco='git checkout'
 alias gci='git commit'
 alias gd='git pull' # gd = git down
 alias gp='git push origin HEAD'
+alias gs='git status'
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
