@@ -74,6 +74,7 @@ alias gci='git commit'
 alias gd='git pull' # gd = git down
 alias gp='git push origin HEAD'
 alias gs='git status'
+alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
