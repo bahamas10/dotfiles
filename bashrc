@@ -67,11 +67,12 @@ alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/de
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 
 # Git Aliases
+alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
-alias gb='git checkout -b "$USER-$(date +%s)"'
 alias gco='git checkout'
-alias gci='git commit'
-alias gd='git pull' # gd = git down
+alias gcm='git checkout master'
+alias gci='git commit -a'
+alias gu='git pull' # gu = git update
 alias gp='git push origin HEAD'
 alias gs='git status'
 alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
