@@ -70,7 +70,7 @@ alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/de
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
 alias gco='git checkout'
-alias gcm='git checkout master'
+alias gcm='git checkout master && git pull'
 alias gci='git commit -a'
 alias gu='git pull' # gu = git update
 alias gp='git push origin HEAD'
