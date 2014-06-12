@@ -69,13 +69,13 @@ alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/de
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
-alias gco='git checkout'
-alias gcm='git checkout master && git pull'
 alias gci='git commit -a'
-alias gu='git pull' # gu = git update
+alias gcm='git checkout master && git pull'
+alias gco='git checkout'
+alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
 alias gp='git push origin HEAD'
 alias gs='git status'
-alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
+alias gu='git pull' # gu = git update
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
