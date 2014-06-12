@@ -73,6 +73,7 @@ alias gci='git commit -a'
 alias gcm='git checkout master && git pull'
 alias gco='git checkout'
 alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
+alias gmm='git merge master'
 alias gp='git push origin HEAD'
 alias gs='git status'
 alias gu='git pull' # gu = git update
