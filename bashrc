@@ -112,7 +112,7 @@ set_prompt_colors() {
 	done
 }
 
-_roles=($(grep -v base /voxer/etc/node/roles 2>/dev/null))
+_roles=($(grep -v 'base\|personal-dev' /voxer/etc/node/roles 2>/dev/null))
 if [[ -n $_roles ]]; then
 	IFS='|'; _roles="${_roles[*]}"; unset IFS
 _roles='\[${PROMPT_COLORS[4]}\]:: '\
