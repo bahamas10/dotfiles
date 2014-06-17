@@ -305,6 +305,11 @@ urlparse() {
 }
 
 # Load external files
-. ~/.bash_completion 2>/dev/null || true
 . ~/.bash_aliases    2>/dev/null || true
 . ~/.bashrc.local    2>/dev/null || true
+
+# load completion
+. /etc/bash/bash_completion 2>/dev/null ||
+	. ~/.bash_completion 2>/dev/null
+
+true
