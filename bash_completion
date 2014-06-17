@@ -45,6 +45,3 @@ _smf() {
 	COMPREPLY=($(compgen -W "${words[*]}" -- "$word"))
 }
 complete -F _smf svcs svcadm svccfg
-
-# SmartOS
-. /etc/bash/bash_completion &>/dev/null
