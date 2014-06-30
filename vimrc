@@ -41,7 +41,7 @@ set background=light            " Light background is best
 " ---------------------------------------------
 " Abbreviations
 " ---------------------------------------------
-iab <expr> me:: strftime("Author: Dave Eddy <dave@daveeddy.com><cr>Date: %B %d, %Y")
+iab <expr> me:: strftime("Author: Dave Eddy <dave@daveeddy.com><cr>Date: %B %d, %Y<cr>License: MIT")
 
 " ---------------------------------------------
 " File/Indenting and Syntax Highlighting
