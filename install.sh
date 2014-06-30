@@ -32,7 +32,6 @@ fi
 # Keyboard shortcuts for Mac OS X
 if [[ -d ~/Library ]]; then
 	mkdir -p ~/Library/KeyBindings
-
 	symlink "$PWD/DefaultKeyBinding.dict" ~/Library/KeyBindings/DefaultKeyBinding.dict
 fi
 
