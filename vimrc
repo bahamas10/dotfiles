@@ -20,8 +20,10 @@ syntax on
 " ---------------------------------------------
 " Vim Options
 " ---------------------------------------------
+set autoindent			" Default to indenting files
 set backspace=indent,eol,start	" Backspace all characters
 set hlsearch			" Highlight search results
+set listchars=tab:▸\ ,eol:¬     " Characters for :set list, http://vimcasts.org/episodes/show-invisibles/
 set nonumber			" Disable line numbers
 set nostartofline		" Do not jump to first character with page commands
 set ruler			" Enable the ruler
@@ -37,56 +39,51 @@ set title			" Set the title
 set background=light            " Light background is best
 
 " ---------------------------------------------
-" Distribution Specific Options
-" ---------------------------------------------
-runtime! debian.vim
-
-" ---------------------------------------------
 " Abbreviations
 " ---------------------------------------------
-iab me:: Dave Eddy <dave@daveeddy.com>
+iab <expr> me:: strftime("Author: Dave Eddy <dave@daveeddy.com><cr>Date: %B %d, %Y")
 
 " ---------------------------------------------
 " File/Indenting and Syntax Highlighting
 " ---------------------------------------------
-filetype plugin indent on
-set autoindent
 if has("autocmd")
+	filetype plugin indent on
+
 	" Jump to previous cursor location, unless it's a commit message
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 	autocmd BufReadPost COMMIT_EDITMSG exe "normal! gg"
 
 	" Puppet Manifests
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp   set filetype=puppet
-	autocmd filetype                            puppet set ts=2 sw=2 sts=2 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp   setlocal filetype=puppet
+	autocmd FileType                            puppet setlocal sw=2 sts=2 et
 
 	" Chef/Ruby
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.rb set filetype=ruby
-	autocmd filetype                            ruby set ts=2 sw=2 sts=2 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.rb setlocal filetype=ruby
+	autocmd FileType                            ruby setlocal sw=2 sts=2 et
 
 	" JavaScript files
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js set filetype=javascript
-	autocmd filetype                            javascript  set ts=2 sw=2 sts=2 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js setlocal filetype=javascript
+	autocmd FileType                            javascript  setlocal sw=2 sts=2 et
 
 	" Objective C / C++
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.m    set filetype=objc
-	autocmd filetype                            objc   set ts=4 sw=4 sts=4 et
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.mm   set filetype=objcpp
-	autocmd filetype                            objcpp set ts=4 sw=4 sts=4 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.m    setlocal filetype=objc
+	autocmd FileType                            objc   setlocal sw=4 sts=4 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.mm   setlocal filetype=objcpp
+	autocmd FileType                            objcpp setlocal sw=4 sts=4 et
 
 	" Python files
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.py   set filetype=python
-	autocmd filetype                            python set ts=4 sw=4 sts=4 et
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.py   setlocal filetype=python
+	autocmd FileType                            python setlocal sw=4 sts=4 et
 
 	" Markdown files
-	autocmd BufNewFile,BufRead,FileReadPre      *.md,*.markdown set filetype=ghmarkdown
-	autocmd filetype                            ghmarkdown      set ts=4 sw=4 sts=4 et spell
+	autocmd BufNewFile,BufRead,FileReadPre      *.md,*.markdown setlocal filetype=ghmarkdown
+	autocmd FileType                            ghmarkdown      setlocal sw=4 sts=4 et spell
 	" Jekyll posts ignore yaml headers
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
 
 	" EJS javascript templates
-	autocmd BufNewFile,BufRead,FileReadPre      *.ejs set filetype=html
+	autocmd BufNewFile,BufRead,FileReadPre      *.ejs setlocal filetype=html
 endif
 
 " ---------------------------------------------
