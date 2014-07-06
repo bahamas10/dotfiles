@@ -21,6 +21,7 @@ export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
 export PATH="$PATH:$HOME/bin:/usr/node/bin"
 export SSHP_NO_RAINBOW=1
+export SSHP_TRIM=1
 export TZ='US/Eastern'
 export VISUAL='vim'
 
