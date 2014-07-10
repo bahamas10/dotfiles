@@ -21,6 +21,7 @@ export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
 export PATH="$PATH:$HOME/bin:/usr/node/bin"
 export SSHP_NO_RAINBOW=1
+export SSHP_TRIM=1
 export TZ='US/Eastern'
 export VISUAL='vim'
 
@@ -70,11 +71,14 @@ alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/de
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
+alias gb='git branch'
 alias gci='git commit -a'
 alias gcm='git checkout master && git pull'
 alias gco='git checkout'
 alias gd='git diff'
 alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
+alias gi='git init'
+alias gl='git log'
 alias gmm='git merge master'
 alias gp='git push origin HEAD'
 alias gs='git status'
