@@ -41,10 +41,10 @@ if defaults read com.apple.finder &>/dev/null; then
 	### Global
 
 	# Set a shorter Delay until key repeat
-	defaults write -g InitialKeyRepeat -int 12
+	defaults write -g InitialKeyRepeat -int 15
 
-	# Set a blazingly fast keyboard repeat rate
-	defaults write -g KeyRepeat -int 0
+	# Set a fast keyboard repeat rate
+	defaults write -g KeyRepeat -int 2
 
 	# Reenable key repeat for pressing and holding keys
 	defaults write -g ApplePressAndHoldEnabled -bool false
