@@ -88,7 +88,7 @@ alias gu='git pull' # gu = git update
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
 # the array will be 0-255 for colors, 256 will be sgr0
-# and 256 will be bold
+# and 257 will be bold
 COLOR256=()
 COLOR256[0]=$(tput setaf 1)
 COLOR256[256]=$(tput sgr0)
@@ -118,20 +118,10 @@ set_prompt_colors() {
 	done
 }
 
-_roles=($(grep -v 'base\|personal-dev' /voxer/etc/node/roles 2>/dev/null))
-if [[ -n $_roles ]]; then
-	IFS='|'; _roles="${_roles[*]}"; unset IFS
-_roles='\[${PROMPT_COLORS[4]}\]:: '\
-'\[${PROMPT_COLORS[5]}\]{\[${PROMPT_COLORS[2]}\]'"$_roles"'\[${PROMPT_COLORS[5]}\]} '
-fi
-
 PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'\
-'\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u \[${COLOR256[256]}\]'\
-'\[${PROMPT_COLORS[1]}\]@ \[${PROMPT_COLORS[2]}\][ '\
-'\[${PROMPT_COLORS[3]}\]\h \[${PROMPT_COLORS[4]}\]:: '\
-'\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[2]}\]'"$(uname)"'\[${PROMPT_COLORS[2]}\]) '\
-"$_roles"\
-'\[${PROMPT_COLORS[2]}\]] '\
+'\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] '\
+'- \[${PROMPT_COLORS[3]}\]\h\[${PROMPT_COLORS[4]}\] '\
+'\[${PROMPT_COLORS[2]}\]\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"'\[${PROMPT_COLORS[2]}\] '\
 '\[${PROMPT_COLORS[5]}\]\w '\
 '$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$branch\[${PROMPT_COLORS[2]}\]) ")'\
 '\[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
