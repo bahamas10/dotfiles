@@ -193,5 +193,8 @@ if defaults read com.apple.finder &>/dev/null; then
 		'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
 		'{"enabled" = 0;"name" = "SOURCE";}'
 
+	# Disable autosave for Preview
+	defaults write com.apple.Preview ApplePersistence -bool no
+
 	killall Dock Finder
 fi
