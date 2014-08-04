@@ -83,6 +83,7 @@ alias gl='git log'
 alias gmm='git merge master'
 alias gp='git push origin HEAD'
 alias gs='git status'
+alias gt='git tag'
 alias gu='git pull' # gu = git update
 
 # Prompt
