@@ -17,7 +17,7 @@ git submodule init
 git submodule update
 
 # Link dotfiles
-for f in bash_completion bash_profile bashrc gitconfig htoprc jshintrc screenrc tmux.conf vimrc vim; do
+for f in bash_history bash_completion bash_profile bashrc gitconfig htoprc jshintrc screenrc tmux.conf vimrc vim; do
 	rm -r ~/."$f"
 	symlink "$PWD/$f" ~/."$f"
 done
