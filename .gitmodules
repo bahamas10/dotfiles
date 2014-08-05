@@ -1,9 +1,9 @@
 [submodule "vim/bundle/vim-pathogen"]
 	path = vim/bundle/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen
+	url = git://github.com/tpope/vim-pathogen
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
+	url = git://github.com/scrooloose/syntastic.git
 [submodule "bics-plugins/bash-cdstack"]
 	path = bics-plugins/bash-cdstack
 	url = git://github.com/bahamas10/bash-cdstack.git
@@ -18,7 +18,7 @@
 	url = git://github.com/bahamas10/bash-interactivity.git
 [submodule "vim/bundle/vim-node.js"]
 	path = vim/bundle/vim-node.js
-	url = https://github.com/mmalecki/vim-node.js
+	url = git://github.com/mmalecki/vim-node.js
 [submodule "vim/bundle/vim-flavored-markdown"]
 	path = vim/bundle/vim-flavored-markdown
 	url = git://github.com/jtratner/vim-flavored-markdown.git
