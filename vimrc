@@ -23,7 +23,7 @@ syntax on
 set autoindent			" Default to indenting files
 set backspace=indent,eol,start	" Backspace all characters
 set hlsearch			" Highlight search results
-set listchars=tab:▸\ ,eol:¬     " Characters for :set list, http://vimcasts.org/episodes/show-invisibles/
+"set listchars=tab:▸\ ,eol:¬     " Characters for :set list, http://vimcasts.org/episodes/show-invisibles/
 set nonumber			" Disable line numbers
 set nostartofline		" Do not jump to first character with page commands
 set ruler			" Enable the ruler

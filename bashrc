@@ -31,20 +31,40 @@ export MANTA_URL=${MANTA_URL:-https://us-east.manta.joyent.com}
 export MANTA_KEY_ID=${MANTA_KEY_ID:-$(ssh-add -l 2>/dev/null | awk '{ print $2 }')}
 export MANTA_KEY_ID=${MANTA_KEY_ID:-$(ssh-keygen -l -f ~/.ssh/id_rsa.pub 2>/dev/null | awk '{print $2}')}
 
+# cross-platform sane tput
+_tput() {
+	tput "$@" && return
+	local args=("$@")
+	case "$1" in
+		setaf) args[0]=AF;;
+		setab) args[0]=AB;;
+		sgr0) args[0]=me;;
+		bold) args[0]=md;;
+		smul) args[0]=us;;
+		rev) args[0]=rev;; # unknown
+		rmul) args[0]=ue;;
+		smso) args[0]=so;;
+		sitm) args[0]=ZH;;
+		ritm) args[0]=ZR;;
+	esac
+	tput "${args[@]}"
+
+}
+
 # Support colors in less
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_se=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
-export LESS_TERMCAP_ue=$(tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 2)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-export LESS_TERMCAP_ZN=$(tput ssubm)
-export LESS_TERMCAP_ZV=$(tput rsubm)
-export LESS_TERMCAP_ZO=$(tput ssupm)
-export LESS_TERMCAP_ZW=$(tput rsupm)
+export LESS_TERMCAP_mb=$(_tput bold; _tput setaf 1)
+export LESS_TERMCAP_md=$(_tput bold; _tput setaf 1)
+export LESS_TERMCAP_me=$(_tput sgr0)
+export LESS_TERMCAP_se=$(_tput sgr0)
+export LESS_TERMCAP_so=$(_tput bold; _tput setaf 3; _tput setab 4)
+export LESS_TERMCAP_ue=$(_tput sgr0)
+export LESS_TERMCAP_us=$(_tput smul; _tput bold; _tput setaf 2)
+export LESS_TERMCAP_mr=$(_tput rev)
+export LESS_TERMCAP_mh=$(_tput dim)
+export LESS_TERMCAP_ZN=$(_tput ssubm)
+export LESS_TERMCAP_ZV=$(_tput rsubm)
+export LESS_TERMCAP_ZO=$(_tput ssupm)
+export LESS_TERMCAP_ZW=$(_tput rsupm)
 
 # Shell Options
 shopt -s cdspell
@@ -58,7 +78,6 @@ shopt -s dirspell 2>/dev/null || true
 # Aliases
 alias ..='echo "cd .."; cd ..'
 alias bssh='dns-sd -B _ssh._tcp .'
-alias cpp2c="sed -e 's#//\(.*\)#/*\1 */#'"
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
@@ -91,9 +110,9 @@ alias gu='git pull' # gu = git update
 # the array will be 0-255 for colors, 256 will be sgr0
 # and 257 will be bold
 COLOR256=()
-COLOR256[0]=$(tput setaf 1)
-COLOR256[256]=$(tput sgr0)
-COLOR256[257]=$(tput bold)
+COLOR256[0]=$(_tput setaf 1)
+COLOR256[256]=$(_tput sgr0)
+COLOR256[257]=$(_tput bold)
 
 # Colors for use in PS1 that may or may not change when
 # set_prompt_colors is run
@@ -111,7 +130,7 @@ set_prompt_colors() {
 		color=${COLOR256[$i]}
 		# cache the tput colors
 		if [[ -z $color ]]; then
-			COLOR256[$i]=$(tput setaf "$i")
+			COLOR256[$i]=$(_tput setaf "$i")
 			color=${COLOR256[$i]}
 		fi
 		PROMPT_COLORS[$j]=$color
@@ -144,10 +163,10 @@ alogin() {
 
 # print a colorized diff
 colordiff() {
-	local red=$(tput setaf 1 2>/dev/null)
-	local green=$(tput setaf 2 2>/dev/null)
-	local cyan=$(tput setaf 6 2>/dev/null)
-	local reset=$(tput sgr0 2>/dev/null)
+	local red=$(_tput setaf 1 2>/dev/null)
+	local green=$(_tput setaf 2 2>/dev/null)
+	local cyan=$(_tput setaf 6 2>/dev/null)
+	local reset=$(_tput sgr0 2>/dev/null)
 	diff -u "$@" | awk "
 	/^\-/ {
 		printf(\"%s\", \"$red\");
@@ -171,7 +190,7 @@ colors() {
 	for i in {0..255}; do
 		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
 	done
-	tput sgr0
+	_tput sgr0
 }
 
 # Convert epoch to human readable
