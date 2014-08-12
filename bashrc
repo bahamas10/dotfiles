@@ -64,6 +64,7 @@ alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
+alias suod='sudo'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 
