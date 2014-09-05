@@ -44,6 +44,11 @@ set background=light            " Light background is best
 iab <expr> me:: strftime("Author: Dave Eddy <dave@daveeddy.com><cr>Date: %B %d, %Y<cr>License: MIT")
 
 " ---------------------------------------------
+" Aliases
+" ---------------------------------------------
+cmap w!! w !sudo tee > /dev/null %
+
+" ---------------------------------------------
 " File/Indenting and Syntax Highlighting
 " ---------------------------------------------
 if has("autocmd")
@@ -53,12 +58,8 @@ if has("autocmd")
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 	autocmd BufReadPost COMMIT_EDITMSG exe "normal! gg"
 
-	" Puppet Manifests
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.pp   setlocal filetype=puppet
-	autocmd FileType                            puppet setlocal sw=2 sts=2 et
-
 	" Chef/Ruby
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.rb setlocal filetype=ruby
+	autocmd BufNewFile,BufRead                  *.rb setlocal filetype=ruby
 	autocmd FileType                            ruby setlocal sw=2 sts=2 et
 
 	" JavaScript files
