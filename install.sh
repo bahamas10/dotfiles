@@ -4,7 +4,7 @@
 # this way, updating them is as simple as git pull
 
 defaults() {
-	echo "$@"
+	echo defaults "$@"
 	command defaults "$@"
 }
 
@@ -103,17 +103,17 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Follow the keyboard focus while zoomed in
 	defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
-	# Disable “natural” (Lion-style) scrolling
+	# Disable "natural" (Lion-style) scrolling
 	defaults write -g com.apple.swipescrolldirection -bool false
 
 	### Print
 
 	# Automatically quit printer app once the print jobs complete
-	defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+	defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool true
 
 	### LaunchServices
 
-	# Disable the “Are you sure you want to open this application?” dialog
+	# Disable the "Are you sure you want to open this application?" dialog
 	defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 	### Finder
@@ -140,7 +140,7 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Disable the ugly mavericks dock appearance
 	defaults write com.apple.dock hide-mirror -bool true
 
-	# Don’t automatically rearrange Spaces based on most recent use
+	# Don't automatically rearrange Spaces based on most recent use
 	defaults write com.apple.dock mru-spaces -bool false
 
 	# Automatically hide and show the Dock
@@ -192,6 +192,9 @@ if defaults read com.apple.finder &>/dev/null; then
 		'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
 		'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
 		'{"enabled" = 0;"name" = "SOURCE";}'
+
+	# Don't index mounted volumes
+	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array /Volumes
 
 	# Disable autosave for Preview
 	defaults write com.apple.Preview ApplePersistence -bool no
