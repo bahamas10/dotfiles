@@ -104,7 +104,7 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 	# Disable "natural" (Lion-style) scrolling
-	defaults write -g com.apple.swipescrolldirection -bool false
+	#defaults write -g com.apple.swipescrolldirection -bool false
 
 	### Print
 
