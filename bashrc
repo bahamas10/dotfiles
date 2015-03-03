@@ -278,7 +278,7 @@ untiny() {
 		[[ -n $last_location ]] && echo " -> $last_location"
 		last_location=$location
 		read -r _ location < \
-		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[[:cntrl:]]')
+		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
 	done
 	echo "$last_location"
 }
