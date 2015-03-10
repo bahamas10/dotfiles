@@ -67,6 +67,7 @@ alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias suod='sudo'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
+alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
@@ -82,6 +83,7 @@ alias gi='git init'
 alias gl='git log'
 alias gmm='git merge master'
 alias gp='git push origin HEAD'
+alias gr='git rev-parse --show-toplevel' # git root
 alias gs='git status'
 alias gt='git tag'
 alias gu='git pull' # gu = git update
