@@ -16,9 +16,9 @@
 [submodule "bics-plugins/bash-interactivity"]
 	path = bics-plugins/bash-interactivity
 	url = git://github.com/bahamas10/bash-interactivity.git
-[submodule "vim/bundle/vim-node.js"]
-	path = vim/bundle/vim-node.js
-	url = git://github.com/mmalecki/vim-node.js
 [submodule "vim/bundle/vim-flavored-markdown"]
 	path = vim/bundle/vim-flavored-markdown
 	url = git://github.com/jtratner/vim-flavored-markdown.git
+[submodule "vim/bundle/node"]
+	path = vim/bundle/node
+	url = git://github.com/moll/vim-node.git
