@@ -254,6 +254,13 @@ mpaste() {
 	echo "$MANTA_URL/$MANTA_USER/${mfile#~~/}"
 }
 
+# convert manta paths into URLs
+murl() {
+	for u in "$@"; do
+		echo "$MANTA_URL${u/#~~//$MANTA_USER}"
+	done
+}
+
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
