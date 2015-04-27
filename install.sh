@@ -181,5 +181,8 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Disable autosave for Preview
 	defaults write com.apple.Preview ApplePersistence -bool no
 
+	# Fix weird copy+paste with apple terminal
+	defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.no-attributes
+
 	killall Dock Finder
 fi
