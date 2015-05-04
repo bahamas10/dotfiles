@@ -68,6 +68,7 @@ alias suod='sudo'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
+alias unusedimages='imgadm list -H -o clones,uuid,name,os | awk "\$1 == 0"'
 
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
