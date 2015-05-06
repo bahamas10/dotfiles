@@ -57,18 +57,18 @@ shopt -s dirspell 2>/dev/null || true
 # Aliases
 alias ..='echo "cd .."; cd ..'
 alias bssh='dns-sd -B _ssh._tcp .'
+alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
-grep --color=auto < /dev/null &> /dev/null && alias grep='grep --color=auto'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias suod='sudo'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
-alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias unusedimages='imgadm list -H -o clones,uuid,name,os,version | awk "\$1 == 0"'
+grep --color=auto < /dev/null &> /dev/null && alias grep='grep --color=auto'
 
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
