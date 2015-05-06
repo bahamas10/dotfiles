@@ -13,7 +13,6 @@
 export BROWSER='chromium'
 export EDITOR='vim'
 export GREP_COLOR='1;36'
-export GREP_OPTIONS='--color=auto'
 export HISTCONTROL='ignoredups'
 export HISTSIZE=5000
 export HISTFILESIZE=5000
@@ -61,6 +60,7 @@ alias bssh='dns-sd -B _ssh._tcp .'
 alias chomd='chmod'
 alias externalip='curl -s http://ifconfig.me/ip'
 alias gerp='grep'
+grep --color=auto < /dev/null &> /dev/null && alias grep='grep --color=auto'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
 alias lsdisks='kstat -lc disk :::class | field 3 :'
