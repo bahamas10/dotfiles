@@ -24,6 +24,7 @@ done
 
 # Setup bics
 if [[ ! -d ~/.bics ]]; then
+	echo 'installing bics'
 	bash <(curl -sSL https://raw.githubusercontent.com/bahamas10/bics/master/bics) init
 	rm -r ~/.bics/plugins
 	symlink "$PWD/bics-plugins" ~/.bics/plugins
@@ -31,59 +32,60 @@ fi
 
 # Keyboard shortcuts for Mac OS X
 if [[ -d ~/Library ]]; then
+	echo 'installing mac keyboard shourtcuts'
 	mkdir -p ~/Library/KeyBindings
 	symlink "$PWD/DefaultKeyBinding.dict" ~/Library/KeyBindings/DefaultKeyBinding.dict
+fi
+
+# Mac OS X homebrew
+if ! brew help &> /dev/null; then
+	echo 'installing homebrew on mac'
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Mac OS X NSUserDefaults modifications
 # Some based on https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 if defaults read com.apple.finder &>/dev/null; then
-	### Global
+	echo 'modifying NSUserDefaults'
 
-	# Set a shorter Delay until key repeat
+	# Keyboard: Set a shorter Delay until key repeat
 	defaults write -g InitialKeyRepeat -int 15
 
-	# Set a fast keyboard repeat rate
+	# Keyboard: Set a fast keyboard repeat rate
 	defaults write -g KeyRepeat -int 2
 
-	# Reenable key repeat for pressing and holding keys
+	# Keyboard: Reenable key repeat for pressing and holding keys
 	defaults write -g ApplePressAndHoldEnabled -bool false
 
-	# Disable all window animations
-	defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
-
-	# Show all extenions
+	# Finder: Show all extenions
 	defaults write -g AppleShowAllExtensions -bool true
 
-	# Minimize on double click
+	# Global: Minimize on double click
 	defaults write -g AppleMiniaturizeOnDoubleClick -bool true
 
-	# Expand save panel by default
+	# Global: Expand save panel by default
 	defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 	defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
 
-	# Expand print panel by default
+	# Global: Expand print panel by default
 	defaults write -g PMPrintingExpandedStateForPrint -bool true
 	defaults write -g PMPrintingExpandedStateForPrint2 -bool true
 
-	# Save to disk (not to iCloud) by default
+	# Global: Save to disk (not to iCloud) by default
 	defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
 
-	# Disable smart quotes as they’re annoying when typing code
+	# Global: Disable smart quotes as they’re annoying when typing code
 	defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 
-	# Disable smart dashes as they’re annoying when typing code
+	# Global: Disable smart dashes as they’re annoying when typing code
 	defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 
-	# Show ~/Library in finder
+	# Finder: Show ~/Library in finder
 	chflags nohidden ~/Library
 
-	# Disable elastic scroll
-	#defaults write -g NSScrollViewRubberbanding -int 0
-	# XXX it makes going back weird, enable it for now i guess ugh
-
 	# Trackpad: enable tap to click for this user and for the login screen
-	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1
+	defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
 	defaults -currentHost write -g com.apple.mouse.tapBehavior -int 1
 	defaults write -g com.apple.mouse.tapBehavior -int 1
 
@@ -93,60 +95,63 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
 	defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true
 
-	# Enable full keyboard access for all controls
+	# Trackpad: haptic firm press
+	defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 2
+	defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 2
+
+	# Trackpad: three finger drag
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+	defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+
+	# Menubar: battery percentage display
+	defaults write com.apple.menuextra.battery ShowPercent -bool YES
+
+	# Global: Enable full keyboard access for all controls
 	# (e.g. enable Tab in modal dialogs)
 	defaults write -g AppleKeyboardUIMode -int 3
 
-	# Use scroll gesture with the Ctrl (^) modifier key to zoom
+	# Global: Use scroll gesture with the Ctrl (^) modifier key to zoom
 	defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 	defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-	# Follow the keyboard focus while zoomed in
+
+	# Global: Follow the keyboard focus while zoomed in
 	defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
-	# Disable "natural" (Lion-style) scrolling
-	#defaults write -g com.apple.swipescrolldirection -bool false
-
-	### Print
-
-	# Automatically quit printer app once the print jobs complete
+	# Printer: Automatically quit printer app once the print jobs complete
 	defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool true
 
-	### LaunchServices
-
-	# Disable the "Are you sure you want to open this application?" dialog
+	# Global: Disable the "Are you sure you want to open this application?" dialog
 	defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-	### Finder
-
-	# Full POSIX path in finder windows
+	# Finder: Full POSIX path in finder windows
 	defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-	# Show Status bar in Finder
+	# Finder: Show Status bar in Finder
 	defaults write com.apple.finder ShowStatusBar -bool true
 
-	# Show icons for hard drives, servers, and removable media on the desktop
+	# Finder: Show icons for hard drives, servers, and removable media on the desktop
 	defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 	defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 	defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 	defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-	### Dashboard
+	# Finder: new windows start at home directory
+	defaults write com.apple.finder NewWindowTarget -string PfHm
+	defaults write com.apple.finder NewWindowTargetPath -string "file:///$HOME"
 
-	# Disable dashboard
+	# Finder: only search the current direcotry
+	defaults write com.apple.finder FXDefaultSearchScope -string SCcf
+
+	# Dashboard: Disable dashboard
 	defaults write com.apple.dashboard mcx-disabled -bool true
 
-	### Dock
-
-	# Disable the ugly mavericks dock appearance
-	defaults write com.apple.dock hide-mirror -bool true
-
-	# Don't automatically rearrange Spaces based on most recent use
+	# Mission Control: Don't automatically rearrange Spaces based on most recent use
 	defaults write com.apple.dock mru-spaces -bool false
 
-	# Automatically hide and show the Dock
+	# Dock: Automatically hide and show the Dock
 	defaults write com.apple.dock autohide -bool true
 
-	# Dock on the left
+	# Dock: Dock on the left
 	defaults write com.apple.dock orientation -string left
 
 	# Hot corners
@@ -173,16 +178,25 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.dock wvous-bl-corner -int 4
 	defaults write com.apple.dock wvous-bl-modifier -int 0
 
-	### Spotlight
+	# Spotlight: don't send stuff to apple
+	defaults write com.apple.lookup lookupEnabled -dict-add suggestionsEnabled -bool no
 
-	# Don't index mounted volumes
-	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array /Volumes
-
-	# Disable autosave for Preview
+	# Preview: Disable autosave for Preview
 	defaults write com.apple.Preview ApplePersistence -bool no
 
-	# Fix weird copy+paste with apple terminal
+	# Terminal: Fix weird copy+paste with apple terminal
 	defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.no-attributes
+
+	# Terminal: use pro theme
+	defaults write com.apple.Terminal 'Startup Window Settings' -string Pro
+	defaults write com.apple.Terminal 'Default Window Settings' -string Pro
+
+	# Terminal: new tabs use default profile and CWD
+	defaults write com.apple.Terminal NewTabSettingsBehavior -int 1
+	defaults write com.apple.Terminal NewTabWorkingDirectoryBehavior -int 1
+
+	# Spotlight: Don't index mounted volumes
+	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array /Volumes
 
 	killall Dock Finder
 fi
