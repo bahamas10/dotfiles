@@ -2,12 +2,18 @@
 #
 # install all files to ~ by symlinking them,
 # this way, updating them is as simple as git pull
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: May 25, 2012
+# License: MIT
 
+# makes "defaults" command print to screen
 defaults() {
 	echo defaults "$@"
 	command defaults "$@"
 }
 
+# verbose ln, because `ln -v` is not portable
 symlink() {
 	printf '%40s -> %s\n' "${1/#$HOME/~}" "${2/#$HOME/~}"
 	ln -sf "$@"
@@ -38,9 +44,18 @@ if [[ -d ~/Library ]]; then
 fi
 
 # Mac OS X homebrew
-if ! brew help &> /dev/null; then
-	echo 'installing homebrew on mac'
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [[ $(uname) == 'Darwin' ]]; then
+	if ! brew help &> /dev/null; then
+		echo 'installing homebrew'
+		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	else
+		echo 'updating homebrew'
+		brew update
+	fi
+
+	brew install node
+	brew install the_silver_searcher
+	brew install wget
 fi
 
 # Mac OS X NSUserDefaults modifications
@@ -196,7 +211,9 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.Terminal NewTabWorkingDirectoryBehavior -int 1
 
 	# Spotlight: Don't index mounted volumes
+	echo 'sudo needed to update spotlight settings'
 	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array /Volumes
 
+	echo 'done: killing Dock and Finder'
 	killall Dock Finder
 fi

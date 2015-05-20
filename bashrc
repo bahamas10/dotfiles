@@ -257,6 +257,7 @@ mpaste() {
 
 # convert manta paths into URLs
 murl() {
+	local u
 	for u in "$@"; do
 		echo "$MANTA_URL${u/#~~//$MANTA_USER}"
 	done
