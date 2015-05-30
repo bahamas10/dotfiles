@@ -11,6 +11,7 @@
   "unused": "vars",    // warn on unused variables except arguments
 
   "loopfunc": true,    // allow creating functions in loop
+  "-W086": true,       // allow switch statement fall-through
 
   "node": true         // any js i write is probably for node
 }
