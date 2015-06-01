@@ -59,7 +59,7 @@ alias ..='echo "cd .."; cd ..'
 alias bssh='dns-sd -B _ssh._tcp .'
 alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias chomd='chmod'
-alias externalip='curl -s http://ifconfig.me/ip'
+alias externalip='curl -4 -sS icanhazip.com'
 alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
@@ -142,7 +142,7 @@ fi
 
 # Like zlogin(1) except takes a Joyent machine alias
 alogin() {
-	zlogin "$(vmadm list -o uuid -H alias="$1")"
+	zlogin "$(ualias "$1")"
 }
 
 # print a colorized diff
@@ -187,6 +187,32 @@ epoch() {
 # geoip from shaggly-rl
 geoip() {
 	curl -s "http://api.hostip.info/get_html.php?ip=$1&position=true"
+}
+
+# manpage for illumos - pages pulled from github and rendered
+# locally with man(1)
+iman() {
+	local section=$1
+	local page=$2
+	if [[ -z $section ]]; then
+		echo 'iman [section] <page>' >&2
+		return 1
+	elif [[ -z $page ]]; then
+		page=$section
+		section=1
+	fi
+	local url="https://raw.githubusercontent.com/illumos/illumos-gate/master/usr/src/man/man$section/$page.$section"
+	local f=$(mktemp /var/tmp/iman.XXXX)
+	(($? == 0)) && [[ -f $f ]] || return 1
+
+	echo -n "loading $url... "
+	if curl -sS "$url" > "$f"; then
+		echo 'done'
+		man "$f"
+	else
+		echo 'failed'
+	fi
+	rm -f "$f"
 }
 
 # Platform-independent interfaces
@@ -248,6 +274,11 @@ mbillable() {
 	'
 }
 
+# Open files from manta in the browser
+mopen() {
+	murl "$@" | xargs open
+}
+
 # Paste bin using manta, requires `mmkdir ~~/public/pastes`
 mpaste() {
 	local mfile=~~/public/pastes/$(date +%s).html
@@ -292,11 +323,6 @@ untiny() {
 		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
 	done
 	echo "$last_location"
-}
-
-# Undo github flavor markdown
-ungithubmd() {
-	awk '/^```/ { flag=!flag; $0 = "" } { if (flag) print "    " $0; else print $0; }'
 }
 
 # parse URL's to JSON for easy screen scraping on the shell
