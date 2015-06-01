@@ -79,7 +79,6 @@ alias gci='git commit -a'
 alias gcm='git checkout master && git pull'
 alias gco='git checkout'
 alias gd='git diff'
-alias gho='open "$(git config --get remote.origin.url | sed "s/git@github.com:/https:\/\/github.com\//")"'
 alias gi='git init'
 alias gl='git log'
 alias gmm='git merge master'
@@ -187,6 +186,34 @@ epoch() {
 # geoip from shaggly-rl
 geoip() {
 	curl -s "http://api.hostip.info/get_html.php?ip=$1&position=true"
+}
+
+# open the current path or file in GitHub
+gho() {
+	local file=$1
+	local remote=${2:-origin}
+
+	# get the git root dir, branch, and remote URL
+	local gr=$(git rev-parse --show-toplevel)
+	local branch=$(git rev-parse --abbrev-ref HEAD)
+	local url=$(git config --get "remote.$remote.url")
+
+	[[ -n $gr && -n $branch && -n $remote ]] || return 1
+
+	# construct the path
+	local path=${PWD/#$gr/}
+	[[ -n $file ]] && path+=/$file
+
+	# extract the username and repo name
+	local a
+	IFS=:/ read -a a <<< "$url"
+	local len=${#a[@]}
+	local user=${a[len-2]}
+	local repo=${a[len-1]%.git}
+
+	local url="https://github.com/$user/$repo/blob/$branch$path"
+	echo "$url"
+	open "$url"
 }
 
 # manpage for illumos - pages pulled from github and rendered
