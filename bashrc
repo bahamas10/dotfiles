@@ -217,7 +217,8 @@ gho() {
 }
 
 # manpage for illumos - pages pulled from github and rendered
-# locally with man(1)
+# locally with man(1) - inspiration https://github.com/davepacheco/iman
+# modified to render locally using man and nto links
 iman() {
 	local section=$1
 	local page=$2
