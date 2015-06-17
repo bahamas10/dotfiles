@@ -211,7 +211,7 @@ gho() {
 	local user=${a[len-2]}
 	local repo=${a[len-1]%.git}
 
-	local url="https://github.com/$user/$repo/blob/$branch$path"
+	local url="https://github.com/$user/$repo/tree/$branch$path"
 	echo "$url"
 	open "$url"
 }
