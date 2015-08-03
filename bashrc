@@ -273,19 +273,20 @@ load() {
 
 # Total the billable amount in Manta
 mbillable() {
-	mget -q "/${1:-$MANTA_USER}/reports/usage/storage/latest" |\
-	json storage | json public.bytes stor.bytes reports.bytes jobs.bytes |\
-	awk '
+	local u=${1:-$MANTA_USER}
+	mget -q "/$u/reports/usage/storage/latest" |\
+	json storage | json {public,stor,reports,jobs}.bytes |\
+	awk -v "u=$u" "
 	{
-		s += $1;
+		s += \$1;
 	}
 	END {
 		gb = s / 1024 / 1024 / 1024;
 		billable = gb + 1;
-		printf("%s => using %d GB (%d GB billable)\n",
-		ENVIRON["MANTA_USER"], gb, billable);
+		printf(\"%s => using %d GB (%d GB billable)\\n\",
+		u, gb, billable);
 	}
-	'
+	"
 }
 
 # Open files from manta in the browser
