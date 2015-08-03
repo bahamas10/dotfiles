@@ -294,11 +294,11 @@ mopen() {
 	murl "$@" | xargs open
 }
 
-# Paste bin using manta, requires `mmkdir ~~/public/pastes`
+# Paste bin using manta
 mpaste() {
 	local mfile=~~/public/pastes/$(date +%s).html
-	pygmentize -f html -O full "$@" | mput "$mfile"
-	echo "$MANTA_URL/$MANTA_USER/${mfile#~~/}"
+	pygmentize -f html -O full "$@" | mput -p "$mfile"
+	murl "$mfile"
 }
 
 # convert manta paths into URLs
