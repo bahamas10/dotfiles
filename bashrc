@@ -249,12 +249,9 @@ interfaces() {
 	var os = require('os');
 	var i = os.networkInterfaces();
 	Object.keys(i).forEach(function(name) {
-		var ip4 = null;
 		i[name].forEach(function(int) {
-			if (int.family === 'IPv4') {
+			if (int.family === 'IPv4')
 				console.log('%s: %s', name, int.address);
-				return;
-			}
 		});
 	});
 	EOF
@@ -297,7 +294,7 @@ mopen() {
 # Paste bin using manta
 mpaste() {
 	local mfile=~~/public/pastes/$(date +%s).html
-	pygmentize -f html -O full "$@" | mput -p "$mfile"
+	pygmentize -f html -O full "$@" | mput -pq "$mfile"
 	murl "$mfile"
 }
 
