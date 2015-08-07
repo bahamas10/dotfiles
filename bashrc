@@ -320,6 +320,11 @@ meminfo() {
 	EOF
 }
 
+# print lines over X columns (defaults to 80)
+over() {
+	awk -v c="${1:-80}" 'length($0) > 80 { printf("%4d %s\n", NR, $0); }'
+}
+
 # Turn a Joyent machine alias into the zonename
 ualias() {
 	vmadm list -o uuid -H alias="$1"
