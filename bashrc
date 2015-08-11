@@ -4,7 +4,7 @@
 # Dave Eddy <dave@daveeddy.com>
 
 # If not running interactively, don't do anything
-[[ -z $PS1 ]] && return
+[[ -n $PS1 ]] || return
 
 # Load bics, plugins found in bics-plugins
 . ~/.bics/bics || echo '> failed to load bics' >&2
