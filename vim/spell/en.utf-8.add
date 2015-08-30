@@ -19,3 +19,6 @@ repo
 url
 lockfile
 symlink
+Joyent
+tput
+zlogin
