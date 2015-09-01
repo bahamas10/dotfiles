@@ -112,3 +112,6 @@ highlight SpellLocal term=underline cterm=underline
 if filereadable(expand("~/.vimrc.local"))
 	source ~/.vimrc.local
 endif
+if filereadable(expand("~/.vimrc.indent"))
+	source ~/.vimrc.indent
+endif
