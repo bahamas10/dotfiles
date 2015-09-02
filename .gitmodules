@@ -22,3 +22,6 @@
 [submodule "vim/bundle/node"]
 	path = vim/bundle/node
 	url = git://github.com/moll/vim-node.git
+[submodule "bics-plugins/tabstop"]
+	path = bics-plugins/tabstop
+	url = git://github.com/bahamas10/tabstop.git
