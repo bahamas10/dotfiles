@@ -9,6 +9,7 @@
   "nonew": true,       // don't create objects for side-effects
   "undef": true,       // forbid usage of undefined variables
   "unused": "vars",    // warn on unused variables except arguments
+  "laxbreak": true,    // don't fail on weird line breaks
 
   "loopfunc": true,    // allow creating functions in loop
   "-W086": true,       // allow switch statement fall-through
