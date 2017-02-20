@@ -66,6 +66,9 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Keyboard: Disable autocorrect
 	defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
+	# Keyboard: Disable auto-capitalization
+	defaults write -g NSAutomaticCapitalizationEnabled -bool false
+
 	# Keyboard: Set a shorter Delay until key repeat
 	defaults write -g InitialKeyRepeat -int 15
 
