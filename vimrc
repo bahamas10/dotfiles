@@ -64,7 +64,7 @@ if has("autocmd")
 
 	" JavaScript files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js setlocal filetype=javascript
-	autocmd FileType                            javascript  setlocal sw=2 sts=2 et
+	autocmd FileType                            javascript  setlocal sw=4 sts=4 et
 
 	" Objective C / C++
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.m    setlocal filetype=objc
