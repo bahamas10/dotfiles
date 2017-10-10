@@ -355,6 +355,11 @@ urlparse() {
 	"
 }
 
+# Bash on Ubuntu on Windows
+if uname -a | grep -q '^Linux.*Microsoft'; then
+	. ~/.ssh/environment > /dev/null
+fi
+
 # Load external files
 . ~/.bash_aliases    2>/dev/null || true
 . ~/.bashrc.local    2>/dev/null || true
