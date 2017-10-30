@@ -177,6 +177,12 @@ colors() {
 	tput sgr0
 }
 
+# Copy stdin to the clipboard
+copy() {
+	pbcopy 2>/dev/null ||
+		clip.exe
+}
+
 # Convert epoch to human readable
 epoch() {
 	local num=${1//[^0-9]/}
