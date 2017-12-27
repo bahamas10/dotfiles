@@ -361,6 +361,20 @@ urlparse() {
 	"
 }
 
+# Convert WSL Path to Windows Path
+windows-path() {
+	local path=$1
+	local user=${2:-$USER}
+	local base="C:\\Users\\$user\\AppData\\Local\\lxss"
+
+	# Make path absolute
+	if [[ ${path:0:1} != '/' ]]; then
+		path=$PWD/$path
+	fi
+
+	echo "${base}${path////\\}"
+}
+
 # Bash on Ubuntu on Windows
 if uname -a | grep -q '^Linux.*Microsoft'; then
 	. ~/.ssh/environment > /dev/null
