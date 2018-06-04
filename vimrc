@@ -62,6 +62,10 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead                  *.rb setlocal filetype=ruby
 	autocmd FileType                            ruby setlocal sw=2 sts=2 et
 
+	" Yaml
+	autocmd BufNewFile,BufRead                  *.yaml,*.yml setlocal filetype=yaml
+	autocmd FileType                            yaml         setlocal sw=2 sts=2 et
+
 	" JavaScript files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json,*.js setlocal filetype=javascript
 	autocmd FileType                            javascript  setlocal sw=4 sts=4 et
