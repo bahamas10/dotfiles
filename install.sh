@@ -223,3 +223,40 @@ if defaults read com.apple.finder &>/dev/null; then
 	echo 'done: killing Dock and Finder'
 	killall Dock Finder
 fi
+
+# Arch Linux stuff
+if pacman -V && [[ -n $DISPLAY ]]; then
+	sudo pacman -Syy
+	sudo pacman -yS --noconfirm --needed base-devel
+	sudo pacman -yS --noconfirm --needed bwm-ng
+	sudo pacman -yS --noconfirm --needed feh
+	sudo pacman -yS --noconfirm --needed git
+	sudo pacman -yS --noconfirm --needed htop
+	sudo pacman -yS --noconfirm --needed i3-exit
+	sudo pacman -yS --noconfirm --needed i3-gaps
+	sudo pacman -yS --noconfirm --needed i3lock
+	sudo pacman -yS --noconfirm --needed i3status
+	sudo pacman -yS --noconfirm --needed net-tools
+	sudo pacman -yS --noconfirm --needed nodejs
+	sudo pacman -yS --noconfirm --needed npm
+	sudo pacman -yS --noconfirm --needed rofi
+	sudo pacman -yS --noconfirm --needed rxvt-unicode
+	sudo pacman -yS --noconfirm --needed scrot
+	sudo pacman -yS --noconfirm --needed strace
+	sudo pacman -yS --noconfirm --needed the_silver_searcher
+	sudo pacman -yS --noconfirm --needed vim
+	sudo pacman -yS --noconfirm --needed xautolock
+	sudo pacman -yS --noconfirm --needed xorg-xbacklight
+	sudo pacman -yS --noconfirm --needed xorg-xinput
+	sudo pacman -yS --noconfirm --needed xorg-xprop
+	sudo pacman -yS --noconfirm --needed xsel
+	sudo pacman -yS --noconfirm --needed xss-lock
+	sudo pacman -yS --noconfirm --needed yay
+
+	sudo pacman -yS --noconfirm --needed pa-applet
+	sudo pacman -yS --noconfirm --needed network-manager-applet
+
+	# ntp
+	sudo pacman -yS --noconfirm --needed ntp
+	sudo timedatectl set-ntp true
+fi
