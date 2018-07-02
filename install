@@ -28,6 +28,12 @@ for f in bash_completion bash_profile bashrc gitconfig htoprc jshintrc screenrc 
 	symlink "$PWD/$f" ~/."$f"
 done
 
+# i3 config and others
+if i3 -v &>/dev/null && [[ -n $DISPLAY ]]; then
+	mkdir -p ~/.config/i3
+	symlink "$PWD/i3config" ~/.config/i3/config
+fi
+
 # Setup bics
 if [[ ! -d ~/.bics ]]; then
 	echo 'installing bics'
