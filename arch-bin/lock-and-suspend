@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Suspend and lock the current i3 session
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 25, 2018
+# License: MIT
+
+# Because xss-lock is used, simply suspending the computer will lock the
+# session
+systemctl suspend
+exit 0
+
+# Not relevant with xss-lock but still useful to keep around
+i3lock -efi ~/Pictures/lock.png
+sleep 1
+systemctl suspend

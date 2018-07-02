@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Lock the current i3 session
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 25, 2018
+# License: MIT
+
+# Because xss-lock is used, simply activating the screensaver will lock the
+# session
+xset s activate
+exit 0
+
+# Not relevant with xss-lock but still useful to keep around
+i3lock -efi ~/Pictures/lock.png
+code=$?
+sleep 1
+exit "$code"

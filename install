@@ -28,10 +28,22 @@ for f in bash_completion bash_profile bashrc gitconfig htoprc jshintrc screenrc 
 	symlink "$PWD/$f" ~/."$f"
 done
 
-# i3 config and others
+# i3 config and other stuff for my arch linux laptop
 if i3 -v &>/dev/null && [[ -n $DISPLAY ]]; then
 	mkdir -p ~/.config/i3
 	symlink "$PWD/i3config" ~/.config/i3/config
+
+	# bin dir
+	mkdir -p ~/bin
+	for f in arch-bin/*; do
+		basename=${f##*/}
+		bin=~/bin/$basename
+		if [[ -f $bin ]]; then
+			echo "$bin already exists as a file, skipping" >&2
+		else
+			symlink "$PWD/$f" "$bin"
+		fi
+	done
 fi
 
 # Setup bics

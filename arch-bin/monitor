@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# Control the monitor backlight and color temperature
+# requires `xbacklight` and `redshift`
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 25, 2018
+# License: MIT
+
+shopt -s extglob
+
+usage() {
+	local prog=${0##*/}
+	cat <<-EOF
+	Usage: $prog [ bright | dark | brighter | darker | darkest | night | day | [0-9]+ ]
+
+	Examples:
+	  # Modify color temperature for night (4500k)
+	  $prog night
+
+	  # Make the screen the darkest it will go
+	  $prog darkest
+
+	  # Get the current brightness level
+	  $prog get
+
+	  # Manually set the brightness (out of 100)
+	  $prog 75
+	EOF
+}
+
+case "$1" in
+	brighter) xbacklight + 5;;
+	darker) xbacklight - 5;;
+
+	bright) xbacklight = 100;;
+	dark) xbacklight = 1;;
+	darkest) xbacklight = .1;;
+
+	day) redshift -m randr -x;;
+	night) redshift -m randr -PO 4500;;
+
+	(+([0-9])) xbacklight = "$1";;
+	''|get) xbacklight -get;;
+
+	-h|help) usage;;
+	*) usage >&2; exit 1;;
+esac

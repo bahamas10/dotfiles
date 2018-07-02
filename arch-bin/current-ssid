@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Get the current WiFi SSID
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 26, 2018
+# License: MIT
+
+ssid=$(iwconfig wlp2s0 | perl -lne '/ ESSID:"(.*)"/ && print $1')
+if [[ -n $ssid ]]; then
+	echo "$ssid"
+else
+	echo '(no wifi)';
+fi
