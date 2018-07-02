@@ -31,7 +31,11 @@ done
 # i3 config and other stuff for my arch linux laptop
 if i3 -v &>/dev/null && [[ -n $DISPLAY ]]; then
 	mkdir -p ~/.config/i3
+	mkdir -p ~/.config/rofi
+
 	symlink "$PWD/i3config" ~/.config/i3/config
+	symlink "$PWD/roficonfig" ~/.config/rofi/config
+	symlink "$PWD/Xresources" ~/.Xresources
 
 	# bin dir
 	mkdir -p ~/bin
