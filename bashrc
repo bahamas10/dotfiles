@@ -59,7 +59,7 @@ alias ..='echo "cd .."; cd ..'
 alias bssh='dns-sd -B _ssh._tcp .'
 alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias chomd='chmod'
-alias externalip='curl -4 -sS icanhazip.com'
+alias externalip='curl -sS https://www.daveeddy.com/ip'
 alias gerp='grep'
 alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
