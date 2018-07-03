@@ -116,17 +116,22 @@ bindsym $sup+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $sup+Shift+r restart
 
-# alternatively, you can use the cursor keys:
+# move focus
 bindsym $sup+Left focus left
+bindsym $sup+Right focus right
 bindsym $sup+Down focus down
 bindsym $sup+Up focus up
-bindsym $sup+Right focus right
 
-# alternatively, you can use the cursor keys:
+bindsym $alt+shift+Left focus left
+bindsym $alt+shift+Right focus right
+bindsym $alt+shift+Up focus up
+bindsym $alt+shift+Down focus down
+
+# move window
 bindsym $sup+Shift+Left move left
+bindsym $sup+Shift+Right move right
 bindsym $sup+Shift+Down move down
 bindsym $sup+Shift+Up move up
-bindsym $sup+Shift+Right move right
 
 # Resize
 bindsym $sup+Ctrl+Right resize shrink width 1 px or 1 ppt
