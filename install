@@ -247,7 +247,7 @@ if defaults read com.apple.finder &>/dev/null; then
 fi
 
 # Arch Linux stuff
-if pacman -V && [[ -n $DISPLAY ]]; then
+if pacman -V &>/dev/null && [[ -n $DISPLAY ]]; then
 	sudo pacman -Syy
 	sudo pacman -yS --noconfirm --needed base-devel
 	sudo pacman -yS --noconfirm --needed bwm-ng
