@@ -3,30 +3,32 @@
 
 !! Appearance
 urxvt.termName: rxvt-unicode
+
 urxvt.scrollBar: false
 urxvt.background: black
 urxvt.foreground: gray
+
 !! Font prefferenes
 urxvt.font: xft:DejaVu Sans Mono:pixelsize=16
 urxvt.boldFont: xft:DejaVu Sans Mono:pixelsize=16:weight=bold
 urxvt.letterSpace: -1
+
 !! Larger history limit
 urxvt.saveLines: 1000000
 
-!! Perl extensions
-urxvt.perl-ext-common: default,matcher,font-size
-!! Open urls in browser with Control-Click
-urxvt.urlLauncher: /usr/bin/firefox
-urxvt.matcher.button: C1
-URxvt.keysym.Control-0x2d: perl:font-size:decrease
+! links ctrl+click to open
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: C1
 
-!! Yeah, I am one of those, who use these keys in Vim :-(
-urxvt.keysym.Home:          \033[1~
-urxvt.keysym.End:           \033[4~
-urxvt.keysym.Control-Up:    \033[1;5A
-urxvt.keysym.Control-Down:  \033[1;5B
-urxvt.keysym.Control-Left:  \033[1;5D
-urxvt.keysym.Control-Right: \033[1;5C
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
 
 !! Tango color theme
 !! Strange - it matches tango from gnome-terminal, but looks different
