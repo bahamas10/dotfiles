@@ -15,16 +15,28 @@ defaults() {
 
 # verbose ln, because `ln -v` is not portable
 symlink() {
-	printf '%40s -> %s\n' "${1/#$HOME/~}" "${2/#$HOME/~}"
-	ln -sf "$@"
+	printf '%55s -> %s\n' "${1/#$HOME/~}" "${2/#$HOME/~}"
+	ln -nsf "$@"
 }
 
 git submodule init
 git submodule update
 
 # Link dotfiles
-for f in bash_completion bash_profile bashrc gitconfig htoprc jshintrc screenrc tmux.conf vimrc vim; do
-	[[ -d ~/.$f ]] && rm -r ~/."$f"
+dotfiles=(
+	bash_completion
+	bash_profile
+	bashrc
+	gitconfig
+	htoprc
+	jshintrc
+	screenrc
+	tmux.conf
+	vimrc
+	vim
+)
+for f in "${dotfiles[@]}"; do
+	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
 	symlink "$PWD/$f" ~/."$f"
 done
 
@@ -42,8 +54,8 @@ if i3 -v &>/dev/null && [[ -n $DISPLAY ]]; then
 	for f in arch-bin/*; do
 		basename=${f##*/}
 		bin=~/bin/$basename
-		if [[ -f $bin ]]; then
-			echo "$bin already exists as a file, skipping" >&2
+		if [[ -e $bin && ! -L $bin ]]; then
+			echo "$bin exists and is not a link, skipping" >&2
 		else
 			symlink "$PWD/$f" "$bin"
 		fi
