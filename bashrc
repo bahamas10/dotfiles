@@ -133,6 +133,17 @@ PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]
 # set the theme
 set_prompt_colors 3
 
+# Prompt command
+_prompt_command() {
+        local user=$USER
+        local host=${HOSTNAME%%.*}
+        local pwd=${PWD/#$HOME/\~}
+        local ssh=
+        [[ -n $SSH_CLIENT ]] && ssh='[ssh] '
+        printf "\033]0;%s%s@%s:%s\007" "$ssh" "$user" "$host" "$pwd"
+}
+PROMPT_COMMAND=_prompt_command
+
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
 	alias ls='ls -p --color=auto'
