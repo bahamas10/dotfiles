@@ -54,12 +54,8 @@ exec --no-startup-id setxkbmap dvorak,us
 # Disable Bluetooth
 exec --no-startup-id bluetooth off
 
-# Disable CapsLock, PageUp, and PageDown (TODO figure out why these don't work)
-#exec --no-startup-id ~/bin/_set_keyboard_rebinds
-#exec --no-startup-id setxkbmap -option ctrl:nocap # CapsLock
-#exec --no-startup-id xmodmap -e 'clear lock'      # Also Caps lock... idk why
-#exec --no-startup-id xmodmap -e 'keycode 112='    # PageUp
-#exec --no-startup-id xmodmap -e 'keycode 117='    # PageDown
+# Disable CapsLock
+exec --no-startup-id setxkbmap -option caps:none # CapsLock
 
 # Start keeweb in the scratch space
 for_window [title="KeeWeb"] move scratchpad
@@ -68,7 +64,7 @@ exec --no-startup-id KeeWeb
 # Float some windows by default
 for_window [class="Xfce4-panel" instance="xfce4-panel"] floating enable
 
-# Give all windows a border of 1
+# Give all windows a border
 for_window [class="^.*"] border pixel 1
 
 # Default font
