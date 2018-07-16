@@ -273,13 +273,16 @@ if pacman -V &>/dev/null && [[ -n $DISPLAY ]]; then
 	sudo pacman -yS --noconfirm --needed net-tools
 	sudo pacman -yS --noconfirm --needed nodejs
 	sudo pacman -yS --noconfirm --needed npm
+	sudo pacman -yS --noconfirm --needed openbsd-netcat
 	sudo pacman -yS --noconfirm --needed rofi
 	sudo pacman -yS --noconfirm --needed rxvt-unicode
 	sudo pacman -yS --noconfirm --needed scrot
 	sudo pacman -yS --noconfirm --needed strace
 	sudo pacman -yS --noconfirm --needed the_silver_searcher
 	sudo pacman -yS --noconfirm --needed vim
+	sudo pacman -yS --noconfirm --needed whois
 	sudo pacman -yS --noconfirm --needed xautolock
+	sudo pacman -yS --noconfirm --needed xautomation
 	sudo pacman -yS --noconfirm --needed xorg-xbacklight
 	sudo pacman -yS --noconfirm --needed xorg-xinput
 	sudo pacman -yS --noconfirm --needed xorg-xprop
