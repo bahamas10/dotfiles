@@ -9,10 +9,6 @@
 # License: MIT
 
 
-while true; do
-	i3lock -n "$@"
-	code=$?
-	((code == 0)) && break
-	echo "i3lock exited with code $code"
+while ! i3lock -n "$@"; do
+	sleep 1
 done
-echo 'unlocked'
