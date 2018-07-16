@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Wiggle the mouse to avoid the screensaver from activating
+# based on https://github.com/ahl/wiggle
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: July 15, 2018
+# License: MIT
+
+wiggle() {
+	for f in {1..2}; do
+		xte 'mousermove 0 20'
+		sleep .08
+		xte 'mousermove 0 -20'
+		sleep .08
+	done
+}
+
+while true; do
+	echo wiggle
+	wiggle
+	sleep 60
+done
