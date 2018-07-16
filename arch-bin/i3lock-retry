@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Call i3lock repeatedly until it exits cleanly.  For some reason I've had
+# i3lock crash on me and leave my screen unlocked - this is my crappy attempt
+# to fix it.
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: July 15, 2018
+# License: MIT
+
+
+while true; do
+	i3lock -n "$@"
+	code=$?
+	((code == 0)) && break
+	echo "i3lock exited with code $code"
+done
+echo 'unlocked'
