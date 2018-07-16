@@ -8,7 +8,6 @@
 # Date: July 15, 2018
 # License: MIT
 
-
 while ! i3lock -n "$@"; do
 	sleep 1
 done
