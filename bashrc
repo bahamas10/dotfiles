@@ -10,7 +10,7 @@
 . ~/.bics/bics || echo '> failed to load bics' >&2
 
 # Set environment
-export BROWSER='chromium'
+export BROWSER='firefox'
 export EDITOR='vim'
 export GREP_COLOR='1;36'
 export HISTCONTROL='ignoredups'
