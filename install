@@ -260,40 +260,44 @@ fi
 
 # Arch Linux stuff
 if pacman -V &>/dev/null && [[ -n $DISPLAY ]]; then
+	install() {
+		sudo pacman -yS --noconfirm --needed "$@"
+	}
 	sudo pacman -Syy
-	sudo pacman -yS --noconfirm --needed base-devel
-	sudo pacman -yS --noconfirm --needed bwm-ng
-	sudo pacman -yS --noconfirm --needed feh
-	sudo pacman -yS --noconfirm --needed git
-	sudo pacman -yS --noconfirm --needed htop
-	sudo pacman -yS --noconfirm --needed i3-exit
-	sudo pacman -yS --noconfirm --needed i3-gaps
-	sudo pacman -yS --noconfirm --needed i3lock
-	sudo pacman -yS --noconfirm --needed i3status
-	sudo pacman -yS --noconfirm --needed net-tools
-	sudo pacman -yS --noconfirm --needed nodejs
-	sudo pacman -yS --noconfirm --needed npm
-	sudo pacman -yS --noconfirm --needed openbsd-netcat
-	sudo pacman -yS --noconfirm --needed rofi
-	sudo pacman -yS --noconfirm --needed rxvt-unicode
-	sudo pacman -yS --noconfirm --needed scrot
-	sudo pacman -yS --noconfirm --needed strace
-	sudo pacman -yS --noconfirm --needed the_silver_searcher
-	sudo pacman -yS --noconfirm --needed vim
-	sudo pacman -yS --noconfirm --needed whois
-	sudo pacman -yS --noconfirm --needed xautolock
-	sudo pacman -yS --noconfirm --needed xautomation
-	sudo pacman -yS --noconfirm --needed xorg-xbacklight
-	sudo pacman -yS --noconfirm --needed xorg-xinput
-	sudo pacman -yS --noconfirm --needed xorg-xprop
-	sudo pacman -yS --noconfirm --needed xsel
-	sudo pacman -yS --noconfirm --needed xss-lock
-	sudo pacman -yS --noconfirm --needed yay
+	install base-devel
+	install bwm-ng
+	install feh
+	install git
+	install htop
+	install i3-exit
+	install i3-gaps
+	install i3lock
+	install i3status
+	install lxappearance
+	install net-tools
+	install nodejs
+	install npm
+	install openbsd-netcat
+	install rofi
+	install rxvt-unicode
+	install scrot
+	install strace
+	install the_silver_searcher
+	install vim
+	install whois
+	install xautolock
+	install xautomation
+	install xorg-xbacklight
+	install xorg-xinput
+	install xorg-xprop
+	install xsel
+	install xss-lock
+	install yay
 
-	sudo pacman -yS --noconfirm --needed pa-applet
-	sudo pacman -yS --noconfirm --needed network-manager-applet
+	install pa-applet
+	install network-manager-applet
 
 	# ntp
-	sudo pacman -yS --noconfirm --needed ntp
+	install ntp
 	sudo timedatectl set-ntp true
 fi
