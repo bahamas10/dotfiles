@@ -63,6 +63,7 @@ exec --no-startup-id KeeWeb
 
 # Float some windows by default
 for_window [class="Xfce4-panel" instance="xfce4-panel"] floating enable
+for_window [class="Lxappearance" instance="lxappearance"] floating enable
 
 # Give all windows a border
 for_window [class="^.*"] border pixel 1
