@@ -55,7 +55,10 @@ exec --no-startup-id setxkbmap dvorak,us
 exec --no-startup-id bluetooth off
 
 # Disable CapsLock
-exec --no-startup-id setxkbmap -option caps:none # CapsLock
+exec --no-startup-id setxkbmap -option caps:none
+
+# Hide mouse when typing
+exec --no-startup-id xbanish -i shift -i lock -i control -i mod1 -i mod2 -i mod3 -i mod4 -i mod5
 
 # Start keeweb in the scratch space
 for_window [title="KeeWeb"] move scratchpad
