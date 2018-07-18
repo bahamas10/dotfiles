@@ -9,5 +9,5 @@
 # License: MIT
 
 while ! i3lock -n "$@"; do
-	sleep 1
+	sleep .1
 done
