@@ -10,7 +10,7 @@ set $sup Mod4
 set $ctrl Control
 
 # Setup system to lock when suspended/screensaver
-exec --no-startup-id xss-lock -- i3lock-retry -enfi ~/Pictures/lock.png
+exec --no-startup-id xss-lock -- ~/bin/i3lock-retry -enfi ~/Pictures/lock.png
 
 # Set screensaver to 5 minutes (xss-lock will start lock)
 exec --no-startup-id xset s 300
