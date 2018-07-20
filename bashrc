@@ -191,7 +191,9 @@ colors() {
 # Copy stdin to the clipboard
 copy() {
 	pbcopy 2>/dev/null ||
-		clip.exe
+	    xsel 2>/dev/null ||
+	    clip.exe
+
 }
 
 # Convert epoch to human readable
@@ -199,11 +201,6 @@ epoch() {
 	local num=${1//[^0-9]/}
 	(( ${#num} < 13 )) && num=${num}000
 	node -pe "new Date($num);"
-}
-
-# geoip from shaggly-rl
-geoip() {
-	curl -s "http://api.hostip.info/get_html.php?ip=$1&position=true"
 }
 
 # open the current path or file in GitHub
