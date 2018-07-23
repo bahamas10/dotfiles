@@ -114,6 +114,11 @@ highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
 " ---------------------------------------------
+" Plugins
+" ---------------------------------------------
+let g:airline_theme = "deus"
+
+" ---------------------------------------------
 " Source local config
 " ---------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
