@@ -89,6 +89,9 @@ if has("autocmd")
 
 	" EJS javascript templates
 	autocmd BufNewFile,BufRead,FileReadPre      *.ejs setlocal filetype=html
+
+	" TXT files
+	autocmd FileType                            text setlocal spell
 endif
 
 " ---------------------------------------------

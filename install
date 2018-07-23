@@ -40,6 +40,10 @@ for f in "${dotfiles[@]}"; do
 	symlink "$PWD/$f" ~/."$f"
 done
 
+# neovim
+symlink ~/.vim ~/.config/nvim
+symlink ~/.vimrc ~/.config/nvim/init.vim
+
 # i3 config and other stuff for my arch linux laptop
 if i3 -v &>/dev/null && [[ -n $DISPLAY ]]; then
 	mkdir -p ~/.config/i3
