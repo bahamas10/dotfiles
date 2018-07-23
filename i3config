@@ -99,7 +99,7 @@ bindsym --release $sup+Print exec scrot -s '%Y-%m-%d_%H:%M:%S_$wx$h_scrot.png' -
 bindsym $sup+shift+l exec xset s activate
 
 # start a terminal
-bindsym $sup+Return exec i3-sensible-terminal
+bindsym $sup+Return exec urxvt
 
 # kill focused window
 bindsym $sup+q kill
