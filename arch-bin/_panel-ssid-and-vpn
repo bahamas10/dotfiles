@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Print the current SSID and VPN connection (used for xfce4-panel genmon)
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: July 03, 2018
+# License: MIT
+
+connections=$(nmcli -t --color=no con show --active)
+ssid=$(awk -F: '$3 == "802-11-wireless" { print $1 }' <<< "$connections" | head -1)
+
+vpns=$(awk -F: '$3 == "vpn" { print $1 }' <<< "$connections")
+
+vpn=''
+if [[ -n $vpns ]]; then
+	vpn=' (vpn)'
+fi
+
+echo "$ssid$vpn"
