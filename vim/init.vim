@@ -1,1 +1,2 @@
 source ~/.vimrc
+set guicursor=
