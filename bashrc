@@ -27,8 +27,9 @@ export VISUAL='vim'
 # Joyent Manta
 export MANTA_USER=${MANTA_USER:-bahamas10}
 export MANTA_URL=${MANTA_URL:-https://us-east.manta.joyent.com}
-export MANTA_KEY_ID=${MANTA_KEY_ID:-$(ssh-add -l 2>/dev/null | awk '{ print $2 }')}
-export MANTA_KEY_ID=${MANTA_KEY_ID:-$(ssh-keygen -l -f ~/.ssh/id_rsa.pub 2>/dev/null | awk '{print $2}')}
+export MANTA_KEY_ID
+[[ -n $MANTA_KEY_ID ]] || MANTA_KEY_ID=$(ssh-add -l 2>/dev/null | awk '{print $2}' | head -1)
+[[ -n $MANTA_KEY_ID ]] || MANTA_KEY_ID=$(ssh-keygen -l -f ~/.ssh/id_rsa.pub 2>/dev/null | awk '{print $2}')
 
 # Support colors in less
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)

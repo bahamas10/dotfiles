@@ -49,3 +49,5 @@ URxvt.color13: rgb:AD/7F/A8
 URxvt.color14: rgb:34/E2/E2
 URxvt.color15: rgb:EE/EE/EC
 URxvt.colorBD: rgb:ff/ff/ff
+
+URxvt*font: xft:Terminess\ Powerline:pixelsize=14,xft:Fixed:antialias=false:style=ja:pixelsize=13
