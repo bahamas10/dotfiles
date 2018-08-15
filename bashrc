@@ -145,6 +145,8 @@ _prompt_command() {
 }
 PROMPT_COMMAND=_prompt_command
 
+PROMPT_DIRTRIM=6
+
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
 	alias ls='ls -p --color=auto'
