@@ -23,7 +23,6 @@ syntax on
 set autoindent			" Default to indenting files
 set backspace=indent,eol,start	" Backspace all characters
 set hlsearch			" Highlight search results
-"set listchars=tab:▸\ ,eol:¬     " Characters for :set list, http://vimcasts.org/episodes/show-invisibles/
 set nonumber			" Disable line numbers
 set nostartofline		" Do not jump to first character with page commands
 set ruler			" Enable the ruler
@@ -31,6 +30,7 @@ set showmatch			" Show matching brackets.
 set showmode			" Show the current mode in status line
 set showcmd			" Show partial command in status line
 set tabstop=8			" Number of spaces <tab> counts for
+set textwidth=80		" 80 Columns
 set title			" Set the title
 
 " ---------------------------------------------
