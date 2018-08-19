@@ -13,8 +13,14 @@ usage() {
 	local prog=${0##*/}
 	cat <<-EOF
 	Usage: $prog [ bright | dark | brighter | darker | darkest | night | day | [0-9]+ ]
+	Usage: $prog [ mirror | laptop | hdmi ]
 
 	Examples:
+	  # Set output(s)
+	  $prog mirror # mirror display and HDMI
+	  $prog laptop # laptop display only
+	  $prog hdmi   # hdmi output only
+
 	  # Modify color temperature for night (4500k)
 	  $prog night
 
@@ -30,6 +36,10 @@ usage() {
 }
 
 case "$1" in
+	mirror|dual) xrandr --output eDP1 --auto --output HDMI1 --auto;;
+	hdmi|external) xrandr --output eDP1 --off --output HDMI1 --auto;;
+	laptop|builtin) xrandr --output HDMI1 --off --output eDP1 --auto;;
+
 	brighter) xbacklight + 5;;
 	darker) xbacklight - 5;;
 
