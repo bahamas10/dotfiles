@@ -12,11 +12,12 @@ set $ctrl Control
 # Setup system to lock when suspended/screensaver
 exec --no-startup-id xss-lock -- ~/bin/i3lock-retry -enfi ~/Pictures/lock.png
 
-# Set screensaver to 5 minutes (xss-lock will start lock)
-exec --no-startup-id xset s 300
+# Set screensaver to 10 minutes (xss-lock will start lock)
+exec --no-startup-id xset s 600
 
 # Set suspend to 10 minutes (xss-lock will start lock if not already locked)
-exec --no-startup-id xautolock -time 10 -locker 'systemctl suspend' -detectsleep
+# no automatic sleep
+#exec --no-startup-id xautolock -time 10 -locker 'systemctl suspend' -detectsleep
 
 # Enable tap-to-click on the touchpad
 exec --no-startup-id xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Tapping Enabled' 1
