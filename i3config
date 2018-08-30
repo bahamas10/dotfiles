@@ -28,8 +28,8 @@ exec --no-startup-id xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Midd
 # Set the DPI
 exec --no-startup-id xrandr --output eDP1 --dpi 96
 
-# Reduce tearing
-exec --no-startup-id compton -CG --backend glx --vsync opengl-swc -b -D 0 --no-fading-openclose
+# Reduce tearing (not needed on Void Linux)
+#exec --no-startup-id compton -CG --backend glx --vsync opengl-swc -b -D 0 --no-fading-openclose
 
 # Keyboard Repeat Rate
 exec --no-startup-id xset r rate 250 44
@@ -43,8 +43,8 @@ exec --no-startup-id xrdb -merge ~/.Xresources
 # Load xfce4-panel
 exec --no-startup-id xfce4-panel --disable-wm-check
 
-# Load pulse audio applet
-exec --no-startup-id pa-applet
+# Load volumeicon
+exec --no-startup-id volumeicon
 
 # Load network manager applet
 exec --no-startup-id nm-applet
@@ -52,18 +52,18 @@ exec --no-startup-id nm-applet
 # Set initial keyboard layout
 exec --no-startup-id setxkbmap dvorak,us
 
-# Disable Bluetooth
-exec --no-startup-id bluetooth off
+# Disable Bluetooth (done in my BIOS)
+#exec --no-startup-id bluetooth off
 
-# Disable CapsLock
+# Disable CapsLock (why doesn't this work?!)
 exec --no-startup-id setxkbmap -option caps:none
 
 # Hide mouse when typing
 exec --no-startup-id xbanish -i shift -i control -i mod1 -i mod4
 
 # Start keeweb in the scratch space
-for_window [title="KeeWeb"] move scratchpad
-exec --no-startup-id KeeWeb
+#for_window [title="KeeWeb"] move scratchpad
+#exec --no-startup-id KeeWeb
 
 # Float some windows by default
 for_window [class="Xfce4-panel" instance="xfce4-panel"] floating enable
@@ -87,7 +87,7 @@ floating_modifier $sup
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 
-# Volume keys (handled by xfce4-panel/pa-applet, left in here for reference)
+# Volume keys (handled by volumeicon, left in here for reference)
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
