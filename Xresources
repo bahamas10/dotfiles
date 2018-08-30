@@ -9,15 +9,16 @@ urxvt.background: black
 urxvt.foreground: gray
 
 !! Font preferenes
-urxvt.font: xft:DejaVu Sans Mono:pixelsize=16
-urxvt.boldFont: xft:DejaVu Sans Mono:pixelsize=16:weight=bold
+urxvt.font: xft:DejaVuSansMono:pixelsize=16
+urxvt.boldFont: xft:DejaVuSansMono-Bold:pixelsize=16
 urxvt.letterSpace: -1
 
 !! Larger history limit
 urxvt.saveLines: 1000000
 
 ! links ctrl+click to open
-URxvt.perl-ext-common: default,matcher,clipboard,font-size
+!URxvt.perl-ext-common: default,matcher,clipboard,font-size
+URxvt.perl-ext-common: default,matcher,font-size
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: C1
@@ -37,7 +38,7 @@ URxvt.keysym.Control-equal: font-size:increase
 URxvt.keysym.Control-plus: font-size:increase
 URxvt.keysym.Control-0: font-size:reset
 
-URxvt.keysym.Shift-Control-V: clipboard:paste
+!URxvt.keysym.Shift-Control-V: clipboard:paste
 
 URxvt.keysym.Control-k:	command:\033c
 
