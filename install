@@ -43,8 +43,8 @@ done
 # neovim
 symlink ~/.vim ~/.config/nvim
 
-# i3 config and other stuff for my arch linux laptop
-if i3 -v &>/dev/null && [[ -n $DISPLAY ]]; then
+# i3 config and other stuff for display based installs
+if i3 -v &>/dev/null; then
 	mkdir -p ~/.config/i3
 	mkdir -p ~/.config/rofi
 
