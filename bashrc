@@ -386,10 +386,8 @@ windows-path() {
 	echo "${base}${path////\\}"
 }
 
-# Bash on Ubuntu on Windows
-if uname -a | grep -q '^Linux.*Microsoft'; then
-	. ~/.ssh/environment > /dev/null
-fi
+# Load ssh-agent pid
+. ~/.ssh/ssh-agent-env &> /dev/null
 
 # Load external files
 . ~/.bash_aliases    2>/dev/null || true
