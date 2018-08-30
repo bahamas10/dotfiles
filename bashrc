@@ -62,14 +62,12 @@ alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias chomd='chmod'
 alias externalip='curl -sS https://www.daveeddy.com/ip'
 alias gerp='grep'
-alias joyentstillpaying="sdc-listmachines | json -a -c \"state !== 'running'\" name state | sort"
 alias l='ls -CF'
-alias lsdisks='kstat -lc disk :::class | field 3 :'
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
+alias startx='startx; exit'
 alias suod='sudo'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
-alias unusedimages='imgadm list -H -o clones,uuid,name,os,version | awk "\$1 == 0"'
 grep --color=auto < /dev/null &> /dev/null && alias grep='grep --color=auto'
 
 # Git Aliases
