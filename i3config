@@ -9,8 +9,11 @@ set $alt Mod1
 set $sup Mod4
 set $ctrl Control
 
+# Disabled system bell
+exec --no-startup-id xset b off
+
 # Setup system to lock when suspended/screensaver
-exec --no-startup-id xss-lock -- ~/bin/i3lock-retry -enfi ~/Pictures/lock.png
+exec --no-startup-id exec xss-lock -- ~/bin/i3lock-retry -enfi ~/Pictures/lock.png
 
 # Set screensaver to 10 minutes (xss-lock will start lock)
 exec --no-startup-id xset s 600
@@ -41,13 +44,13 @@ exec --no-startup-id feh --bg-fill ~/Pictures/bg.png
 exec --no-startup-id xrdb -merge ~/.Xresources
 
 # Load xfce4-panel
-exec --no-startup-id xfce4-panel --disable-wm-check
+exec --no-startup-id exec xfce4-panel --disable-wm-check
 
 # Load volumeicon
-exec --no-startup-id volumeicon
+exec --no-startup-id exec volumeicon
 
 # Load network manager applet
-exec --no-startup-id nm-applet
+exec --no-startup-id exec nm-applet
 
 # Set initial keyboard layout
 exec --no-startup-id setxkbmap dvorak,us
@@ -59,7 +62,7 @@ exec --no-startup-id setxkbmap dvorak,us
 exec --no-startup-id setxkbmap -option caps:none
 
 # Hide mouse when typing
-exec --no-startup-id xbanish -i shift -i control -i mod1 -i mod4
+exec --no-startup-id exec xbanish -i shift -i control -i mod1 -i mod4
 
 # Start keeweb in the scratch space
 #for_window [title="KeeWeb"] move scratchpad
@@ -100,7 +103,7 @@ bindsym --release $sup+Print exec scrot -s '%Y-%m-%d_%H:%M:%S_$wx$h_scrot.png' -
 bindsym $sup+shift+l exec xset s activate
 
 # start a terminal
-bindsym $sup+Return exec urxvt
+bindsym $sup+Return exec exec urxvt
 
 # kill focused window
 bindsym $sup+q kill
@@ -109,8 +112,8 @@ bindsym $sup+q kill
 bindsym $ctrl+space exec ~/bin/keyboard toggle
 
 # Rofi
-bindsym $alt+space exec rofi -modi drun -show-icons -show drun -sidebar-mode
-bindsym $alt+Tab exec rofi -show window
+bindsym $alt+space exec exec rofi -modi drun -show-icons -show drun -sidebar-mode
+bindsym $alt+Tab exec exec rofi -show window
 
 # reload the configuration file
 bindsym $sup+Shift+c reload

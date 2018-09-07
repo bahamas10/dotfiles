@@ -36,14 +36,14 @@ usage() {
 }
 
 case "$1" in
-	mirror|dual) xrandr --output eDP1 --auto --output HDMI1 --auto;;
-	hdmi|external) xrandr --output eDP1 --off --output HDMI1 --auto;;
+	mirror|dual) xrandr --output eDP1 --auto --output HDMI1 --set 'Broadcast RGB' 'Limited 16:235' --auto;;
+	hdmi|external) xrandr --output eDP1 --off --output HDMI1 --set 'Broadcast RGB' 'Limited 16:235' --auto;;
 	laptop|builtin) xrandr --output HDMI1 --off --output eDP1 --auto;;
 
 	brighter) xbacklight + 5;;
 	darker) xbacklight - 5;;
 
-	bright) xbacklight = 100;;
+	bright|brightest) xbacklight = 100;;
 	dark) xbacklight = 1;;
 	darkest) xbacklight = .1;;
 
