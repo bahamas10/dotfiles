@@ -54,7 +54,7 @@ if i3 -v &>/dev/null; then
 
 	# bin dir
 	mkdir -p ~/bin
-	for f in arch-bin/*; do
+	for f in bin/*; do
 		basename=${f##*/}
 		bin=~/bin/$basename
 		if [[ -e $bin && ! -L $bin ]]; then
