@@ -37,3 +37,6 @@
 [submodule "vim/bundle/rust.vim"]
 	path = vim/bundle/rust.vim
 	url = git://github.com/rust-lang/rust.vim.git
+[submodule "bics-plugins/bash-path"]
+	path = bics-plugins/bash-path
+	url = git://github.com/bahamas10/bash-path.git

@@ -18,7 +18,6 @@ export HISTSIZE=5000
 export HISTFILESIZE=5000
 export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
-export PATH="$PATH:$HOME/bin"
 export SSHP_NO_RAINBOW=1
 export SSHP_TRIM=1
 export TZ='US/Eastern'
@@ -45,6 +44,9 @@ export LESS_TERMCAP_ZN=$(tput ssubm)
 export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
+
+# PATH
+path_add ~/bin
 
 # Shell Options
 shopt -s cdspell
@@ -394,5 +396,7 @@ windows-path() {
 # load completion
 . /etc/bash/bash_completion 2>/dev/null ||
 	. ~/.bash_completion 2>/dev/null
+
+path_clean
 
 true
