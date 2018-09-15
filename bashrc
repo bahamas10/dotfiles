@@ -70,7 +70,8 @@ alias startx='startx; exit'
 alias suod='sudo'
 alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
-grep --color=auto < /dev/null &> /dev/null && alias grep='grep --color=auto'
+grep --color=auto < /dev/null &>/dev/null && alias grep='grep --color=auto'
+xdg-open --version &>/dev/null && alias open='xdg-open'
 
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
