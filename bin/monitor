@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Control the monitor backlight and color temperature
-# requires `xbacklight` and `redshift`
+# requires `xbacklight`, `xrandr`, and `redshift`
 #
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: June 25, 2018
