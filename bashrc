@@ -59,7 +59,6 @@ shopt -s dirspell 2>/dev/null || true
 
 # Aliases
 alias ..='echo "cd .."; cd ..'
-alias bssh='dns-sd -B _ssh._tcp .'
 alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias chomd='chmod'
 alias externalip='curl -sS https://www.daveeddy.com/ip'
