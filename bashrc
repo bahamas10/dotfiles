@@ -20,7 +20,7 @@ export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
 export SSHP_NO_RAINBOW=1
 export SSHP_TRIM=1
-export TZ='US/Eastern'
+export TZ='America/New_York'
 export VISUAL='vim'
 
 # Joyent Manta
