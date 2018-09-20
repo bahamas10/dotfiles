@@ -96,7 +96,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 # Screenshots
-bindsym Print exec scrot '%Y-%m-%d_%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots'
+bindsym --release Print exec scrot '%Y-%m-%d_%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots'
 bindsym --release $sup+Print exec scrot -s '%Y-%m-%d_%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots'
 
 # Start screensaver (xss-lock will start lock)
