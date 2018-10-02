@@ -387,7 +387,9 @@ windows-path() {
 }
 
 # Load ssh-agent pid
-. ~/.ssh/ssh-agent-env &> /dev/null
+if [[ -z $SSH_AUTH_SOCK ]]; then
+	. ~/.ssh/ssh-agent-env &> /dev/null
+fi
 
 # Load external files
 . ~/.bash_aliases    2>/dev/null || true
