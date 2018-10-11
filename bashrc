@@ -23,12 +23,13 @@ export SSHP_TRIM=1
 export TZ='America/New_York'
 export VISUAL='vim'
 
+# Load ssh/piv-agent
+. ~/.ssh/ssh-agent-env &> /dev/null
+
 # Joyent Manta
-export MANTA_USER=${MANTA_USER:-bahamas10}
-export MANTA_URL=${MANTA_URL:-https://us-east.manta.joyent.com}
-export MANTA_KEY_ID
-[[ -n $MANTA_KEY_ID ]] || MANTA_KEY_ID=$(ssh-add -l 2>/dev/null | awk '{print $2}' | head -1)
-[[ -n $MANTA_KEY_ID ]] || MANTA_KEY_ID=$(ssh-keygen -l -f ~/.ssh/id_rsa.pub 2>/dev/null | awk '{print $2}')
+export MANTA_USER='bahamas10'
+export MANTA_URL='https://us-east.manta.joyent.com'
+export MANTA_KEY_ID=$(ssh-add -l 2>/dev/null | awk '$3 ~ /9A$/ {print $2}')
 
 # Support colors in less
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
@@ -385,11 +386,6 @@ windows-path() {
 
 	echo "${base}${path////\\}"
 }
-
-# Load ssh-agent pid
-if [[ -z $SSH_AUTH_SOCK ]]; then
-	. ~/.ssh/ssh-agent-env &> /dev/null
-fi
 
 # Load external files
 . ~/.bash_aliases    2>/dev/null || true
