@@ -32,7 +32,7 @@ exec --no-startup-id xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Midd
 exec --no-startup-id xrandr --output eDP1 --dpi 96
 
 # Reduce tearing and fix notification area on xfce4-panel
-exec --no-startup-id compton -CG --backend glx --vsync opengl-swc -b -D 0 --no-fading-openclose
+exec --no-startup-id compton -CG --backend glx --vsync --xrender-sync-fence -b -D 0 --no-fading-openclose
 
 # Keyboard Repeat Rate
 exec --no-startup-id xset r rate 250 44
