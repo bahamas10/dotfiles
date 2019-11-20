@@ -36,9 +36,10 @@ usage() {
 }
 
 case "$1" in
-	mirror|dual) xrandr --output eDP1 --auto --output HDMI1 --set 'Broadcast RGB' 'Limited 16:235' --auto;;
-	hdmi|external) xrandr --output eDP1 --off --output HDMI1 --set 'Broadcast RGB' 'Limited 16:235' --auto;;
-	laptop|builtin) xrandr --output HDMI1 --off --output eDP1 --auto;;
+	mirror|dual)    xrandr --output eDP1 --auto --output HDMI1 --set 'Broadcast RGB' 'Limited 16:235' --auto;;
+	dock)           xrandr --output eDP1 --off  --output DP1   --set 'Broadcast RGB' 'Limited 16:235' --auto;;
+	hdmi|external)  xrandr --output eDP1 --off  --output HDMI1 --set 'Broadcast RGB' 'Limited 16:235' --auto;;
+	laptop|builtin) xrandr --output HDMI1 --off --output eDP1  --auto --output DP1 --off;;
 
 	brighter) xbacklight + 5;;
 	darker) xbacklight - 5;;
@@ -49,6 +50,7 @@ case "$1" in
 
 	day) redshift -m randr -x;;
 	night) redshift -m randr -PO 4500;;
+	nighter) redshift -m randr -PO 3500;;
 
 	(+([0-9])) xbacklight = "$1";;
 	''|get) xbacklight -get;;
