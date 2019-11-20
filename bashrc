@@ -77,6 +77,7 @@ xdg-open --version &>/dev/null && alias open='xdg-open'
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
 alias gb='git branch'
+alias gbd='git diff master...HEAD'
 alias gc='git clone'
 alias gci='git commit -a'
 alias gcm='git checkout master && git pull'
