@@ -18,3 +18,4 @@ if [[ -n $vpns ]]; then
 fi
 
 echo "$ssid$vpn"
+#echo
