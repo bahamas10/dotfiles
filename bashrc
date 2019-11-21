@@ -134,7 +134,7 @@ PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]
 '\[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
 
 # set the theme
-set_prompt_colors 27
+set_prompt_colors 24
 
 # Prompt command
 _prompt_command() {
