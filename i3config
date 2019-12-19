@@ -23,10 +23,10 @@ exec --no-startup-id xset s 600
 #exec --no-startup-id xautolock -time 10 -locker 'systemctl suspend' -detectsleep
 
 # Enable tap-to-click on the touchpad
-exec --no-startup-id xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Tapping Enabled' 1
+exec --no-startup-id xinput set-prop 'Synaptics TM3289-021' 'libinput Tapping Enabled' 1
 
 # Disable middle-mouse button on the touchpad itself
-exec --no-startup-id xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Middle Emulation Enabled' 1
+exec --no-startup-id xinput set-prop 'Synaptics TM3289-021' 'libinput Middle Emulation Enabled' 1
 
 # Set the DPI
 exec --no-startup-id xrandr --output eDP1 --dpi 96
