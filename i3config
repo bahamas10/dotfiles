@@ -55,6 +55,9 @@ exec --no-startup-id exec nm-applet
 # Set initial keyboard layout
 exec --no-startup-id setxkbmap dvorak,us
 
+# Load dunst
+exec --no-startup-id exec dunst
+
 # Disable Bluetooth (done in my BIOS)
 #exec --no-startup-id bluetooth off
 
