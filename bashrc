@@ -47,7 +47,7 @@ export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
 
 # PATH
-path_add ~/bin
+path_add ~/bin before
 
 # Shell Options
 shopt -s cdspell
