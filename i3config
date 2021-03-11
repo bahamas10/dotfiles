@@ -32,7 +32,7 @@ exec --no-startup-id xinput set-prop 'Synaptics TM3289-021' 'libinput Middle Emu
 exec --no-startup-id xrandr --output eDP1 --dpi 96
 
 # Reduce tearing and fix notification area on xfce4-panel
-exec --no-startup-id compton -CG --backend glx --vsync --xrender-sync-fence -b -D 0 --no-fading-openclose
+#exec --no-startup-id compton -CG --backend glx --vsync --xrender-sync-fence -b -D 0 --no-fading-openclose
 
 # Keyboard Repeat Rate
 exec --no-startup-id xset r rate 250 44
@@ -90,8 +90,8 @@ gaps outer 0
 floating_modifier $sup
 
 # Backlight keys
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 
 # Volume keys (handled by volumeicon, left in here for reference)
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
