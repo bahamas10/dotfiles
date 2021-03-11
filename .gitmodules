@@ -22,9 +22,6 @@
 [submodule "bics-plugins/tabstop"]
 	path = bics-plugins/tabstop
 	url = git://github.com/bahamas10/tabstop.git
-[submodule "vim/bundle/swift.vim"]
-	path = vim/bundle/swift.vim
-	url = git://github.com/keith/swift.vim
 [submodule "vim/bundle/vim-airline"]
 	path = vim/bundle/vim-airline
 	url = git://github.com/vim-airline/vim-airline.git
