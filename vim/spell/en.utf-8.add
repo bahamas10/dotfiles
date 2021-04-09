@@ -34,3 +34,7 @@ countertops
 diy
 filesystem
 tunables
+stdout
+stderr
+manpage
+stdin
