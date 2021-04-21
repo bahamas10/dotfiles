@@ -30,6 +30,7 @@ set showmatch			" Show matching brackets.
 set showmode			" Show the current mode in status line
 set showcmd			" Show partial command in status line
 set tabstop=8			" Number of spaces <tab> counts for
+set textwidth=80		" 80 columns
 set title			" Set the title
 
 " ---------------------------------------------

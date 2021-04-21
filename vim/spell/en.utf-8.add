@@ -38,3 +38,4 @@ stdout
 stderr
 manpage
 stdin
+struct
