@@ -22,6 +22,7 @@ syntax on
 " ---------------------------------------------
 set autoindent			" Default to indenting files
 set backspace=indent,eol,start	" Backspace all characters
+set formatoptions-=t		" Don't add line-breaks for lines over 'textwidth' characters
 set hlsearch			" Highlight search results
 set nonumber			" Disable line numbers
 set nostartofline		" Do not jump to first character with page commands
