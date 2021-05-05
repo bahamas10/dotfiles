@@ -73,7 +73,7 @@ if has("autocmd")
 
 	" JSON files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json setlocal filetype=json
-	autocmd FileType                            json  setlocal sw=4 sts=4 et
+	autocmd FileType                            json  setlocal sw=2 sts=2 et
 
 	" Objective C / C++
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.m    setlocal filetype=objc
