@@ -121,6 +121,7 @@ highlight SpellLocal term=underline cterm=underline
 " ---------------------------------------------
 " Plugins
 " ---------------------------------------------
+let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
 
 " ---------------------------------------------
