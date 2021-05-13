@@ -237,33 +237,6 @@ gho() {
 	open "$url"
 }
 
-# ma npage for illumos - pages pulled from GitHub and rendered
-# locally with man(1) - inspiration https://github.com/davepacheco/iman
-# modified to render locally using man and not links
-iman() {
-	local section=$1
-	local page=$2
-	if [[ -z $section ]]; then
-		echo 'iman [section] <page>' >&2
-		return 1
-	elif [[ -z $page ]]; then
-		page=$section
-		section=1
-	fi
-	local url="https://raw.githubusercontent.com/illumos/illumos-gate/master/usr/src/man/man$section/$page.$section"
-	local f=$(mktemp /var/tmp/iman.XXXX)
-	(($? == 0)) && [[ -f $f ]] || return 1
-
-	echo -n "loading $url... "
-	if curl -sS "$url" > "$f"; then
-		echo 'done'
-		man "$f"
-	else
-		echo 'failed'
-	fi
-	rm -f "$f"
-}
-
 # Platform-independent interfaces
 interfaces() {
 	node <<-EOF
@@ -287,44 +260,6 @@ load() {
 		return (l/c).toFixed(2);
 	}).join(' ');
 	EOF
-}
-
-# Total the billable amount in Manta
-mbillable() {
-	local u=${1:-$MANTA_USER}
-	mget -q "/$u/reports/usage/storage/latest" |\
-	json storage | json {public,stor,reports,jobs}.bytes |\
-	awk -v "u=$u" "
-	{
-		s += \$1;
-	}
-	END {
-		gb = s / 1024 / 1024 / 1024;
-		billable = gb + 1;
-		printf(\"%s => using %d GB (%d GB billable)\\n\",
-		u, gb, billable);
-	}
-	"
-}
-
-# Open files from manta in the browser
-mopen() {
-	murl "$@" | xargs open
-}
-
-# Paste bin using manta
-mpaste() {
-	local mfile=~~/public/pastes/$(date +%s).html
-	pygmentize -f html -O full "$@" | mput -pq "$mfile"
-	murl "$mfile"
-}
-
-# convert manta paths into URLs
-murl() {
-	local u
-	for u in "$@"; do
-		echo "$MANTA_URL${u/#~~//$MANTA_USER}"
-	done
 }
 
 # Platform-independent memory usage
@@ -351,42 +286,6 @@ over() {
 # Turn a Joyent machine alias into the zonename
 ualias() {
 	vmadm list -o uuid -H alias="$1"
-}
-
-# Follow redirects to untiny a tiny url
-untiny() {
-	local location=$1 last_location=
-	while [[ -n $location ]]; do
-		[[ -n $last_location ]] && echo " -> $last_location"
-		last_location=$location
-		read -r _ location < \
-		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
-	done
-	echo "$last_location"
-}
-
-# parse URL's to JSON for easy screen scraping on the shell
-urlparse() {
-	node -e "
-	var fs = require('fs');
-	var url = require('url');
-	var stdin = fs.readFileSync('/dev/stdin').toString();
-	console.log(JSON.stringify(url.parse(stdin, true), null, 2));
-	"
-}
-
-# Convert WSL Path to Windows Path
-windows-path() {
-	local path=$1
-	local user=${2:-$USER}
-	local base="C:\\Users\\$user\\AppData\\Local\\lxss"
-
-	# Make path absolute
-	if [[ ${path:0:1} != '/' ]]; then
-		path=$PWD/$path
-	fi
-
-	echo "${base}${path////\\}"
 }
 
 # Load external files
