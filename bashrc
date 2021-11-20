@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+#
 # Best bashrc in history
 #
-# Dave Eddy <dave@daveeddy.com>
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: Sometime in 2011
+# License: MIT
 
 # If not running interactively, don't do anything
 [[ -n $PS1 ]] || return
@@ -18,18 +21,8 @@ export HISTSIZE=5000
 export HISTFILESIZE=5000
 export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
-export SSHP_NO_RAINBOW=1
-export SSHP_TRIM=1
 export TZ='America/New_York'
 export VISUAL='vim'
-
-# Load ssh/piv-agent
-. ~/.ssh/ssh-agent-env &> /dev/null
-
-# Joyent Manta
-export MANTA_USER='bahamas10'
-export MANTA_URL='https://us-east.manta.joyent.com'
-export MANTA_KEY_ID=$(ssh-add -l 2>/dev/null | awk '$3 ~ /9A$/ {print $2}')
 
 # Support colors in less
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
@@ -60,17 +53,13 @@ shopt -s dirspell 2>/dev/null || true
 
 # Aliases
 alias ..='echo "cd .."; cd ..'
-alias cg='sudo chef-solo -c "$(gr)/solo.rb"'
 alias chomd='chmod'
 alias externalip='curl -sS https://www.daveeddy.com/ip'
 alias gerp='grep'
 alias js='jq'
 alias l='ls -CF'
-alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
-alias startx='startx; exit'
+alias ag='rg' # sorry silver searcher
 alias suod='sudo'
-alias urldecode="node -pe 'decodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
-alias urlencode="node -pe 'encodeURIComponent(require(\"fs\").readFileSync(\"/dev/stdin\", \"utf-8\"));"
 grep --color=auto < /dev/null &>/dev/null && alias grep='grep --color=auto'
 xdg-open --version &>/dev/null && alias open='xdg-open'
 
@@ -168,6 +157,7 @@ colordiff() {
 	local green=$(tput setaf 2 2>/dev/null)
 	local cyan=$(tput setaf 6 2>/dev/null)
 	local reset=$(tput sgr0 2>/dev/null)
+
 	diff -u "$@" | awk "
 	/^\-/ {
 		printf(\"%s\", \"$red\");
@@ -182,6 +172,7 @@ colordiff() {
 	{
 		print \$0 \"$reset\";
 	}"
+
 	return "${PIPESTATUS[0]}"
 }
 
