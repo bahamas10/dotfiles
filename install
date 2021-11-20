@@ -80,21 +80,6 @@ if [[ -d ~/Library ]]; then
 	symlink "$PWD/DefaultKeyBinding.dict" ~/Library/KeyBindings/DefaultKeyBinding.dict
 fi
 
-# Mac OS X homebrew
-if [[ $(uname) == 'Darwin' ]]; then
-	if ! brew help &> /dev/null; then
-		echo 'installing homebrew'
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	else
-		echo 'updating homebrew'
-		brew update
-	fi
-
-	brew install node
-	brew install the_silver_searcher
-	brew install wget
-fi
-
 # Mac OS X NSUserDefaults modifications
 # Some based on https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 if defaults read com.apple.finder &>/dev/null; then
@@ -161,9 +146,6 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 	defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 
-	# Menubar: battery percentage display
-	defaults write com.apple.menuextra.battery ShowPercent -bool YES
-
 	# Global: Enable full keyboard access for all controls
 	# (e.g. enable Tab in modal dialogs)
 	defaults write -g AppleKeyboardUIMode -int 3
@@ -178,9 +160,6 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Printer: Automatically quit printer app once the print jobs complete
 	defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool true
 
-	# Global: Disable the "Are you sure you want to open this application?" dialog
-	defaults write com.apple.LaunchServices LSQuarantine -bool false
-
 	# Finder: Full POSIX path in finder windows
 	defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
@@ -189,7 +168,6 @@ if defaults read com.apple.finder &>/dev/null; then
 
 	# Finder: Show icons for hard drives, servers, and removable media on the desktop
 	defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-	defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 	defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 	defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
@@ -199,9 +177,6 @@ if defaults read com.apple.finder &>/dev/null; then
 
 	# Finder: only search the current direcotry
 	defaults write com.apple.finder FXDefaultSearchScope -string SCcf
-
-	# Dashboard: Disable dashboard
-	defaults write com.apple.dashboard mcx-disabled -bool true
 
 	# Mission Control: Don't automatically rearrange Spaces based on most recent use
 	defaults write com.apple.dock mru-spaces -bool false
