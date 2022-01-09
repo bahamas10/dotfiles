@@ -34,3 +34,6 @@
 [submodule "bics-plugins/bash-path"]
 	path = bics-plugins/bash-path
 	url = git://github.com/bahamas10/bash-path.git
+[submodule "vim/bundle/vim-asm_ca65"]
+	path = vim/bundle/vim-asm_ca65
+	url = git://github.com/maxbane/vim-asm_ca65
