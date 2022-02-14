@@ -68,18 +68,22 @@ if has("autocmd")
 	autocmd FileType                            yaml         setlocal sw=2 sts=2 et
 
 	" JavaScript files
-	autocmd BufNewFile,BufReadPre,FileReadPre   *.js setlocal filetype=javascript
+	autocmd BufNewFile,BufReadPre,FileReadPre   *.js        setlocal filetype=javascript
 	autocmd FileType                            javascript  setlocal sw=4 sts=4 et
 
 	" JSON files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.json setlocal filetype=json
-	autocmd FileType                            json  setlocal sw=2 sts=2 et
+	autocmd FileType                            json   setlocal sw=2 sts=2 et
 
 	" Objective C / C++
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.m    setlocal filetype=objc
 	autocmd FileType                            objc   setlocal sw=4 sts=4 et
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.mm   setlocal filetype=objcpp
 	autocmd FileType                            objcpp setlocal sw=4 sts=4 et
+
+	" Rust files
+	"autocmd BufNewFile,BufReadPre,FileReadPre   *.rs   setlocal filetype=rust
+	autocmd FileType                            rust   setlocal sw=4 sts=4 et textwidth=80
 
 	" Python files
 	autocmd BufNewFile,BufReadPre,FileReadPre   *.py   setlocal filetype=python
@@ -123,6 +127,7 @@ highlight SpellLocal term=underline cterm=underline
 " ---------------------------------------------
 let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
+let g:rust_recommended_style = 1
 
 " ---------------------------------------------
 " Source local config
