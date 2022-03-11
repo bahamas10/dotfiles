@@ -115,13 +115,32 @@ set_prompt_colors() {
 	done
 }
 
-PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'\
-'\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] '\
-'- \[${PROMPT_COLORS[3]}\]\h\[${PROMPT_COLORS[4]}\] '\
-'\[${PROMPT_COLORS[2]}\]\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"'\[${PROMPT_COLORS[2]}\] '\
-'\[${PROMPT_COLORS[5]}\]\w '\
-'$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$branch\[${PROMPT_COLORS[2]}\]) ")'\
-'\[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
+# Construct the prompt
+# [(exit code)] <user> - <hostname> <uname> <cwd> [git branch] <$|#>
+
+# exit code of last process
+PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'
+
+# username (red for root)
+PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] - '
+
+# zonename (global zone warning)
+PS1+='\[${COLOR256[0]}\]\[${COLOR256[257]}\]'"$(zonename 2>/dev/null | grep -q '^global$' && echo 'GZ:')"'\[${COLOR256[256]}\]'
+
+# hostname
+PS1+='\[${PROMPT_COLORS[3]}\]\h '
+
+# uname
+PS1+='\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"' '
+
+# cwd
+PS1+='\[${PROMPT_COLORS[5]}\]\w '
+
+# optional git branch
+PS1+='$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$branch\[${PROMPT_COLORS[2]}\]) ")'
+
+# prompt character
+PS1+='\[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
 
 # set the theme
 set_prompt_colors 24
