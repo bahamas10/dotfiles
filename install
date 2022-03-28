@@ -187,6 +187,12 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Dock: Dock on the left
 	defaults write com.apple.dock orientation -string left
 
+	# Dock: Disable recents
+	defaults write com.apple.dock show-recents -bool false
+
+	# Screenshot: Save screenshots with date in filename
+	defaults write com.apple.screencapture include-date -bool true
+
 	# Hot corners
 	# Possible values:
 	#  0: no-op
