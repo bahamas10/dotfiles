@@ -234,6 +234,9 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.Terminal NewTabSettingsBehavior -int 1
 	defaults write com.apple.Terminal NewTabWorkingDirectoryBehavior -int 1
 
+	# iTerm2: Don't enter copy mode automatically (on selection)
+	defaults write com.googlecode.iTerm2 EnterCopyModeAutomatically -bool no
+
 	# Spotlight: Don't index mounted volumes
 	echo 'sudo needed to update spotlight settings'
 	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array /Volumes
