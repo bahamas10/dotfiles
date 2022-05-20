@@ -13,7 +13,6 @@
 . ~/.bics/bics || echo '> failed to load bics' >&2
 
 # Set environment
-export BROWSER='firefox'
 export EDITOR='vim'
 export GREP_COLOR='1;36'
 export HISTCONTROL='ignoredups'
@@ -67,20 +66,42 @@ xdg-open --version &>/dev/null && alias open='xdg-open'
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
 alias gb='git branch'
-alias gbd='git diff master...HEAD'
 alias gc='git clone'
 alias gci='git commit -a'
-alias gcm='git checkout master && git pull'
 alias gco='git checkout'
-alias gd='git diff'
+alias gd="git diff ':!*lock'"
+alias gdf='git diff' # git diff (full)
 alias gi='git init'
 alias gl='git log'
-alias gmm='git merge master'
 alias gp='git push origin HEAD'
 alias gr='git rev-parse --show-toplevel' # git root
 alias gs='git status'
 alias gt='git tag'
 alias gu='git pull' # gu = git update
+
+# because `master` is sometimes `main` (or others), these must be functions.
+gmb() { # git main branch
+	local main
+	main=$(git symbolic-ref --short refs/remotes/origin/HEAD)
+	main=${main#origin/}
+	[[ -n $main ]] || return 1
+	echo "$main"
+}
+
+gbd() { # git branch diff
+	local mb=$(gmb) || return 1
+	git diff "$mb..HEAD"
+}
+
+gcm() { # git checkout $main
+	local mb=$(gmb) || return 1
+	git checkout "$mb" && git pull
+}
+
+gmm() { # git merge $main
+	local mb=$(gmb) || return 1
+	git merge "$mb"
+}
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
