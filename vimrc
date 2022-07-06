@@ -9,13 +9,15 @@
 set nocompatible		" Disable VI Compatibility
 
 " ---------------------------------------------
-" Init - pathogen
+" Init - plugins
 " ---------------------------------------------
-filetype off			" Turn filetype plugin off until Pathogen loads
+call plug#begin()
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-syntax on
+Plug 'rust-lang/rust.vim'
+Plug 'dense-analysis/ale'
+call plug#end()
 
 " ---------------------------------------------
 " Vim Options
@@ -82,7 +84,7 @@ if has("autocmd")
 	autocmd FileType                            objcpp setlocal sw=4 sts=4 et
 
 	" Rust files
-	"autocmd BufNewFile,BufReadPre,FileReadPre   *.rs   setlocal filetype=rust
+	" autocmd BufNewFile,BufReadPre,FileReadPre   *.rs   setlocal filetype=rust
 	autocmd FileType                            rust   setlocal sw=4 sts=4 et textwidth=80
 
 	" Python files
@@ -128,6 +130,10 @@ highlight SpellLocal term=underline cterm=underline
 let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
 let g:rust_recommended_style = 1
+let g:ale_linters = {
+\  'rust': ['analyzer'],
+\}
+let g:ale_completion_enabled = 0
 
 " ---------------------------------------------
 " Source local config
