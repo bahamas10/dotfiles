@@ -15,6 +15,9 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+
 Plug 'rust-lang/rust.vim'
 Plug 'dense-analysis/ale'
 call plug#end()
@@ -92,8 +95,8 @@ if has("autocmd")
 	autocmd FileType                            python setlocal sw=4 sts=4 et
 
 	" Markdown files
-	autocmd BufNewFile,BufRead,FileReadPre      *.md,*.markdown setlocal filetype=ghmarkdown
-	autocmd FileType                            ghmarkdown      setlocal sw=4 sts=4 et spell
+	autocmd BufNewFile,BufRead,FileReadPre      *.md,*.markdown setlocal filetype=markdown
+	autocmd FileType                            markdown      setlocal sw=4 sts=4 et spell
 	" Jekyll posts ignore yaml headers
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax match Comment /\%^---\_.\{-}---$/
 	autocmd BufNewFile,BufRead                  */_posts/*.md syntax region lqdHighlight start=/^{%\s*highlight\(\s\+\w\+\)\{0,1}\s*%}$/ end=/{%\s*endhighlight\s*%}/
@@ -134,6 +137,7 @@ let g:ale_linters = {
 \  'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 0
+let g:vim_markdown_folding_disabled = 1
 
 " ---------------------------------------------
 " Source local config
