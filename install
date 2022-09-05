@@ -244,3 +244,5 @@ if defaults read com.apple.finder &>/dev/null; then
 	echo 'done: killing Dock and Finder'
 	killall Dock Finder
 fi
+
+echo "may need to run: vim +'PlugInstall --sync' +qa"
