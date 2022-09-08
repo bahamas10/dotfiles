@@ -52,12 +52,13 @@ shopt -s dirspell 2>/dev/null || true
 
 # Aliases
 alias ..='echo "cd .."; cd ..'
+alias ag='rg' # sorry silver searcher
 alias chomd='chmod'
 alias externalip='curl -sS https://www.daveeddy.com/ip'
 alias gerp='grep'
+alias hl='rg --passthru'
 alias js='jq'
 alias l='ls -CF'
-alias ag='rg' # sorry silver searcher
 alias suod='sudo'
 grep --color=auto < /dev/null &>/dev/null && alias grep='grep --color=auto'
 xdg-open --version &>/dev/null && alias open='xdg-open'
