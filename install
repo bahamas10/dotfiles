@@ -245,4 +245,10 @@ if defaults read com.apple.finder &>/dev/null; then
 	killall Dock Finder
 fi
 
-printf "may need to run:\n\tvim +'PlugInstall --sync' +qa\n"
+if [[ -t 1 ]]; then
+	vim '+PlugInstall --sync' +qa
+else
+	printf "may need to run:\n\tvim +'PlugInstall --sync' +qa\n"
+fi
+
+true
