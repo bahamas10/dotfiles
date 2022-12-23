@@ -238,7 +238,7 @@ copy() {
 epoch() {
 	local num=${1//[^0-9]/}
 	(( ${#num} < 13 )) && num=${num}000
-	node -pe "new Date($num);"
+	node -pe "new Date(+process.argv[1]);" "$num"
 }
 
 # open the current path or file in GitHub
