@@ -187,11 +187,6 @@ else
 	alias ls='ls -p -G'
 fi
 
-# Like zlogin(1) except takes a Joyent machine alias
-alogin() {
-	zlogin "$(ualias "$1")"
-}
-
 # print a colorized diff
 colordiff() {
 	local red=$(tput setaf 1 2>/dev/null)
@@ -276,8 +271,9 @@ interfaces() {
 	var i = os.networkInterfaces();
 	Object.keys(i).forEach(function(name) {
 		i[name].forEach(function(int) {
-			if (int.family === 'IPv4')
+			if (int.family === 'IPv4') {
 				console.log('%s: %s', name, int.address);
+			}
 		});
 	});
 	EOF
@@ -315,9 +311,16 @@ over() {
 	}'
 }
 
-# Turn a Joyent machine alias into the zonename
-ualias() {
-	vmadm list -o uuid -H alias="$1"
+# Follow redirects to untiny a tiny url
+untiny() {
+	local location=$1 last_location=
+	while [[ -n $location ]]; do
+		[[ -n $last_location ]] && echo " -> $last_location"
+		last_location=$location
+		read -r _ location < \
+		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
+	done
+	echo "$last_location"
 }
 
 # Load external files
