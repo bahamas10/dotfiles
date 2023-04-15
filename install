@@ -29,7 +29,6 @@ dotfiles=(
 	bashrc
 	gitconfig
 	htoprc
-	jshintrc
 	screenrc
 	tmux.conf
 	vimrc
@@ -42,28 +41,6 @@ done
 
 # neovim
 symlink ~/.vim ~/.config/nvim
-
-# i3 config and other stuff for display based installs
-if i3 -v &>/dev/null; then
-	mkdir -p ~/.config/i3
-	mkdir -p ~/.config/rofi
-
-	symlink "$PWD/i3config" ~/.config/i3/config
-	symlink "$PWD/roficonfig" ~/.config/rofi/config
-	symlink "$PWD/Xresources" ~/.Xresources
-
-	# bin dir
-	mkdir -p ~/bin
-	for f in bin/*; do
-		basename=${f##*/}
-		bin=~/bin/$basename
-		if [[ -e $bin && ! -L $bin ]]; then
-			echo "$bin exists and is not a link, skipping" >&2
-		else
-			symlink "$PWD/$f" "$bin"
-		fi
-	done
-fi
 
 # Setup bics
 if [[ ! -d ~/.bics ]]; then
