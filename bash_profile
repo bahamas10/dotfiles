@@ -1,2 +1,1 @@
 . ~/.bashrc
-. "$HOME/.cargo/env"
