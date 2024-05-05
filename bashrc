@@ -57,11 +57,16 @@ alias chomd='chmod'
 alias externalip='curl -sS https://www.daveeddy.com/ip'
 alias gerp='grep'
 alias hl='rg --passthru'
-alias js='jq'
-alias l='ls -CF'
 alias suod='sudo'
 grep --color=auto < /dev/null &>/dev/null && alias grep='grep --color=auto'
 xdg-open --version &>/dev/null && alias open='xdg-open'
+
+# Enable color support of ls
+if ls --color=auto &>/dev/null; then
+	alias ls='ls -p --color=auto'
+else
+	alias ls='ls -p -G'
+fi
 
 # Git Aliases
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
@@ -89,16 +94,19 @@ gmb() { # git main branch
 	echo "$main"
 }
 
+# show the diff from inside a branch to the main branch
 gbd() { # git branch diff
 	local mb=$(gmb) || return 1
 	git diff "$mb..HEAD"
 }
 
+# checkout the main branch and update it
 gcm() { # git checkout $main
 	local mb=$(gmb) || return 1
 	git checkout "$mb" && git pull
 }
 
+# merge the main branch into our branch
 gmm() { # git merge $main
 	local mb=$(gmb) || return 1
 	git merge "$mb"
@@ -179,13 +187,6 @@ _prompt_command() {
 PROMPT_COMMAND=_prompt_command
 
 PROMPT_DIRTRIM=6
-
-# Enable color support of ls
-if ls --color=auto &>/dev/null; then
-	alias ls='ls -p --color=auto'
-else
-	alias ls='ls -p -G'
-fi
 
 # print a colorized diff
 colordiff() {
