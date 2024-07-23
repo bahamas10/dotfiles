@@ -312,6 +312,18 @@ over() {
 	}'
 }
 
+# print a rainbow if truecolor is available to the terminal
+truecolor-rainbow() {
+	for ((i = 0; i < 77; i++)); do
+		r=$((255 - (i * 255 / 76)))
+		g=$((i * 510 / 76))
+		b=$((i * 255 / 76))
+		((g > 255)) && g=$((510 - g))
+		printf '\033[48;2;%d;%d;%dm ' "$r" "$g" "$b"
+	done
+	echo
+}
+
 # Follow redirects to untiny a tiny url
 untiny() {
 	local location=$1 last_location=
