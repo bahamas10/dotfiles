@@ -43,6 +43,7 @@ set title			" Set the title
 " Theme / Color Scheme
 " ---------------------------------------------
 set background=light            " Light background is best
+hi Comment ctermfg=63		" Brighten up comment colors
 
 " ---------------------------------------------
 " Abbreviations
@@ -134,6 +135,9 @@ let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
 let g:rust_recommended_style = 1
 let g:ale_linters = {
+"\  'bash': [],
+"\  'sh': [],
+"\  'c': [],
 \  'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 0
