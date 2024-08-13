@@ -213,7 +213,7 @@ colordiff() {
 	return "${PIPESTATUS[0]}"
 }
 
-# Print all supported colors with raw ansi escape codes
+# Print all 256 colors
 colors() {
 	local i
 	for i in {0..255}; do
