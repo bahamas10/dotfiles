@@ -230,14 +230,13 @@ copy() {
 
 }
 
-# Convert epoch to human readable
+# Convert epoch to human readable (print current date if no args)
 epoch() {
-	local num=${1//[^0-9]/}
-	(( ${#num} < 13 )) && num=${num}000
-	node -pe "new Date(+process.argv[1]);" "$num"
+	local num=${1:--1}
+	printf '%(%B %d, %Y %-I:%M:%S %p %Z)T\n' "$num"
 }
 
-# open the current path or file in GitHub
+# Open the current path or file in GitHub
 gho() {
 	local file=$1
 	local remote=${2:-origin}
@@ -260,7 +259,7 @@ gho() {
 	local user=${a[len-2]}
 	local repo=${a[len-1]%.git}
 
-	local url="https://github.com/$user/$repo/tree/$branch$path"
+	url="https://github.com/$user/$repo/tree/$branch$path"
 	echo "$url"
 	open "$url"
 }
@@ -314,6 +313,7 @@ over() {
 
 # print a rainbow if truecolor is available to the terminal
 truecolor-rainbow() {
+	local i r g b
 	for ((i = 0; i < 77; i++)); do
 		r=$((255 - (i * 255 / 76)))
 		g=$((i * 510 / 76))
@@ -321,12 +321,15 @@ truecolor-rainbow() {
 		((g > 255)) && g=$((510 - g))
 		printf '\033[48;2;%d;%d;%dm ' "$r" "$g" "$b"
 	done
+	tput sgr0
 	echo
 }
 
 # Follow redirects to untiny a tiny url
 untiny() {
-	local location=$1 last_location=
+	local location=$1
+	local last_location=''
+
 	while [[ -n $location ]]; do
 		[[ -n $last_location ]] && echo " -> $last_location"
 		last_location=$location
