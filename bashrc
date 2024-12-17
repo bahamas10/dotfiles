@@ -190,6 +190,26 @@ PROMPT_COMMAND=_prompt_command
 
 PROMPT_DIRTRIM=6
 
+# custom prompt for YSAP
+if [[ $ITERM_PROFILE == 'Big' ]]; then
+	# username (red for root)
+	PS1='\[${PROMPT_COLORS[0]}\]dave\[${COLOR256[256]}\]'
+
+	# @
+	PS1+='\[${PROMPT_COLORS[1]}\]\[${COLOR256[257]}\]@\[${COLOR256[256]}\]'
+
+	# hostname
+	PS1+='\[${PROMPT_COLORS[3]}\]ysap '
+
+	# cwd
+	#PS1+='\[${PROMPT_COLORS[5]}\]\w '
+
+	# prompt character
+	PS1+='\[${PROMPT_COLORS[2]}\]\$\[${COLOR256[256]}\] '
+
+	PROMPT_DIRTRIM=1
+fi
+
 # print a colorized diff
 colordiff() {
 	local red=$(tput setaf 1 2>/dev/null)
