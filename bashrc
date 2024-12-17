@@ -191,7 +191,7 @@ PROMPT_COMMAND=_prompt_command
 PROMPT_DIRTRIM=6
 
 # custom prompt for YSAP
-if [[ $ITERM_PROFILE == 'Big' ]]; then
+if [[ $ITERM_PROFILE == 'YSAP' ]]; then
 	# username (red for root)
 	PS1='\[${PROMPT_COLORS[0]}\]dave\[${COLOR256[256]}\]'
 
