@@ -37,3 +37,9 @@
 [submodule "vim/bundle/vim-asm_ca65"]
 	path = vim/bundle/vim-asm_ca65
 	url = git@github.com:maxbane/vim-asm_ca65
+[submodule "bics-plugins/bash-vardump"]
+	path = bics-plugins/bash-vardump
+	url = git@github.com:bahamas10/bash-vardump.git
+[submodule "bics-plugins/bash-stacktrace"]
+	path = bics-plugins/bash-stacktrace
+	url = git@github.com:bahamas10/bash-stacktrace.git

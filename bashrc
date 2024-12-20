@@ -12,6 +12,9 @@
 # Load bics, plugins found in bics-plugins
 . ~/.bics/bics || echo '> failed to load bics' >&2
 
+# use vardump instead of parr
+alias parr='vardump'
+
 # Set environment
 export EDITOR='vim'
 export GREP_COLOR='1;36'
