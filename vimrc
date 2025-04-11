@@ -137,7 +137,7 @@ let g:rust_recommended_style = 1
 let g:ale_linters = {
 \  'bash': [],
 \  'sh': [],
-"\  'c': [],
+\  'c': [],
 \  'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 0
