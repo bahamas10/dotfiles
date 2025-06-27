@@ -27,13 +27,19 @@ dotfiles=(
 	bash_completion
 	bash_profile
 	bashrc
-	gitconfig
 	htoprc
 	screenrc
 	tmux.conf
 	vimrc
 	vim
 )
+# i've become famous - whoops. because of this, people like to install my
+# dotfiles without customizing them so then they get my git config and "become"
+# me and it's super annoying.  so, hide my own git config behind `-f` and i'll
+# just handle that myself.
+if [[ $1 == '-f' ]]; then
+	gitconfig
+fi
 for f in "${dotfiles[@]}"; do
 	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
 	symlink "$PWD/$f" ~/."$f"
