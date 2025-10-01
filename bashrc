@@ -63,8 +63,14 @@ alias hl='rg --passthru'
 alias l='ls'
 alias ll='ls -lha'
 alias suod='sudo'
-grep --color=auto < /dev/null &>/dev/null && alias grep='grep --color=auto'
-xdg-open --version &>/dev/null && alias open='xdg-open'
+
+# Aliases (if applicable)
+grep --color=auto < /dev/null &>/dev/null &&
+    alias grep='grep --color=auto'
+xdg-open --version &>/dev/null &&
+    alias open='xdg-open'
+command -v system_profiler &>/dev/null &&
+    alias wattage='system_profiler SPPowerDataType | grep Wattage'
 
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
