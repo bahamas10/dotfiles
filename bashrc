@@ -57,7 +57,7 @@ shopt -s dirspell 2>/dev/null || true
 alias ..='echo "cd .."; cd ..'
 alias ag='rg' # sorry silver searcher
 alias chomd='chmod'
-alias externalip='curl -sS https://www.daveeddy.com/ip'
+alias externalip='curl -sS https://ysap.sh/ip'
 alias gerp='grep'
 alias hl='rg --passthru'
 alias l='ls'
