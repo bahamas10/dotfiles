@@ -49,7 +49,13 @@ hi Comment ctermfg=63		" Brighten up comment colors
 " ---------------------------------------------
 " Abbreviations
 " ---------------------------------------------
-iab <expr> me:: strftime("Author: Dave Eddy <dave@daveeddy.com><cr>Date: %B %d, %Y<cr>License: MIT")
+iabbrev <expr> me::
+\ "# Created\n" .
+\ "Author: Dave Eddy <ysap@daveeddy.com>\n" .
+\ "Date: " . strftime("%B %d, %Y") . "\n" .
+\ "License: MIT\n\n" .
+\ "# Contributors\n" .
+\ "- Dave Eddy <ysap@daveeddy.com>"
 
 " ---------------------------------------------
 " Aliases
