@@ -42,6 +42,7 @@ set title			" Set the title
 " ---------------------------------------------
 " Theme / Color Scheme
 " ---------------------------------------------
+colorscheme default
 set background=light            " Light background is best
 hi Comment ctermfg=63		" Brighten up comment colors
 
@@ -107,6 +108,9 @@ if has("autocmd")
 
 	" TXT files
 	autocmd FileType                            text setlocal spell
+
+	" Mermaid files
+	autocmd FileType                            mermaid setlocal sw=4 sts=4 et
 endif
 
 " ---------------------------------------------
