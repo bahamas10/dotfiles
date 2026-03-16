@@ -261,6 +261,37 @@ copy() {
 
 }
 
+dump-palette() {
+	exec {fd}<>/dev/tty || fatal 'failed to open TTY'
+
+	re='rgb:([0-9a-f]{4})\/([0-9a-f]{4})\/([0-9a-f]{4})'
+	for code in 4\;{0..15} 10 11 12 17 19; do
+		# query the terminal for palette info
+		printf '\e]%s;?\e\\' "$code" >&$fd
+
+		# read the response into a string (removing escape chars)
+		read -rs -d '\\' -u "$fd" s
+		s=${s//$'\e'}
+
+		if ! [[ $s =~ $re ]]; then
+			echo "$code = <failed>"
+			continue
+		fi
+
+		# parse the response
+		r=${BASH_REMATCH[1]}
+		g=${BASH_REMATCH[2]}
+		b=${BASH_REMATCH[3]}
+
+		r=$((16#$r / 257))
+		g=$((16#$g / 257))
+		b=$((16#$b / 257))
+
+		printf '%s = #%02x%02x%02x\n' "$code" "$r" "$g" "$b"
+	done
+	exec {fd}>&-
+}
+
 # Convert epoch to human readable (print current date if no args)
 epoch() {
 	local num=${1:--1}
