@@ -38,8 +38,9 @@ dotfiles=(
 # me and it's super annoying.  so, hide my own git config behind `-f` and i'll
 # just handle that myself.
 if [[ $1 == '-f' ]]; then
-	gitconfig
+	dotfiles+=(gitconfig)
 fi
+
 for f in "${dotfiles[@]}"; do
 	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
 	symlink "$PWD/$f" ~/."$f"
