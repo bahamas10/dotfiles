@@ -15,31 +15,33 @@
 # use vardump instead of parr
 alias parr='vardump'
 
-# Set environment
+# Set environment and configure bash
+HISTCONTROL='ignoredups'
+HISTSIZE=5000
+HISTFILESIZE=5000
+
 export EDITOR='vim'
 export GREP_COLOR='1;36'
-export HISTCONTROL='ignoredups'
-export HISTSIZE=5000
-export HISTFILESIZE=5000
 export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
+export MANPAGER='less'
 export PAGER='less'
 export TZ='America/New_York'
 export VISUAL='vim'
 
 # Support colors in less
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_se=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
-export LESS_TERMCAP_ue=$(tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 2)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-export LESS_TERMCAP_ZN=$(tput ssubm)
-export LESS_TERMCAP_ZV=$(tput rsubm)
-export LESS_TERMCAP_ZO=$(tput ssupm)
-export LESS_TERMCAP_ZW=$(tput rsupm)
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[1;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[1;33;44m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[4;1;32m'
+export LESS_TERMCAP_mr=$'\e[7m'
+export LESS_TERMCAP_mh=$'\e[2m'
+export LESS_TERMCAP_ZN=$'\e[74m'
+export LESS_TERMCAP_ZV=$'\e[75m'
+export LESS_TERMCAP_ZO=$'\e[73m'
+export LESS_TERMCAP_ZW=$'\e[75m'
 
 # PATH
 path_add ~/bin before
@@ -67,13 +69,13 @@ alias suod='sudo'
 # Aliases (if applicable)
 grep --color=auto < /dev/null &>/dev/null &&
     alias grep='grep --color=auto'
-xdg-open --version &>/dev/null &&
+command -v xdg-open &>/dev/null &&
     alias open='xdg-open'
 command -v system_profiler &>/dev/null &&
     alias wattage='system_profiler SPPowerDataType | grep Wattage'
 
 # Enable color support of ls
-if ls --color=auto &>/dev/null; then
+if ls --color=auto /dev/null &>/dev/null; then
 	alias ls='ls -p --color=auto'
 else
 	alias ls='ls -p -G'
@@ -128,9 +130,9 @@ gmm() { # git merge $main
 # the array will be 0-255 for colors, 256 will be sgr0
 # and 257 will be bold
 COLOR256=()
-COLOR256[0]=$(tput setaf 1)
-COLOR256[256]=$(tput sgr0)
-COLOR256[257]=$(tput bold)
+COLOR256[0]=$'\e[31m'
+COLOR256[256]=$'\e[0m'
+COLOR256[257]=$'\e[1m'
 
 # Colors for use in PS1 that may or may not change when
 # set_prompt_colors is run
@@ -145,13 +147,14 @@ set_prompt_colors() {
 	for i in {22..231}; do
 		((i % 30 == h)) || continue
 
-		color=${COLOR256[$i]}
-		# cache the tput colors
+		color=${COLOR256[i]}
+
 		if [[ -z $color ]]; then
-			COLOR256[$i]=$(tput setaf "$i")
-			color=${COLOR256[$i]}
+			color=$'\e[38;5;'${i}m
+			COLOR256[i]=$color
 		fi
-		PROMPT_COLORS[$j]=$color
+
+		PROMPT_COLORS[j]=$color
 		((j++))
 	done
 }
@@ -250,7 +253,7 @@ colors() {
 	for i in {0..255}; do
 		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
 	done
-	tput sgr0
+	printf '\e[0m'
 }
 
 # Copy stdin to the clipboard
@@ -383,8 +386,7 @@ truecolor-rainbow() {
 		((g > 255)) && g=$((510 - g))
 		printf '\033[48;2;%d;%d;%dm ' "$r" "$g" "$b"
 	done
-	tput sgr0
-	echo
+	printf '\e[0m\n'
 }
 
 # Follow redirects to untiny a tiny url
