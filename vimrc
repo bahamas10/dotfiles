@@ -118,6 +118,9 @@ if has("autocmd")
 
 	" Mermaid files
 	autocmd FileType                            mermaid setlocal sw=4 sts=4 et
+
+	" Preview Menu
+	highlight Pmenu ctermbg=233 ctermfg=250
 endif
 
 " ---------------------------------------------
@@ -145,7 +148,12 @@ highlight SpellLocal term=underline cterm=underline
 let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
 
+let g:vim_markdown_folding_disabled = 1
 let g:rust_recommended_style = 1
+
+" -- configure ale
+
+" disable all linters i care about except for rust
 let g:ale_linters = {
 \  'bash': [],
 \  'sh': [],
@@ -154,7 +162,21 @@ let g:ale_linters = {
 \}
 let g:ale_completion_enabled = 0
 
-let g:vim_markdown_folding_disabled = 1
+" only run lint when file is saved
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+
+" configure preview window
+let g:ale_floating_preview = 1
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
+let g:ale_hover_to_floating_preview = 1
+
+" ---------------------------------------------
+" Key Binds
+" ---------------------------------------------
+autocmd FileType rust nnoremap gd :ALEGoToDefinition<CR>
+autocmd FileType rust nnoremap <silent> K :ALEHover<CR>
 
 " ---------------------------------------------
 " Source local config
