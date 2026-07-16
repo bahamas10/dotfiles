@@ -144,6 +144,7 @@ highlight SpellLocal term=underline cterm=underline
 " ---------------------------------------------
 let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
+
 let g:rust_recommended_style = 1
 let g:ale_linters = {
 \  'bash': [],
@@ -152,6 +153,7 @@ let g:ale_linters = {
 \  'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 0
+
 let g:vim_markdown_folding_disabled = 1
 
 " ---------------------------------------------
