@@ -46,9 +46,6 @@ for f in "${dotfiles[@]}"; do
 	symlink "$PWD/$f" ~/."$f"
 done
 
-# neovim
-symlink ~/.vim ~/.config/nvim
-
 # Setup bics
 if [[ ! -d ~/.bics ]]; then
 	echo 'installing bics'
@@ -232,7 +229,8 @@ fi
 if [[ -t 1 ]]; then
 	vim '+PlugInstall --sync' +qa
 else
-	printf "may need to run:\n\tvim +'PlugInstall --sync' +qa\n"
+	echo 'you may need to run:'
+	echo "    vim +'PlugInstall --sync' +qa"
 fi
 
 true
