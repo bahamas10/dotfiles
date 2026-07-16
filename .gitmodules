@@ -1,9 +1,3 @@
-[submodule "vim/bundle/vim-pathogen"]
-	path = vim/bundle/vim-pathogen
-	url = git@github.com:tpope/vim-pathogen
-[submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
-	url = git@github.com:scrooloose/syntastic.git
 [submodule "bics-plugins/bash-cdstack"]
 	path = bics-plugins/bash-cdstack
 	url = git@github.com:bahamas10/bash-cdstack.git
@@ -22,21 +16,9 @@
 [submodule "bics-plugins/tabstop"]
 	path = bics-plugins/tabstop
 	url = git@github.com:bahamas10/tabstop.git
-[submodule "vim/bundle/vim-airline"]
-	path = vim/bundle/vim-airline
-	url = git@github.com:vim-airline/vim-airline.git
-[submodule "vim/bundle/vim-airline-themes"]
-	path = vim/bundle/vim-airline-themes
-	url = git@github.com:vim-airline/vim-airline-themes.git
-[submodule "vim/bundle/rust.vim"]
-	path = vim/bundle/rust.vim
-	url = git@github.com:rust-lang/rust.vim.git
 [submodule "bics-plugins/bash-path"]
 	path = bics-plugins/bash-path
 	url = git@github.com:bahamas10/bash-path.git
-[submodule "vim/bundle/vim-asm_ca65"]
-	path = vim/bundle/vim-asm_ca65
-	url = git@github.com:maxbane/vim-asm_ca65
 [submodule "bics-plugins/bash-vardump"]
 	path = bics-plugins/bash-vardump
 	url = git@github.com:bahamas10/bash-vardump.git
