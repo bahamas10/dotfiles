@@ -43,3 +43,6 @@
 [submodule "bics-plugins/bash-stacktrace"]
 	path = bics-plugins/bash-stacktrace
 	url = git@github.com:bahamas10/bash-stacktrace.git
+[submodule "bics-plugins/bash-jsonvar"]
+	path = bics-plugins/bash-jsonvar
+	url = git@github.com:bahamas10/bash-jsonvar.git
