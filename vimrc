@@ -172,6 +172,9 @@ let g:ale_floating_preview = 1
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
 let g:ale_hover_to_floating_preview = 1
 
+" quiet down ale
+let g:ale_virtualtext_cursor = 0
+
 " ---------------------------------------------
 " Key Binds
 " ---------------------------------------------
