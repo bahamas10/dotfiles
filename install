@@ -227,10 +227,14 @@ if defaults read com.apple.finder &>/dev/null; then
 fi
 
 if [[ -t 1 ]]; then
+	set -x
 	vim '+PlugInstall --sync' +qa
+	vim '+PlugUpdate --sync' +qa
+	set +x
 else
 	echo 'you may need to run:'
 	echo "    vim +'PlugInstall --sync' +qa"
+	echo "    vim +'PlugUpdate --sync' +qa"
 fi
 
 true
