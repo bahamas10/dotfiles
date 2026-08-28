@@ -222,6 +222,24 @@ if [[ $ITERM_PROFILE == 'YSAP'* ]]; then
 	PROMPT_DIRTRIM=1
 fi
 
+# upload a file to my personal CDN
+cdn() {
+	local file=$1
+	local bname=${file##*/}
+
+	[[ -n $file && -n $bname ]] || return 1
+
+	local url
+	printf -v url '%(%Y/%m/%d)T/%s' -1 "$bname"
+	local remote_file="./cdn/$url"
+
+	# use rsync over scp because we can skip overwriting files
+	rsync -av --mkpath --progress --ignore-existing -- \
+	    "$file" "cdn:$remote_file" || return 1
+
+	echo "https://cdn.ysap.sh/$url"
+}
+
 # print a colorized diff
 colordiff() {
 	local red=$(tput setaf 1 2>/dev/null)
