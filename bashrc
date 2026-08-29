@@ -234,7 +234,7 @@ cdn() {
 	local remote_file="./cdn/$url"
 
 	# use rsync over scp because we can skip overwriting files
-	rsync -av --mkpath --progress --ignore-existing -- \
+	rsync -avh --mkpath --progress --ignore-existing -- \
 	    "$file" "cdn:$remote_file" || return 1
 
 	echo "https://cdn.ysap.sh/$url"
