@@ -68,3 +68,11 @@ filesystem
 realtime
 virtualize
 builtins
+SIGTERM
+SIGINT
+SIGKILL
+ysap
+daveeddy
+printf
+fd
+errno
