@@ -389,7 +389,8 @@ meminfo() {
 
 # print lines over X columns (defaults to 80)
 over() {
-	awk -v c="${1:-80}" 'length($0) > c {
+	local c=${1:-80}
+	expand | awk -v "c=$c" 'length($0) > c {
 		printf("%4d %s\n", NR, $0);
 	}'
 }
@@ -413,10 +414,10 @@ untiny() {
 	local last_location=''
 
 	while [[ -n $location ]]; do
-		[[ -n $last_location ]] && echo " -> $last_location"
+		[[ -n $last_location ]] && echo "-> $last_location"
 		last_location=$location
 		read -r _ location < \
-		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
+		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[:cntrl:]')
 	done
 	echo "$last_location"
 }
