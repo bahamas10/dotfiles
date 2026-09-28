@@ -109,19 +109,22 @@ gmb() { # git main branch
 
 # show the diff from inside a branch to the main branch
 gbd() { # git branch diff
-	local mb=$(gmb) || return 1
+	local mb
+	mb=$(gmb) || return 1
 	git diff "$mb..HEAD"
 }
 
 # checkout the main branch and update it
 gcm() { # git checkout $main
-	local mb=$(gmb) || return 1
+	local mb
+	mb=$(gmb) || return 1
 	git checkout "$mb" && git pull
 }
 
 # merge the main branch into our branch
 gmm() { # git merge $main
-	local mb=$(gmb) || return 1
+	local mb
+	mb=$(gmb) || return 1
 	git merge "$mb"
 }
 
