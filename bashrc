@@ -340,7 +340,7 @@ gho() {
 
 	# extract the username and repo name
 	local a
-	IFS=:/ read -a a <<< "$url"
+	IFS=:/ read -r -a a <<< "$url"
 	local len=${#a[@]}
 	local user=${a[len-2]}
 	local repo=${a[len-1]%.git}
