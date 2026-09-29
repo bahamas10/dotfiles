@@ -286,7 +286,7 @@ colordiff() {
 colors() {
 	local i
 	for i in {0..255}; do
-		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
+		printf '\e[38;5;%dmcolor %d\n' "$i" "$i"
 	done
 	printf '\e[0m'
 }
