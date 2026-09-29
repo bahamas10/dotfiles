@@ -431,12 +431,11 @@ untiny() {
 	local last_location=''
 
 	while [[ -n $location ]]; do
-		[[ -n $last_location ]] && echo "-> $last_location"
-		last_location=$location
+		echo "-> $location"
 		read -r _ location < \
-		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[:cntrl:]')
+		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[[:cntrl:]]')
 	done
-	echo "$last_location"
+	true
 }
 
 # Load external files
