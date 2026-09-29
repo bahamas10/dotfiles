@@ -256,25 +256,28 @@ cdn() {
 
 # print a colorized diff
 colordiff() {
-	local red=$(tput setaf 1 2>/dev/null)
-	local green=$(tput setaf 2 2>/dev/null)
-	local cyan=$(tput setaf 6 2>/dev/null)
-	local reset=$(tput sgr0 2>/dev/null)
+	local red=$'\e[31m'
+	local green=$'\e[32m'
+	local cyan=$'\e[36m'
+	local reset=$'\e[0m'
 
-	diff -u "$@" | awk "
-	/^\-/ {
-		printf(\"%s\", \"$red\");
+	diff -u "$@" | awk \
+		-v "red=$red" -v "green=$green" \
+		-v "cyan=$cyan" -v "reset=$reset" \
+		'
+	/^-/ {
+		printf("%s", red);
 	}
 	/^\+/ {
-		printf(\"%s\", \"$green\");
+		printf("%s", green);
 	}
 	/^@/ {
-		printf(\"%s\", \"$cyan\");
+		printf("%s", cyan);
 	}
 
 	{
-		print \$0 \"$reset\";
-	}"
+		print $0 reset;
+	}'
 
 	return "${PIPESTATUS[0]}"
 }
