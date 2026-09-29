@@ -433,7 +433,7 @@ untiny() {
 	while [[ -n $location ]]; do
 		echo "-> $location"
 		read -r _ location < \
-		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[[:cntrl:]]')
+		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[:cntrl:]')
 	done
 	true
 }
