@@ -179,15 +179,10 @@ prompt-init() {
 	# [(exit code)] <user> - <hostname> <uname> <cwd> [git branch] <$|#>
 
 	# exit code of last process
-	PS1='$(
-		ret=$?
-		(($ret != 0)) && echo "\['"$red"'\]($ret) \['"$reset"'\]"
-	)'
+	PS1='$(c=$?;((c!=0))&&echo "\['"$red"'\]($c) \['"$reset"'\]")'
 
 	# username (red for root)
-	PS1+='\[${PROMPT_COLORS[0]}\]\['"$bold"'\]$(
-		((UID == 0)) && echo "\['"$red"'\]"
-	)\u\['"$reset"'\] - '
+	PS1+='\[${PROMPT_COLORS[0]}\]\['"$bold"'\]$(((UID==0))&&echo "\['"$red"'\]")\u\['"$reset"'\] - '
 
 	# zonename (global zone warning)
 	if [[ $zonename == 'global' ]]; then
@@ -204,13 +199,11 @@ prompt-init() {
 	PS1+='\[${PROMPT_COLORS[5]}\]\w '
 
 	# optional git branch
-	PS1+='$(
-		branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-		[[ -n $branch ]] || exit 0
-		echo -n "\[${PROMPT_COLORS[2]}\]("
-		echo -n "\[${PROMPT_COLORS[3]}\]git:$branch"
-		echo -n "\[${PROMPT_COLORS[2]}\]) "
-	)'
+	#
+	# THIS IS UNFORTUNATE LOL. i hate how long this line is, but i
+	# purposefully try to keep this as tight as possible because even just
+	# spacing it all out has a noticeable effect on speed.
+	PS1+='$(b=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);[[ -n $b ]]&&echo -n "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$b\[${PROMPT_COLORS[2]}\]) ")'
 
 	# prompt character
 	PS1+='\[${PROMPT_COLORS[0]}\]\$\['"$reset"'\] '
