@@ -310,7 +310,7 @@ dump-palette() {
 		printf '\e]%s;?\e\\' "$code" >&$fd
 
 		# read the response into a string (removing escape chars)
-		read -rs -d '\\' -u "$fd" s
+		read -rs -d '\' -u "$fd" s
 		s=${s//$'\e'}
 
 		if ! [[ $s =~ $re ]]; then
@@ -430,7 +430,6 @@ truecolor-rainbow() {
 # Follow redirects to untiny a tiny url
 untiny() {
 	local location=$1
-	local last_location=''
 
 	while [[ -n $location ]]; do
 		echo "-> $location"
@@ -441,13 +440,13 @@ untiny() {
 }
 
 # Load external files
-. ~/.bash_aliases    2>/dev/null || true
-. ~/.bashrc.local    2>/dev/null || true
+. ~/.bash_aliases 2>/dev/null
+. ~/.bashrc.local 2>/dev/null
 
 # load completion
-. /etc/bash/bash_completion 2>/dev/null ||
-	. ~/.bash_completion 2>/dev/null
+. ~/.bash_completion
 
 path_clean
 
+# return success no matter what
 true
