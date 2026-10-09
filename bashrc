@@ -300,9 +300,11 @@ copy() {
 }
 
 dump-palette() {
+	local fd
 	exec {fd}<>/dev/tty || fatal 'failed to open TTY'
 
-	re='rgb:([0-9a-f]{4})\/([0-9a-f]{4})\/([0-9a-f]{4})'
+	local re='rgb:([0-9a-f]{4})\/([0-9a-f]{4})\/([0-9a-f]{4})'
+	local code s r g b
 	for code in 4\;{0..15} 10 11 12 17 19; do
 		# query the terminal for palette info
 		printf '\e]%s;?\e\\' "$code" >&$fd
