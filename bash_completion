@@ -6,5 +6,18 @@ complete -A helptopic help
 complete -a alias unalias
 complete -b builtin
 complete -c type which
-complete -cf man sudo
 complete -d cd pushd rmdir
+complete -cf man
+
+_sudo() {
+	local input=${COMP_WORDS[COMP_CWORD]}
+
+	if ((COMP_CWORD == 1)); then
+		# command
+		COMPREPLY=( $(compgen -c -- "$input") )
+	else
+		# args to the command
+		COMPREPLY=( $(compgen -f -- "$input") )
+	fi
+}
+complete -F _sudo sudo

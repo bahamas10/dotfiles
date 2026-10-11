@@ -16,13 +16,17 @@
 # use vardump instead of parr
 alias parr='vardump'
 
-# Set environment
+# -- Environment
+
+# Set environment and configure bash
+HISTCONTROL='ignoredups'
+HISTSIZE=5000
+HISTFILESIZE=5000
+
 export EDITOR='vim'
 export GREP_COLOR='1;36'
-export HISTCONTROL='ignoredups'
-export HISTSIZE=5000
-export HISTFILESIZE=5000
 export LSCOLORS='ExGxbEaECxxEhEhBaDaCaD'
+export MANPAGER='less'
 export PAGER='less'
 export TZ='America/Denver'
 export VISUAL='vim'
@@ -81,19 +85,20 @@ alias suod='sudo'
 # Aliases (if applicable)
 grep --color=auto < /dev/null &>/dev/null &&
     alias grep='grep --color=auto'
-xdg-open --version &>/dev/null &&
+command -v xdg-open &>/dev/null &&
     alias open='xdg-open'
 command -v system_profiler &>/dev/null &&
     alias wattage='system_profiler SPPowerDataType | grep Wattage'
 
 # Enable color support of ls
-if ls --color=auto &>/dev/null; then
+if ls --color=auto /dev/null &>/dev/null; then
 	alias ls='ls -p --color=auto'
 else
 	alias ls='ls -p -G'
 fi
 
-# Git Aliases
+# -- Git Aliases
+
 alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 alias ga='git add . --all'
 alias gb='git branch'
@@ -140,102 +145,128 @@ gmm() { # git merge $main
 	git merge "$mb"
 }
 
-# Prompt
-# Store `tput` colors for future use to reduce fork+exec
-# the array will be 0-255 for colors, 256 will be sgr0
-# and 257 will be bold
-COLOR256=()
-COLOR256[0]=$(tput setaf 1)
-COLOR256[256]=$(tput sgr0)
-COLOR256[257]=$(tput bold)
+# -- Prompt logic
 
-# Colors for use in PS1 that may or may not change when
-# set_prompt_colors is run
-PROMPT_COLORS=()
-
-# Change the prompt colors to a theme, themes are 0-29
-set_prompt_colors() {
-	local h=${1:-0}
-	local color=
-	local i=0
+# change the prompt colors to a theme
+# there are 116 possible themes - themes are 0-115
+prompt-set-theme() {
+	local theme=${1:-0}
 	local j=0
-	for i in {22..231}; do
-		((i % 30 == h)) || continue
-
-		color=${COLOR256[i]}
-		# cache the tput colors
-		if [[ -z $color ]]; then
-			COLOR256[i]=$(tput setaf "$i")
-			color=${COLOR256[i]}
-		fi
-		PROMPT_COLORS[j]=$color
+	for ((i = theme; i <= 255; i += 30)); do
+		PROMPT_COLORS[j]=$'\e[38;5;'${i}m
 		((j++))
 	done
 }
 
-# Construct the prompt
-# [(exit code)] <user> - <hostname> <uname> <cwd> [git branch] <$|#>
+prompt-init() {
+	local red=$'\e[31m'
+	local reset=$'\e[0m'
+	local bold=$'\e[1m'
 
-# exit code of last process
-# shellcheck disable=SC2154
-PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'
+	# custom prompt for YSAP videos
+	if [[ $ITERM_PROFILE == 'YSAP'* ]]; then
+		# username
+		PS1='\[${PROMPT_COLORS[0]}\]\u\['"$reset"'\]'
 
-# username (red for root)
-PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] - '
+		# @
+		PS1+='\[${PROMPT_COLORS[1]}\]\['"$bold"'\]@\['"$reset"'\]'
 
-# zonename (global zone warning)
-PS1+='\[${COLOR256[0]}\]\[${COLOR256[257]}\]'"$(zonename 2>/dev/null | grep -q '^global$' && echo 'GZ:')"'\[${COLOR256[256]}\]'
+		# hostname
+		PS1+='\[${PROMPT_COLORS[3]}\]ysap '
 
-# hostname
-PS1+='\[${PROMPT_COLORS[3]}\]\h '
+		# cwd (this makes it too horizontal)
+		# PS1+='\[${PROMPT_COLORS[5]}\]\w '
 
-# uname
-PS1+='\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"' '
+		# prompt character
+		PS1+='\[${PROMPT_COLORS[2]}\]\$\['"$reset"'\] '
 
-# cwd
-PS1+='\[${PROMPT_COLORS[5]}\]\w '
+		PROMPT_DIRTRIM=1
 
-# optional git branch
-PS1+='$(branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); [[ -n $branch ]] && echo "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$branch\[${PROMPT_COLORS[2]}\]) ")'
+		return
+	fi
 
-# prompt character
-PS1+='\[${PROMPT_COLORS[0]}\]\$\[${COLOR256[256]}\] '
+	# get host info only once
+	local zonename=$(zonename 2>/dev/null)
+	local uname=$(uname | tr '[:upper:]' '[:lower:]')
 
-# set the theme
-set_prompt_colors 24
+	# Construct the prompt:
+	# [(exit code)] <user> - <hostname> <uname> <cwd> [git branch] <$|#>
 
-# Prompt command
-_prompt_command() {
-        local user=$USER
-        local host=${HOSTNAME%%.*}
-        local pwd=${PWD/#$HOME/\~}
-        local ssh=
-        [[ -n $SSH_CLIENT ]] && ssh='[ssh] '
-        printf "\033]0;%s%s@%s:%s\007" "$ssh" "$user" "$host" "$pwd"
-}
-PROMPT_COMMAND=_prompt_command
+	# exit code of last process
+	PS1='$(c=$?;((c!=0))&&echo "\['"$red"'\]($c) \['"$reset"'\]")'
 
-PROMPT_DIRTRIM=6
-
-# custom prompt for YSAP
-if [[ $ITERM_PROFILE == 'YSAP'* ]]; then
 	# username (red for root)
-	PS1='\[${PROMPT_COLORS[0]}\]dave\[${COLOR256[256]}\]'
+	PS1+='\[${PROMPT_COLORS[0]}\]\['"$bold"'\]$(((UID==0))&&echo "\['"$red"'\]")\u\['"$reset"'\] - '
 
-	# @
-	PS1+='\[${PROMPT_COLORS[1]}\]\[${COLOR256[257]}\]@\[${COLOR256[256]}\]'
+	# zonename (global zone warning)
+	if [[ $zonename == 'global' ]]; then
+		PS1+='\['"$red"'\]\['"$bold"'\]GZ:\['"$reset"'\]'
+	fi
 
 	# hostname
-	PS1+='\[${PROMPT_COLORS[3]}\]ysap '
+	PS1+='\[${PROMPT_COLORS[3]}\]\h '
+
+	# uname
+	PS1+='\[${PROMPT_COLORS[2]}\]'"$uname"' '
 
 	# cwd
-	#PS1+='\[${PROMPT_COLORS[5]}\]\w '
+	PS1+='\[${PROMPT_COLORS[5]}\]\w '
+
+	# optional git branch
+	#
+	# THIS IS UNFORTUNATE LOL. i hate how long this line is, but i
+	# purposefully try to keep this as tight as possible because even just
+	# spacing it all out has a noticeable effect on speed.
+	PS1+='$(b=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);[[ -n $b ]]&&echo -n "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$b\[${PROMPT_COLORS[2]}\]) ")'
 
 	# prompt character
-	PS1+='\[${PROMPT_COLORS[2]}\]\$\[${COLOR256[256]}\] '
+	PS1+='\[${PROMPT_COLORS[0]}\]\$\['"$reset"'\] '
 
-	PROMPT_DIRTRIM=1
-fi
+	# initalize a basic theme just to ensure some colors are set
+	prompt-set-theme 0
+}
+
+prompt-update() {
+        local user=$USER
+        local host=${HOSTNAME%%.*}
+
+	# get the PWD from the prompt as that handles escaping dangerous chars
+	# for us
+	local s='\w'
+	local pwd=${s@P}
+
+	# update title bar
+        local ssh=
+        [[ -n $SSH_CLIENT ]] && ssh='[ssh] '
+        printf '\e]0;%s%s@%s:%s\a' "$ssh" "$user" "$host" "$pwd"
+}
+
+PROMPT_COLORS=()
+PROMPT_COMMAND=prompt-update
+PROMPT_DIRTRIM=6
+
+prompt-init
+prompt-set-theme 24
+
+# -- Useful functions
+
+# upload a file to my personal CDN
+cdn() {
+	local file=$1
+	local bname=${file##*/}
+
+	[[ -n $file && -n $bname ]] || return 1
+
+	local url
+	printf -v url '%(%Y/%m/%d)T/%s' -1 "$bname"
+	local remote_file="./cdn/$url"
+
+	# use rsync over scp because we can skip overwriting files
+	rsync -avh --mkpath --progress --ignore-existing -- \
+	    "$file" "cdn:$remote_file" || return 1
+
+	echo "https://cdn.ysap.sh/$url"
+}
 
 # print a colorized diff
 colordiff() {
@@ -253,15 +284,15 @@ colordiff() {
 		printf(\"%s\", \"$red\");
 	}
 	/^\+/ {
-		printf(\"%s\", \"$green\");
+		printf("%s", green);
 	}
 	/^@/ {
-		printf(\"%s\", \"$cyan\");
+		printf("%s", cyan);
 	}
 
 	{
-		print \$0 \"$reset\";
-	}"
+		print $0 reset;
+	}'
 
 	return "${PIPESTATUS[0]}"
 }
@@ -270,9 +301,9 @@ colordiff() {
 colors() {
 	local i
 	for i in {0..255}; do
-		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
+		printf '\e[38;5;%dmcolor %d\n' "$i" "$i"
 	done
-	tput sgr0
+	printf '\e[0m'
 }
 
 # Copy stdin to the clipboard
@@ -284,17 +315,18 @@ copy() {
 }
 
 dump-palette() {
+	local fd
 	exec {fd}<>/dev/tty || fatal 'failed to open TTY'
 
-	re='rgb:([0-9a-f]{4})\/([0-9a-f]{4})\/([0-9a-f]{4})'
+	local re='rgb:([0-9a-f]{4})\/([0-9a-f]{4})\/([0-9a-f]{4})'
+	local code s r g b
 	for code in 4\;{0..15} 10 11 12 17 19; do
 		# query the terminal for palette info
 		# shellcheck disable=SC1003
 		printf '\e]%s;?\e\\' "$code" >&$fd
 
 		# read the response into a string (removing escape chars)
-		# shellcheck disable=SC1003
-		read -rs -d '\\' -u "$fd" s
+		read -rs -d '\' -u "$fd" s
 		s=${s//$'\e'}
 
 		if ! [[ $s =~ $re ]]; then
@@ -395,7 +427,8 @@ meminfo() {
 
 # print lines over X columns (defaults to 80)
 over() {
-	awk -v c="${1:-80}" 'length($0) > c {
+	local c=${1:-80}
+	expand | awk -v "c=$c" 'length($0) > c {
 		printf("%4d %s\n", NR, $0);
 	}'
 }
@@ -410,33 +443,27 @@ truecolor-rainbow() {
 		((g > 255)) && g=$((510 - g))
 		printf '\033[48;2;%d;%d;%dm ' "$r" "$g" "$b"
 	done
-	tput sgr0
-	echo
+	printf '\e[0m\n'
 }
 
 # Follow redirects to untiny a tiny url
 untiny() {
 	local location=$1
-	local last_location=''
 
 	while [[ -n $location ]]; do
-		[[ -n $last_location ]] && echo " -> $last_location"
-		last_location=$location
+		echo "-> $location"
 		read -r _ location < \
-		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
+		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[:cntrl:]')
 	done
-	echo "$last_location"
+	true
 }
 
 # Load external files
-# shellcheck source=/dev/null
-. ~/.bash_aliases    2>/dev/null || true
-# shellcheck source=/dev/null
-. ~/.bashrc.local    2>/dev/null || true
+. ~/.bash_aliases 2>/dev/null
+. ~/.bashrc.local 2>/dev/null
 
 # load completion
-# shellcheck source=/usr/share/bash-completion/bash_completion disable=SC1091
-. /etc/bash/bash_completion 2>/dev/null || . ~/.bash_completion 2>/dev/null
+. ~/.bash_completion
 
  # ============================================================================
  # SOURCE EXTERNAL FILES (Glenn's Changes)
