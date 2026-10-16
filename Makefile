@@ -1,4 +1,5 @@
-.PHONY: all
+.PHONY: help
+help:
 	@echo 'make install      install the dotfiles'
 	@echo 'make check        style check the files'
 
