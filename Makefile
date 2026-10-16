@@ -6,4 +6,4 @@ help:
 .PHONY: check
 check:
 	bash -n bash* install
-	./tools/check bash* install
+	./tools/style-check bash* install
