@@ -182,7 +182,8 @@ prompt-init() {
 	PS1='$(c=$?;((c!=0))&&echo "\['"$red"'\]($c) \['"$reset"'\]")'
 
 	# username (red for root)
-	PS1+='\[${PROMPT_COLORS[0]}\]\['"$bold"'\]$(((UID==0))&&echo "\['"$red"'\]")\u\['"$reset"'\] - '
+	PS1+='\[${PROMPT_COLORS[0]}\]\['"$bold"'\]'
+	PS1+='$(((UID==0))&&echo "\['"$red"'\]")\u\['"$reset"'\] - '
 
 	# zonename (global zone warning)
 	if [[ $zonename == 'global' ]]; then
@@ -215,8 +216,8 @@ prompt-init() {
 }
 
 prompt-update() {
-        local user=$USER
-        local host=${HOSTNAME%%.*}
+	local user=$USER
+	local host=${HOSTNAME%%.*}
 
 	# get the PWD from the prompt as that handles escaping dangerous chars
 	# for us
@@ -224,9 +225,9 @@ prompt-update() {
 	local pwd=${s@P}
 
 	# update title bar
-        local ssh=
-        [[ -n $SSH_CLIENT ]] && ssh='[ssh] '
-        printf '\e]0;%s%s@%s:%s\a' "$ssh" "$user" "$host" "$pwd"
+	local ssh=
+	[[ -n $SSH_CLIENT ]] && ssh='[ssh] '
+	printf '\e]0;%s%s@%s:%s\a' "$ssh" "$user" "$host" "$pwd"
 }
 
 PROMPT_COLORS=()

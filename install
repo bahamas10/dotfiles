@@ -49,22 +49,41 @@ done
 # Setup bics
 if [[ ! -d ~/.bics ]]; then
 	echo 'installing bics'
-	bash <(curl -sSL https://raw.githubusercontent.com/bahamas10/bics/master/bics) init
+
+	url='https://raw.githubusercontent.com/bahamas10/bics/master/bics'
+	bash <(curl -sSL "$url") init
+
 	rm -r ~/.bics/plugins
 	symlink "$PWD/bics-plugins" ~/.bics/plugins
+fi
+
+# Setup vim (this seems to only work when the output is a terminal)
+if [[ -t 1 ]]; then
+	set -x
+	vim '+PlugInstall --sync' +qa
+	vim '+PlugUpdate --sync' +qa
+	set +x
+else
+	echo 'you may need to run:'
+	echo "    vim +'PlugInstall --sync' +qa"
+	echo "    vim +'PlugUpdate --sync' +qa"
 fi
 
 # Keyboard shortcuts for Mac OS X
 if [[ -d ~/Library ]]; then
 	echo 'installing mac keyboard shourtcuts'
 	mkdir -p ~/Library/KeyBindings
-	symlink "$PWD/DefaultKeyBinding.dict" ~/Library/KeyBindings/DefaultKeyBinding.dict
+	symlink "$PWD/DefaultKeyBinding.dict" \
+	    ~/Library/KeyBindings/DefaultKeyBinding.dict
 fi
 
 # Mac OS X NSUserDefaults modifications
 # Some based on https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 if defaults read com.apple.finder &>/dev/null; then
-	echo 'modifying NSUserDefaults'
+	echo 'Configuring macOS'
+
+	# Finder: Show ~/Library in finder
+	chflags nohidden ~/Library
 
 	# Keyboard: Disable autocorrect
 	defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
@@ -104,42 +123,52 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Global: Disable smart dashes as they’re annoying when typing code
 	defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 
-	# Finder: Show ~/Library in finder
-	chflags nohidden ~/Library
-
 	# Trackpad: enable tap to click for this user and for the login screen
-	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad \
+	    Clicking -int 1
 	defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
 	defaults -currentHost write -g com.apple.mouse.tapBehavior -int 1
 	defaults write -g com.apple.mouse.tapBehavior -int 1
 
 	# Trackpad: map bottom right corner to right-click
-	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-	defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
-	defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad \
+	    TrackpadCornerSecondaryClick -int 2
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad
+	    TrackpadRightClick -bool true
+	defaults -currentHost write -g \
+	    com.apple.trackpad.trackpadCornerClickBehavior -int 1
+	defaults -currentHost write -g \
+	    com.apple.trackpad.enableSecondaryClick -bool true
 
 	# Trackpad: haptic firm press
-	defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 2
-	defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 2
+	defaults write com.apple.AppleMultitouchTrackpad \
+	    FirstClickThreshold -int 2
+	defaults write com.apple.AppleMultitouchTrackpad \
+	    SecondClickThreshold -int 2
 
 	# Trackpad: three finger drag
-	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
-	defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad \
+	    TrackpadThreeFingerDrag -bool true
+	defaults write com.apple.AppleMultitouchTrackpad \
+	    TrackpadThreeFingerDrag -bool true
 
 	# Global: Enable full keyboard access for all controls
 	# (e.g. enable Tab in modal dialogs)
 	defaults write -g AppleKeyboardUIMode -int 3
 
 	# Global: Use scroll gesture with the Ctrl (^) modifier key to zoom
-	defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-	defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+	defaults write com.apple.universalaccess \
+	    closeViewScrollWheelToggle -bool true
+	defaults write com.apple.universalaccess \
+	    HIDScrollZoomModifierMask -int 262144
 
 	# Global: Follow the keyboard focus while zoomed in
-	defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+	defaults write com.apple.universalaccess \
+	    closeViewZoomFollowsFocus -bool true
 
 	# Printer: Automatically quit printer app once the print jobs complete
-	defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool true
+	defaults write com.apple.print.PrintingPrefs \
+	    'Quit When Finished' -bool true
 
 	# Finder: Full POSIX path in finder windows
 	defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
@@ -147,19 +176,25 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Finder: Show Status bar in Finder
 	defaults write com.apple.finder ShowStatusBar -bool true
 
-	# Finder: Show icons for hard drives, servers, and removable media on the desktop
-	defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-	defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-	defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+	# Finder: Show icons for hard drives, servers, and removable media on
+	# the desktop
+	defaults write com.apple.finder \
+	    ShowExternalHardDrivesOnDesktop -bool true
+	defaults write com.apple.finder \
+	    ShowMountedServersOnDesktop -bool true
+	defaults write com.apple.finder \
+	    ShowRemovableMediaOnDesktop -bool true
 
 	# Finder: new windows start at home directory
 	defaults write com.apple.finder NewWindowTarget -string PfHm
-	defaults write com.apple.finder NewWindowTargetPath -string "file:///$HOME"
+	defaults write com.apple.finder \
+	    NewWindowTargetPath -string "file:///$HOME"
 
 	# Finder: only search the current direcotry
 	defaults write com.apple.finder FXDefaultSearchScope -string SCcf
 
-	# Mission Control: Don't automatically rearrange Spaces based on most recent use
+	# Mission Control: Don't automatically rearrange Spaces based on most
+	# recent use
 	defaults write com.apple.dock mru-spaces -bool false
 
 	# Dock: Automatically hide and show the Dock
@@ -199,17 +234,21 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.dock wvous-bl-modifier -int 0
 
 	# Spotlight: don't send stuff to apple
-	defaults write com.apple.lookup lookupEnabled -dict-add suggestionsEnabled -bool no
+	defaults write com.apple.lookup lookupEnabled \
+	    -dict-add suggestionsEnabled -bool no
 
 	# Preview: Disable autosave for Preview
 	defaults write com.apple.Preview ApplePersistence -bool no
 
 	# Terminal: Fix weird copy+paste with apple terminal
-	defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.no-attributes
+	defaults write com.apple.Terminal
+	    CopyAttributesProfile com.apple.Terminal.no-attributes
 
 	# Terminal: use pro theme
-	defaults write com.apple.Terminal 'Startup Window Settings' -string Pro
-	defaults write com.apple.Terminal 'Default Window Settings' -string Pro
+	defaults write com.apple.Terminal \
+	    'Startup Window Settings' -string Pro
+	defaults write com.apple.Terminal \
+	    'Default Window Settings' -string Pro
 
 	# Terminal: new tabs use default profile and CWD
 	defaults write com.apple.Terminal NewTabSettingsBehavior -int 1
@@ -220,21 +259,11 @@ if defaults read com.apple.finder &>/dev/null; then
 
 	# Spotlight: Don't index mounted volumes
 	echo 'sudo needed to update spotlight settings'
-	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array /Volumes
+	sudo defaults write /.Spotlight-V100/VolumeConfiguration \
+	    Exclusions -array /Volumes
 
 	echo 'done: killing Dock and Finder'
 	killall Dock Finder
-fi
-
-if [[ -t 1 ]]; then
-	set -x
-	vim '+PlugInstall --sync' +qa
-	vim '+PlugUpdate --sync' +qa
-	set +x
-else
-	echo 'you may need to run:'
-	echo "    vim +'PlugInstall --sync' +qa"
-	echo "    vim +'PlugUpdate --sync' +qa"
 fi
 
 true
