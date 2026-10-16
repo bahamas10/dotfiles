@@ -203,7 +203,9 @@ prompt-init() {
 	# THIS IS UNFORTUNATE LOL. i hate how long this line is, but i
 	# purposefully try to keep this as tight as possible because even just
 	# spacing it all out has a noticeable effect on speed.
-	PS1+='$(b=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);[[ -n $b ]]&&echo -n "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]git:$b\[${PROMPT_COLORS[2]}\]) ")'
+	PS1+='$(b=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);[[ -n $b ]]'
+	PS1+='&&echo -n "\[${PROMPT_COLORS[2]}\](\[${PROMPT_COLORS[3]}\]'
+	PS1+='git:$b\[${PROMPT_COLORS[2]}\]) ")'
 
 	# prompt character
 	PS1+='\[${PROMPT_COLORS[0]}\]\$\['"$reset"'\] '
@@ -429,14 +431,15 @@ truecolor-rainbow() {
 
 # Follow redirects to untiny a tiny url
 untiny() {
-	local location=$1
+	local url=$1
 
-	while [[ -n $location ]]; do
-		echo "-> $location"
-		read -r _ location < \
-		    <(curl -sI "$location" | grep -i '^location: ' | tr -d '[:cntrl:]')
+	while [[ -n $url ]]; do
+		echo "-> $url"
+		url=$(curl -sSI -o /dev/null -w '%header{location}' "$url") \
+		    || return 1
 	done
-	true
+
+	return 0
 }
 
 # Load external files
