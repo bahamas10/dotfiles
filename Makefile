@@ -7,3 +7,7 @@ help:
 check:
 	bash -n bash* install
 	./tools/style-check bash* install
+
+.PHONY: install
+install:
+	./install
