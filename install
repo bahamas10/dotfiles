@@ -133,7 +133,7 @@ if defaults read com.apple.finder &>/dev/null; then
 	# Trackpad: map bottom right corner to right-click
 	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad \
 	    TrackpadCornerSecondaryClick -int 2
-	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad
+	defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad \
 	    TrackpadRightClick -bool true
 	defaults -currentHost write -g \
 	    com.apple.trackpad.trackpadCornerClickBehavior -int 1
@@ -241,7 +241,7 @@ if defaults read com.apple.finder &>/dev/null; then
 	defaults write com.apple.Preview ApplePersistence -bool no
 
 	# Terminal: Fix weird copy+paste with apple terminal
-	defaults write com.apple.Terminal
+	defaults write com.apple.Terminal \
 	    CopyAttributesProfile com.apple.Terminal.no-attributes
 
 	# Terminal: use pro theme
