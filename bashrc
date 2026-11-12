@@ -287,9 +287,46 @@ colordiff() {
 
 # Print all 256 colors
 colors() {
+	local arg="$1"
+	local columns=${arg:-8}
 	local i
-	for i in {0..255}; do
-		printf '\e[38;5;%dmcolor %d\n' "$i" "$i"
+	local max_colors=255
+
+	# max_colors / columans but with ceiling
+	local len=$(( (max_colors + columns - 1) / columns ))
+
+	for ((col = 0; col < columns; col++ )); do
+
+		local start_row=$(( col * len * columns ))
+		local end_row=$(( (col + 1) * len * columns ))
+
+		if (( start_row > max_colors )); then
+			break
+		fi
+
+		local rows=()
+		declare -a rows
+
+		for ((i=start_row; i < end_row; i++)); do
+
+			if (( i > max_colors )); then
+				break
+			fi
+
+			local trim="$i"
+			local cs
+			local row_index=$(( i % len ))
+
+			cs=$(printf '\e[38;5;%dmcolor %-3s   ' \
+				"$i" "${trim:0:3}"
+			)
+			rows[row_index]+="$cs"
+		done
+
+		for row in "${rows[@]}"; do
+			echo "$row"
+		done
+
 	done
 	printf '\e[0m'
 }
