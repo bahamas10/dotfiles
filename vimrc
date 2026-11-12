@@ -46,6 +46,7 @@ colorscheme default
 set background=light            " Light background is best
 hi Comment ctermfg=63		" Brighten up comment colors
 hi Search ctermbg=LightYellow	" Search color
+hi Search ctermfg=black		" ^^
 
 " ---------------------------------------------
 " Abbreviations
