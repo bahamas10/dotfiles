@@ -49,13 +49,11 @@ export LESS_TERMCAP_ZW=$'\e[75m'
 path_add ~/bin before
 
 # Shell Options
+shopt -s autocd
 shopt -s cdspell
 shopt -s checkwinsize
+shopt -s dirspell
 shopt -s extglob
-
-# Bash Version >= 4
-shopt -s autocd   2>/dev/null || true
-shopt -s dirspell 2>/dev/null || true
 
 # Aliases
 alias ..='echo "cd .."; cd ..'
@@ -165,8 +163,6 @@ prompt-init() {
 
 		# prompt character
 		PS1+='\[${PROMPT_COLORS[2]}\]\$\['"$reset"'\] '
-
-		PROMPT_DIRTRIM=1
 
 		return
 	fi
